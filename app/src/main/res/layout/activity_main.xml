@@ -16,15 +16,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-
-
-
-    </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
 
 
@@ -35,6 +26,10 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
-
+<com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:id="@+id/floatingbtn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    ></com.google.android.material.floatingactionbutton.FloatingActionButton>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
