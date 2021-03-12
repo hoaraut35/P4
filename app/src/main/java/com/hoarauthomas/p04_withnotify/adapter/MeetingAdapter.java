@@ -15,29 +15,28 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hoarauthomas.p04_withnotify.R;
 import com.hoarauthomas.p04_withnotify.model.Meeting;
 
-import java.util.LinkedList;
 import java.util.List;
 
-public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordViewHolder>
+public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordViewHolder>
 {
     private final List<Meeting> mListMeeting;
     private LayoutInflater mInflater;
 
-    public WordListAdapter(Context context, List<Meeting> mListMeeting) {
+    public MeetingAdapter(Context context, List<Meeting> mListMeeting) {
         mInflater = LayoutInflater.from(context);
         this.mListMeeting = mListMeeting;
     }
 
     @NonNull
     @Override
-    public WordListAdapter.WordViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    public MeetingAdapter.WordViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         View mItemView = mInflater.inflate(R.layout.custom_meeting_layout, parent, false);
         return new WordViewHolder(mItemView, this);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull WordListAdapter.WordViewHolder holder, int position)
+    public void onBindViewHolder(@NonNull MeetingAdapter.WordViewHolder holder, int position)
     {
         Meeting mCurrent = mListMeeting.get(position);
         holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(),R.color.col5));
@@ -94,7 +93,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
     class WordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
         public final TextView wordItemView;
-        final WordListAdapter mAdapter;
+        final MeetingAdapter mAdapter;
         public ImageView mAvatar;
         public TextView mNameView;
         public TextView mStartTime;
@@ -102,7 +101,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
         public TextView mParticipants;
         public ImageView mDeleteImage;
 
-        public WordViewHolder(@NonNull View itemView, WordListAdapter adapter)
+        public WordViewHolder(@NonNull View itemView, MeetingAdapter adapter)
         {
             super(itemView);
             wordItemView = itemView.findViewById(R.id.view_name_meeting);
@@ -122,6 +121,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
             int mPosition = getLayoutPosition();
 
             Meeting element = mListMeeting.get(mPosition);
+
 
             //mListMeeting.addAll(mPosition,)
            // mListMeetings.set(mPosition, "Clicked! " + element);
