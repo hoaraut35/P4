@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.hoarauthomas.p04_withnotify.adapter.WordListAdapter;
+import com.hoarauthomas.p04_withnotify.api.MeetingApiService;
+import com.hoarauthomas.p04_withnotify.di.DI;
 
 import java.util.LinkedList;
 
@@ -19,28 +22,41 @@ public class MainActivity extends AppCompatActivity
     private WordListAdapter mAdapter;
     private FloatingActionButton mFloatingBtn, mFloatingBtn2;
 
+    public MeetingApiService service;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        setupData();
+        setupRecyclerView();
+        setupFab1();
+        setupFab2();
+
+    }
+
+    public void setupData()
+    {
+        service = DI.getMeetingApiService();
 
         for (int i = 0 ; i<20; i++)
         {
             mWordList.addLast("Word " + i);
         }
+    }
 
-
-        // Get a handle to the RecyclerView.
+    public void setupRecyclerView()
+    {
         mRecyclerView = findViewById(R.id.recyclerview);
-// Create an adapter and supply the data to be displayed.
-        mAdapter = new WordListAdapter(this, mWordList);
-// Connect the adapter with the RecyclerView.
+        mAdapter = new WordListAdapter(this, service.getMeetings());
         mRecyclerView.setAdapter(mAdapter);
-// Give the RecyclerView a default layout manager.
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
-
+    }
+    public void setupFab1()
+    {
         mFloatingBtn = findViewById(R.id.floatingbtn);
         mFloatingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +70,10 @@ public class MainActivity extends AppCompatActivity
                 mRecyclerView.smoothScrollToPosition(wordListSize);
             }
         });
+    }
 
+    public void setupFab2()
+    {
         mFloatingBtn2 = findViewById(R.id.floatingbtn2);
         mFloatingBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,10 +88,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-
-
-
-
-
     }
+
 }
