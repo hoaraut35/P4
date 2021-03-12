@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity
 
     private RecyclerView mRecyclerView;
     private WordListAdapter mAdapter;
-    private FloatingActionButton mFloatingBtn;
+    private FloatingActionButton mFloatingBtn, mFloatingBtn2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +50,20 @@ public class MainActivity extends AppCompatActivity
                 mWordList.addLast("+ Word " + wordListSize);
                 // Notify the adapter, that the data has changed.
                 mRecyclerView.getAdapter().notifyItemInserted(wordListSize);
+                // Scroll to the bottom.
+                mRecyclerView.smoothScrollToPosition(wordListSize);
+            }
+        });
+
+        mFloatingBtn2 = findViewById(R.id.floatingbtn2);
+        mFloatingBtn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int wordListSize = mWordList.size();
+                // Add a new word to the wordList.
+                mWordList.remove(0);
+                // Notify the adapter, that the data has changed.
+                mRecyclerView.getAdapter().notifyItemRemoved(0);
                 // Scroll to the bottom.
                 mRecyclerView.smoothScrollToPosition(wordListSize);
             }
