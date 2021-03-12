@@ -1,7 +1,6 @@
 package com.hoarauthomas.p04_withnotify;
 
 import android.content.Context;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
     @Override
     public WordListAdapter.WordViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
-        View mItemView = mInflater.inflate(R.layout.wordlist_item, parent, false);
+        View mItemView = mInflater.inflate(R.layout.custom_meeting_layout, parent, false);
         return new WordViewHolder(mItemView, this);
     }
 
@@ -53,21 +52,19 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
         public WordViewHolder(@NonNull View itemView, WordListAdapter adapter)
         {
             super(itemView);
-            wordItemView = itemView.findViewById(R.id.word);
+            wordItemView = itemView.findViewById(R.id.view_name_meeting);
             this.mAdapter = adapter;
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            // Get the position of the item that was clicked.
+
             int mPosition = getLayoutPosition();
-// Use that to access the affected item in mWordList.
+
             String element = mWordList.get(mPosition);
-// Change the word in the mWordList.
+
             mWordList.set(mPosition, "Clicked! " + element);
-// Notify the adapter, that the data has changed so it can
-// update the RecyclerView to display the data.
             mAdapter.notifyDataSetChanged();
         }
     }
