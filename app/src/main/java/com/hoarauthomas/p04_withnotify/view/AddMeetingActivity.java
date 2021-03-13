@@ -6,14 +6,22 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.hoarauthomas.p04_withnotify.R;
+import com.hoarauthomas.p04_withnotify.api.MeetingApiService;
+import com.hoarauthomas.p04_withnotify.di.DI;
+import com.hoarauthomas.p04_withnotify.model.MeetingRoom;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class AddMeetingActivity extends AppCompatActivity {
 
@@ -22,7 +30,11 @@ public class AddMeetingActivity extends AppCompatActivity {
     private TimePickerDialog mTimePicker;
     private int mYear, mMonth, mDay, mHour, mMinutes;
 
+    MeetingApiService service;
+
     TextInputEditText mEditDate,mEditTime;
+    //TextInputLayout mRooms;
+    AutoCompleteTextView mRooms;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +43,15 @@ public class AddMeetingActivity extends AppCompatActivity {
 
         mEditDate = findViewById(R.id.tiet_start_date);
         mEditTime = findViewById(R.id.tiet_start_time);
+        mRooms = findViewById(R.id.list_location);
+
+        service = DI.getMeetingApiService();
 
         setupDatePicker();
         setupTimePicker();
         setupClickDate();
+        setupClickTime();
+        setupDataRooms();
 
     }
 
@@ -50,7 +67,12 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     private void setupClickTime()
     {
-
+        mEditTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTimePicker.show();
+            }
+        });
     }
 
 
@@ -59,6 +81,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     {
 
 
+        //mEditDate.setEnabled(false);
         final Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
@@ -88,4 +111,20 @@ public class AddMeetingActivity extends AppCompatActivity {
             }
         }, mHour, mMinutes, false);
     }
+
+    private void setupDataRooms()
+    {
+        List<String> rooms = new ArrayList<>();
+
+        for (MeetingRoom item: service.getMeetingsRooms())
+        {
+            rooms.add(item.getmRoomName().toString());
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,rooms);
+        mRooms.setAdapter(adapter);
+
+
+    }
+
 }
