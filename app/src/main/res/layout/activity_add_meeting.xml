@@ -88,6 +88,23 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/view_participants"
+        android:layout_margin="16dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        app:layout_constraintTop_toBottomOf="@id/view_locations"
+
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Participant(s)">
+
+        <AutoCompleteTextView
+            android:id="@+id/list_participants"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="none"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

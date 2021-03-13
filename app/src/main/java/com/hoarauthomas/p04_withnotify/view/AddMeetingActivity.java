@@ -16,11 +16,14 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.hoarauthomas.p04_withnotify.R;
 import com.hoarauthomas.p04_withnotify.api.MeetingApiService;
 import com.hoarauthomas.p04_withnotify.di.DI;
+import com.hoarauthomas.p04_withnotify.model.Collaborator;
 import com.hoarauthomas.p04_withnotify.model.MeetingRoom;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 public class AddMeetingActivity extends AppCompatActivity {
@@ -34,7 +37,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     TextInputEditText mEditDate,mEditTime;
     //TextInputLayout mRooms;
-    AutoCompleteTextView mRooms;
+    AutoCompleteTextView mRooms, mEmails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         mEditDate = findViewById(R.id.tiet_start_date);
         mEditTime = findViewById(R.id.tiet_start_time);
         mRooms = findViewById(R.id.list_location);
+        mEmails = findViewById(R.id.list_participants);
 
         service = DI.getMeetingApiService();
 
@@ -52,6 +56,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         setupClickDate();
         setupClickTime();
         setupDataRooms();
+        setupDataParticipants();
 
     }
 
@@ -121,10 +126,25 @@ public class AddMeetingActivity extends AppCompatActivity {
             rooms.add(item.getmRoomName().toString());
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,rooms);
+        Collections.sort(rooms);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, rooms);
         mRooms.setAdapter(adapter);
+    }
 
+    private void setupDataParticipants()
+    {
+        List<String> emails = new ArrayList<>();
 
+        for (Collaborator item: service.getCollaborators())
+        {
+            emails.add(item.getmEmail().toString());
+        }
+
+        Collections.sort(emails);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, emails);
+        mEmails.setAdapter(adapter);
     }
 
 }
