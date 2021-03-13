@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -12,6 +13,7 @@ import com.hoarauthomas.p04_withnotify.adapter.MeetingAdapter;
 import com.hoarauthomas.p04_withnotify.api.MeetingApiService;
 import com.hoarauthomas.p04_withnotify.di.DI;
 import com.hoarauthomas.p04_withnotify.model.Meeting;
+import com.hoarauthomas.p04_withnotify.view.AddMeetingActivity;
 
 import java.util.LinkedList;
 
@@ -21,7 +23,7 @@ public class MainActivity extends AppCompatActivity
 
     private RecyclerView mRecyclerView;
     private MeetingAdapter mAdapter;
-    private FloatingActionButton mFloatingBtn, mFloatingBtn2;
+    public FloatingActionButton mFloatingBtn, mFloatingBtn2;
 
     public MeetingApiService service;
 
@@ -32,10 +34,16 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
+
         setupData();
         setupRecyclerView();
         setupFab1();
         setupFab2();
+
+
+
 
     }
 
@@ -74,10 +82,8 @@ public class MainActivity extends AppCompatActivity
                 mRecyclerView.smoothScrollToPosition(wordListSize);
             }
         });
-    }
 
-    public void setupFab2()
-    {
+        /*
         mFloatingBtn2 = findViewById(R.id.floatingbtn2);
         mFloatingBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +95,22 @@ public class MainActivity extends AppCompatActivity
                 mRecyclerView.getAdapter().notifyItemRemoved(0);
                 // Scroll to the bottom.
                 mRecyclerView.smoothScrollToPosition(wordListSize);
+            }
+        });*/
+
+    }
+
+    public void setupFab2()
+    {
+        mFloatingBtn2 = findViewById(R.id.floatingbtn2);
+
+        mFloatingBtn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Intent OpenAddMeetingActivity = new Intent(getApplicationContext(), AddMeetingActivity.class);
+                startActivity(OpenAddMeetingActivity);
+
             }
         });
 
