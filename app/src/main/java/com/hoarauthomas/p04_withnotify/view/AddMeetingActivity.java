@@ -224,7 +224,7 @@ public class AddMeetingActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 service.addMeeting(new Meeting("","","","",""));
-                finish();
+               // finish();
             }
         });
 
