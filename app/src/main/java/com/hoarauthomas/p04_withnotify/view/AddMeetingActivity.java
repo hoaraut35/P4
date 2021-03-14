@@ -65,6 +65,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     }
 
+    //**********************************************************************************************
     private void addNewChipParticipant(String name)
     {
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -73,7 +74,31 @@ public class AddMeetingActivity extends AppCompatActivity {
         newChip.setText(name);
 
         this.mChipGroup.addView(newChip);
+
+        newChip.setOnCloseIconClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                handleChipCloseIconClicked((Chip) v);
+            }
+        });
     }
+
+
+
+
+    private void handleChipCloseIconClicked(Chip chip)
+    {
+        mChipGroup.removeView(chip);
+    }
+
+    private void handleChipCheckChanged(Chip chip, boolean isChecked)
+    {
+
+    }
+
+    //**********************************************************************************************
 
     private void setupClickDate()
     {
@@ -161,11 +186,14 @@ public class AddMeetingActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, emails);
         mEmails.setAdapter(adapter);
 
+
+
+
         mEmails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-                addNewChipParticipant("test");
+                addNewChipParticipant(mEmails.getText().toString());
             }
         });
 
