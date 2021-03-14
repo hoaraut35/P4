@@ -5,12 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.hoarauthomas.p04_withnotify.R;
@@ -32,6 +35,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     private DatePickerDialog mDatePicker;
     private TimePickerDialog mTimePicker;
     private int mYear, mMonth, mDay, mHour, mMinutes;
+    private ChipGroup mChipGroup;
 
     MeetingApiService service;
 
@@ -48,6 +52,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         mEditTime = findViewById(R.id.tiet_start_time);
         mRooms = findViewById(R.id.list_location);
         mEmails = findViewById(R.id.list_participants);
+        mChipGroup = findViewById(R.id.group_participants);
 
         service = DI.getMeetingApiService();
 
@@ -58,6 +63,16 @@ public class AddMeetingActivity extends AppCompatActivity {
         setupDataRooms();
         setupDataParticipants();
 
+    }
+
+    private void addNewChipParticipant(String name)
+    {
+        LayoutInflater inflater = LayoutInflater.from(this);
+
+        Chip newChip = (Chip)inflater.inflate(R.layout.chip_participant,this.mChipGroup,false);
+        newChip.setText(name);
+
+        this.mChipGroup.addView(newChip);
     }
 
     private void setupClickDate()
@@ -145,6 +160,16 @@ public class AddMeetingActivity extends AppCompatActivity {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, emails);
         mEmails.setAdapter(adapter);
+
+        mEmails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                addNewChipParticipant("test");
+            }
+        });
+
+
     }
 
 }
