@@ -7,6 +7,7 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
@@ -187,13 +188,18 @@ public class AddMeetingActivity extends AppCompatActivity {
         mEmails.setAdapter(adapter);
 
 
-
+        mEmails.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                addNewChipParticipant(mEmails.getText().toString());
+            }
+        });
 
         mEmails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-                addNewChipParticipant(mEmails.getText().toString());
+
             }
         });
 
