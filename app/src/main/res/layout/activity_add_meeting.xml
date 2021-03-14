@@ -17,6 +17,7 @@
         android:hint="Sujet">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/subject_text"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"/>
 
@@ -110,7 +111,7 @@ app:startIconDrawable="@drawable/ic_baseline_account_circle_24"
         android:layout_margin="16dp"
         android:id="@+id/group_participants"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/view_participants"
         app:layout_constraintLeft_toLeftOf="parent"
 
@@ -119,6 +120,16 @@ app:startIconDrawable="@drawable/ic_baseline_account_circle_24"
     </com.google.android.material.chip.ChipGroup>
 
 
+
+    <Button
+        android:id="@+id/btn_valid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/group_participants"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="Valider"
+        ></Button>
 
 
 

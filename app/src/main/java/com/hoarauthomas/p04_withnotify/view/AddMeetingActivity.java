@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
@@ -21,6 +22,7 @@ import com.hoarauthomas.p04_withnotify.R;
 import com.hoarauthomas.p04_withnotify.api.MeetingApiService;
 import com.hoarauthomas.p04_withnotify.di.DI;
 import com.hoarauthomas.p04_withnotify.model.Collaborator;
+import com.hoarauthomas.p04_withnotify.model.Meeting;
 import com.hoarauthomas.p04_withnotify.model.MeetingRoom;
 
 import java.time.LocalDate;
@@ -40,7 +42,8 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     MeetingApiService service;
 
-    TextInputEditText mEditDate,mEditTime;
+    Button mBtnValidate;
+    TextInputEditText mEditDate,mEditTime, mEditSubject;
     //TextInputLayout mRooms;
     AutoCompleteTextView mRooms, mEmails;
 
@@ -54,6 +57,8 @@ public class AddMeetingActivity extends AppCompatActivity {
         mRooms = findViewById(R.id.list_location);
         mEmails = findViewById(R.id.list_participants);
         mChipGroup = findViewById(R.id.group_participants);
+        mBtnValidate = findViewById(R.id.btn_valid);
+        mEditSubject = findViewById(R.id.subject_text);
 
         service = DI.getMeetingApiService();
 
@@ -64,6 +69,23 @@ public class AddMeetingActivity extends AppCompatActivity {
         setupDataRooms();
         setupDataParticipants();
 
+        mBtnValidate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setupBtnValidate();
+                finish();
+            }
+        });
+     //   setupBtnValidate();
+
+    }
+
+    private void setupBtnValidate()
+    {
+//        service.addMeeting(new Meeting("Réuion Z","","","",""));
+        service.getMeetings().add(new Meeting("test","test","","","test"));
+
+        finish();
     }
 
     //**********************************************************************************************
@@ -191,6 +213,8 @@ public class AddMeetingActivity extends AppCompatActivity {
         mEmails.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                //TODO: check if already exist in the list
                 addNewChipParticipant(mEmails.getText().toString());
             }
         });
@@ -199,7 +223,8 @@ public class AddMeetingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-
+                service.addMeeting(new Meeting("","","","",""));
+                finish();
             }
         });
 
