@@ -44,11 +44,11 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
 
 
 
-    public MeetingAdapter(Context context, List<Meeting> mListMeeting)
+    public MeetingAdapter(Context context, List<Meeting> mListMeeting2)
     {
         mInflater = LayoutInflater.from(context);
-        this.mListMeeting = mListMeeting;
-        this.mCopyListMeeting = mListMeeting;
+        this.mListMeeting = mListMeeting2;
+        this.mCopyListMeeting = new ArrayList<Meeting>(mListMeeting2);
 
 
        // this.callback = callback;
@@ -148,6 +148,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
 
             String charString = constraint.toString();
 
+            List<Meeting> filteredlist = new ArrayList<Meeting>();
 
             Log.i("THOMAS","Taille liste origine mListMeetingtemp :" + mListMeeting.size());
 
@@ -157,12 +158,12 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
             if (charString == null || charString.length() == 0 || charString.isEmpty() )
             {
                 Log.i("THOMAS","Contrainte inactive donc liste complète"+ mListMeeting.size()+ " " +mCopyListMeeting);
-
+                filteredlist.addAll(mCopyListMeeting);
                 //mListMeetingtemp.clear();
                 //mListMeetingtemp.addAll(originalList);
-                mListMeeting.addAll(mCopyListMeeting);
+                //mListMeeting.addAll(mCopyListMeeting);
                // filteredList.addAll(service.getMeetings());
-                //notifyDataSetChanged();
+               // notifyDataSetChanged();
 
 
             }else
@@ -174,7 +175,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
                     if (item.getmPosition().toLowerCase().contains(filterPattern))
                     {
                         Log.i("THOMAS","retour"+  item.getmPosition().toString());
-                        filteredList.add(item);
+                      // filteredList.add(item);
 
                     }
                 }
@@ -189,17 +190,19 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
           //  notifyDataSetChanged();
 
             FilterResults results = new FilterResults();
-            results.values = filteredList;
+            results.values = filteredlist;
             return results;
         }
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results)
         {
+            mListMeeting.clear();
+            mListMeeting.addAll((List)results.values);
 
-            mListMeetingtemp.clear();
+            //mListMeetingtemp.clear();
 
-            mListMeetingtemp.addAll((List)results.values);
+            //mListMeetingtemp.addAll((List)results.values);
 
         //   mListMeetingtemp = ((List)results.values);
             notifyDataSetChanged();
@@ -243,7 +246,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
 
             int mPosition = getLayoutPosition();
 
-            Meeting element = mListMeetingtemp.get(mPosition);
+           // Meeting element = mListMeetingtemp.get(mPosition);
 
 
             //mListMeeting.addAll(mPosition,)
