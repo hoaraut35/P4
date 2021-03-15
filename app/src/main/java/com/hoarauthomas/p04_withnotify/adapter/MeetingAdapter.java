@@ -158,9 +158,10 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
             {
                 Log.i("THOMAS","Contrainte inactive donc liste complète"+ originalList.size());
 
-                service = DI.getMeetingApiService();
+                mListMeetingtemp.clear();
+                mListMeetingtemp.addAll(originalList);
 
-                filteredList.addAll(service.getMeetings());
+               // filteredList.addAll(service.getMeetings());
                 notifyDataSetChanged();
 
             }else
@@ -199,7 +200,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
 
           //  mListMeetingtemp.clear();
           //  mListMeetingtemp.addAll((List)results.values);
-           mListMeetingtemp = ((List)results.values);
+        //   mListMeetingtemp = ((List)results.values);
             notifyDataSetChanged();
           //  service = DI.getMeetingApiService();
 
