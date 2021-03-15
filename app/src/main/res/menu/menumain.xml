@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=
+        ".MenuExampleActivity" >
+    <item
+        android:id="@+id/menu_date"
+        android:orderInCategory="1"
+        app:showAsAction="never"
+        android:title="Filter par date"/>
+
+    <item
+        android:id="@+id/menu_lieu"
+        android:orderInCategory="1"
+        app:showAsAction="never"
+        android:title="Filter par lieu"/>
+
+
+
+
+    <item
+        android:id="@+id/action_search"
+
+        android:orderInCategory="2"
+        android:title="Filtre par lieu"
+        app:showAsAction="ifRoom"
+        app:actionViewClass="android.widget.SearchView" />
+
+    <item
+        android:id="@+id/menu_clear"
+        android:orderInCategory="3"
+        app:showAsAction="never"
+        android:title="Annuler filtre"/>
+
+
+
+
+
+
+
+
+</menu>

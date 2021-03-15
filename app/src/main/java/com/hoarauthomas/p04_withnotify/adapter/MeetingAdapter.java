@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,23 +16,42 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hoarauthomas.p04_withnotify.R;
+import com.hoarauthomas.p04_withnotify.api.MeetingApiService;
+import com.hoarauthomas.p04_withnotify.di.DI;
 import com.hoarauthomas.p04_withnotify.model.Meeting;
 import com.hoarauthomas.p04_withnotify.view.AddMeetingActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordViewHolder> implements AddMeetingActivity.Listener
+public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordViewHolder> implements AddMeetingActivity.Listener, Filterable
 {
-    private final List<Meeting> mListMeeting;
+    private List<Meeting> mListMeetingtemp;
     private LayoutInflater mInflater;
+    private List<Meeting> originalList ;
+    private List<Meeting> filteredList = new ArrayList<>();
+
+    public MeetingApiService service;
+
+    private Listener callback;
+    public interface Listener
+    {
+        void onClickDelete(int position, Meeting meetingToDel);
+        void onUpdateList(List<Meeting> meets);
+        //void onUpdateMeet(Meeting newMeeting);
+    }
 
 
 
 
-
-    public MeetingAdapter(Context context, List<Meeting> mListMeeting) {
+    public MeetingAdapter(Context context, List<Meeting> mListMeeting)
+    {
         mInflater = LayoutInflater.from(context);
-        this.mListMeeting = mListMeeting;
+        this.mListMeetingtemp = mListMeeting;
+        this.originalList = mListMeeting;
+
+
+       // this.callback = callback;
 
     }
 
@@ -45,7 +66,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
     @Override
     public void onBindViewHolder(@NonNull MeetingAdapter.WordViewHolder holder, int position)
     {
-        Meeting mCurrent = mListMeeting.get(position);
+        Meeting mCurrent = mListMeetingtemp.get(position);
         holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(),R.color.col5));
 
         switch (mCurrent.getmPosition().toString())
@@ -94,7 +115,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
         holder.mDeleteImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListMeeting.remove(position);
+                mListMeetingtemp.remove(position);
                 notifyDataSetChanged();
             }
         });
@@ -104,7 +125,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
 
     @Override
     public int getItemCount() {
-        return mListMeeting.size();
+        return mListMeetingtemp.size();
     }
 
     @Override
@@ -112,6 +133,81 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
     {
         Log.i("THOMAS","callback add");
     }
+
+    @Override
+    public Filter getFilter()
+    {
+        return mMeetingsFilter;
+    }
+
+    private Filter mMeetingsFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint)
+        {
+            //  if (FilterResults instanceof )
+
+            String charString = constraint.toString();
+
+
+            Log.i("THOMAS","Taille liste origine :" + mListMeetingtemp.size());
+
+
+
+
+            if (charString == null || charString.length() == 0 || charString.isEmpty() )
+            {
+                Log.i("THOMAS","Contrainte inactive donc liste complète"+ originalList.size());
+
+                service = DI.getMeetingApiService();
+
+                filteredList.addAll(service.getMeetings());
+                notifyDataSetChanged();
+
+            }else
+            {
+               /* String filterPattern = constraint.toString().toLowerCase().trim();
+
+                for (Meeting item : mListMeetingtemp)
+                {
+                    if (item.getmPosition().toLowerCase().contains(filterPattern))
+                    {
+                        Log.i("THOMAS","retour"+  item.getmPosition().toString());
+                        filteredList.add(item);
+
+                    }
+                }*/
+
+                service = DI.getMeetingApiService();
+
+                filteredList.addAll(service.getMeetings());
+                //notifyDataSetChanged();
+
+
+
+            }
+            mListMeetingtemp = filteredList;
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results)
+        {
+
+
+          //  mListMeetingtemp.clear();
+          //  mListMeetingtemp.addAll((List)results.values);
+           mListMeetingtemp = ((List)results.values);
+            notifyDataSetChanged();
+          //  service = DI.getMeetingApiService();
+
+            //callback.onUpdateList((List)results.values);
+
+           // return results;
+        }
+    };
 
 
     class WordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
@@ -144,7 +240,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
 
             int mPosition = getLayoutPosition();
 
-            Meeting element = mListMeeting.get(mPosition);
+            Meeting element = mListMeetingtemp.get(mPosition);
 
 
             //mListMeeting.addAll(mPosition,)
