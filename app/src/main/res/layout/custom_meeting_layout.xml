@@ -84,7 +84,7 @@ android:background="@drawable/circular"
         android:id="@+id/view_delete_meeting"
         android:layout_width="24dp"
         android:layout_height="24dp"
-
+android:src="@drawable/ic_baseline_restore_from_trash_24"
         app:layout_constraintTop_toTopOf="@id/view_image_meeting"
         app:layout_constraintBottom_toBottomOf="@id/view_image_meeting"
         app:layout_constraintEnd_toEndOf="parent"

@@ -44,7 +44,6 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     Button mBtnValidate;
     TextInputEditText mEditDate,mEditTime, mEditSubject;
-    //TextInputLayout mRooms;
     AutoCompleteTextView mRooms, mEmails;
 
     @Override

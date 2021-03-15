@@ -60,7 +60,7 @@ public class FakeGenerator {
 
 
     public static List<Meeting> FakeMeeting = Arrays.asList(
-            new Meeting("Réunion A","Peach","2021-03-01", "14H00","test1@gmail.Com"),
+            new Meeting("Réunion A","Peach","2021-03-01", "14H00","test1@gmail.Com;testz@gmail.Com"),
             new Meeting("Réunion B","Mario","2021-03-02","11H00","test2@gmail.Com"),
             new Meeting("Réunion C","Luigi","2021-03-03","08H00","test3@gmail.Com"),
             new Meeting("Réunion D","Toad", "2021-03-04","16H00","test4@gmail.Com"),

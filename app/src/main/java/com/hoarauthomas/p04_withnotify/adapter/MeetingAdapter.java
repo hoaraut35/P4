@@ -79,6 +79,19 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
 
         }
 
+        holder.mNameView.setText(mCurrent.getmSubject() + " - ");
+        holder.mStartTime.setText(mCurrent.getmStartTime() + " - ");
+        holder.mPlace.setText(mCurrent.getmPosition());
+        holder.mParticipants.setText(mCurrent.getmParticipants());
+
+        holder.mDeleteImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListMeeting.remove(position);
+                notifyDataSetChanged();
+            }
+        });
+
 
     }
 
