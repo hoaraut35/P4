@@ -70,6 +70,8 @@ public class AddMeetingActivity extends AppCompatActivity {
 
         service = DI.getMeetingApiService();
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         setupDatePicker();
         setupTimePicker();
         setupClickDate();
@@ -84,22 +86,10 @@ public class AddMeetingActivity extends AppCompatActivity {
                 finish();
             }
         });
-     //   setupBtnValidate();
-
     }
-
-
-
-
-
-
-
-
 
     private void setupBtnValidate()
     {
-        //TDOO: ajouter les mails
-
         String participant ="";
 
         for (int i=0;i < mChipGroup.getChildCount(); i++)
@@ -113,7 +103,6 @@ public class AddMeetingActivity extends AppCompatActivity {
             else
             {
                 participant += chip.getText();
-                //participant += mChipGroup.getChildAt(i).getTe.getTex.participant;
             }
 
         }
@@ -155,10 +144,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         mChipGroup.removeView(chip);
     }
 
-    private void handleChipCheckChanged(Chip chip, boolean isChecked)
-    {
-
-    }
+    private void handleChipCheckChanged(Chip chip, boolean isChecked)   {    }
 
     //**********************************************************************************************
 

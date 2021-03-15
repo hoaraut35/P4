@@ -9,7 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.P04_withNotify">
-        <activity android:name=".view.AddMeetingActivity"></activity>
+        <activity
+            android:name=".view.AddMeetingActivity"
+            android:parentActivityName=".MainActivity"
+            >
+
+
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
