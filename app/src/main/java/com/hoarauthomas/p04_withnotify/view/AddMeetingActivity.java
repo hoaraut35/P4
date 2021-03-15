@@ -98,7 +98,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     private void setupBtnValidate()
     {
-        //        service.addMeeting(new Meeting("Réuion Z","","","",""));
+                service.addMeeting(new Meeting("Réuion Z","","","",""));
         //service.getMeetings().add(new Meeting("test","test","","","test"));
      //callback.onAddMeeting(0);
 

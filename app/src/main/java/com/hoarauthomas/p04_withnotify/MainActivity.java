@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity
         {
             String message = data.getStringExtra("MESSAGE");
             Log.i("THOMAS","retour activit éadd meetingf" + message );
+            mRecyclerView.getAdapter().notifyDataSetChanged();
         }
     }
 }
