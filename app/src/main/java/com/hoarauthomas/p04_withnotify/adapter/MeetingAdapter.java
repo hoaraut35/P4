@@ -29,7 +29,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
     private List<Meeting> mListMeeting= null;
     private LayoutInflater mInflater;
 
-    private List<Meeting> mCopyListMeeting = new ArrayList<Meeting>();
+    private List<Meeting> mCopyListMeeting;
 
     public MeetingApiService service;
 
@@ -175,7 +175,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
                     if (item.getmPosition().toLowerCase().contains(filterPattern))
                     {
                         Log.i("THOMAS","retour"+  item.getmPosition().toString());
-                      // filteredList.add(item);
+                       filteredlist.add(item);
 
                     }
                 }
