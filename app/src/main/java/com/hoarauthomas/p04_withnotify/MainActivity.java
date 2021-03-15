@@ -77,7 +77,11 @@ public class MainActivity extends AppCompatActivity
     }
     public void setupFab1()
     {
+
         mFloatingBtn = findViewById(R.id.floatingbtn);
+
+        mFloatingBtn.hide();
+/*
         mFloatingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -93,7 +97,7 @@ public class MainActivity extends AppCompatActivity
                 mRecyclerView.smoothScrollToPosition(wordListSize);
             }
         });
-
+        */
         /*
         mFloatingBtn2 = findViewById(R.id.floatingbtn2);
         mFloatingBtn2.setOnClickListener(new View.OnClickListener() {
