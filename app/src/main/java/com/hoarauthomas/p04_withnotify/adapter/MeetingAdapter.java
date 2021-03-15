@@ -26,10 +26,10 @@ import java.util.List;
 
 public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordViewHolder> implements AddMeetingActivity.Listener, Filterable
 {
-    private List<Meeting> mListMeetingtemp;
+    private List<Meeting> mListMeeting= null;
     private LayoutInflater mInflater;
-    private List<Meeting> originalList ;
-    private List<Meeting> filteredList = new ArrayList<>();
+
+    private List<Meeting> mCopyListMeeting = new ArrayList<Meeting>();
 
     public MeetingApiService service;
 
@@ -47,8 +47,8 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
     public MeetingAdapter(Context context, List<Meeting> mListMeeting)
     {
         mInflater = LayoutInflater.from(context);
-        this.mListMeetingtemp = mListMeeting;
-        this.originalList = mListMeeting;
+        this.mListMeeting = mListMeeting;
+        this.mCopyListMeeting = mListMeeting;
 
 
        // this.callback = callback;
@@ -66,7 +66,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
     @Override
     public void onBindViewHolder(@NonNull MeetingAdapter.WordViewHolder holder, int position)
     {
-        Meeting mCurrent = mListMeetingtemp.get(position);
+        Meeting mCurrent = mListMeeting.get(position);
         holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(),R.color.col5));
 
         switch (mCurrent.getmPosition().toString())
@@ -115,7 +115,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
         holder.mDeleteImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListMeetingtemp.remove(position);
+                mListMeeting.remove(position);
                 notifyDataSetChanged();
             }
         });
@@ -125,7 +125,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
 
     @Override
     public int getItemCount() {
-        return mListMeetingtemp.size();
+        return mListMeeting.size();
     }
 
     @Override
@@ -149,26 +149,27 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
             String charString = constraint.toString();
 
 
-            Log.i("THOMAS","Taille liste origine :" + mListMeetingtemp.size());
+            Log.i("THOMAS","Taille liste origine mListMeetingtemp :" + mListMeeting.size());
 
 
 
 
             if (charString == null || charString.length() == 0 || charString.isEmpty() )
             {
-                Log.i("THOMAS","Contrainte inactive donc liste complète"+ originalList.size());
+                Log.i("THOMAS","Contrainte inactive donc liste complète"+ mListMeeting.size()+ " " +mCopyListMeeting);
 
-                mListMeetingtemp.clear();
-                mListMeetingtemp.addAll(originalList);
-
+                //mListMeetingtemp.clear();
+                //mListMeetingtemp.addAll(originalList);
+                mListMeeting.addAll(mCopyListMeeting);
                // filteredList.addAll(service.getMeetings());
-                notifyDataSetChanged();
+                //notifyDataSetChanged();
+
 
             }else
             {
-               /* String filterPattern = constraint.toString().toLowerCase().trim();
+                String filterPattern = constraint.toString().toLowerCase().trim();
 
-                for (Meeting item : mListMeetingtemp)
+                for (Meeting item :mCopyListMeeting)
                 {
                     if (item.getmPosition().toLowerCase().contains(filterPattern))
                     {
@@ -176,17 +177,16 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
                         filteredList.add(item);
 
                     }
-                }*/
+                }
 
-                service = DI.getMeetingApiService();
-
-                filteredList.addAll(service.getMeetings());
-                //notifyDataSetChanged();
 
 
 
             }
-            mListMeetingtemp = filteredList;
+
+
+          //  mListMeetingtemp = filteredList;
+          //  notifyDataSetChanged();
 
             FilterResults results = new FilterResults();
             results.values = filteredList;
@@ -197,11 +197,13 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
         protected void publishResults(CharSequence constraint, FilterResults results)
         {
 
+            mListMeetingtemp.clear();
 
-          //  mListMeetingtemp.clear();
-          //  mListMeetingtemp.addAll((List)results.values);
+            mListMeetingtemp.addAll((List)results.values);
+
         //   mListMeetingtemp = ((List)results.values);
             notifyDataSetChanged();
+          //  mListMeetingtemp.clear();
           //  service = DI.getMeetingApiService();
 
             //callback.onUpdateList((List)results.values);
