@@ -99,9 +99,26 @@ public class AddMeetingActivity extends AppCompatActivity {
     private void setupBtnValidate()
     {
         //TDOO: ajouter les mails
-        service.addMeeting(new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(),mEditDate.getText().toString(),mEditTime.getText().toString(),""));
-        //service.getMeetings().add(new Meeting("test","test","","","test"));
-     //callback.onAddMeeting(0);
+
+        String participant ="";
+
+        for (int i=0;i < mChipGroup.getChildCount(); i++)
+        {
+            Chip chip = (Chip)mChipGroup.getChildAt(i);
+
+            if (participant.length() != 0 )
+            {
+                participant += ";" + chip.getText();
+            }
+            else
+            {
+                participant += chip.getText();
+                //participant += mChipGroup.getChildAt(i).getTe.getTex.participant;
+            }
+
+        }
+
+        service.addMeeting(new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(),mEditDate.getText().toString(),mEditTime.getText().toString(), participant));
 
         String message = "reponse de la 2";
         Intent intent = new Intent();
@@ -191,6 +208,11 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     private void setupTimePicker()
     {
+        //mEditDate.setEnabled(false);
+
+        mHour = java.time.LocalTime.now().getHour();
+        mMinutes = java.time.LocalTime.now().getMinute();
+
         mTimePicker = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener()
         {
             @Override
@@ -241,14 +263,19 @@ public class AddMeetingActivity extends AppCompatActivity {
             }
         });
 
-        mEmails.setOnClickListener(new View.OnClickListener() {
+       /* mEmails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
+                Log.i("THOMAS","onclick ");
                 service.addMeeting(new Meeting("","","","",""));
                // finish();
             }
         });
+
+        */
+
+
 
 
     }
