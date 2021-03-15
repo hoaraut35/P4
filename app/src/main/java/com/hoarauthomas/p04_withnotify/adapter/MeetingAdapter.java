@@ -1,6 +1,7 @@
 package com.hoarauthomas.p04_withnotify.adapter;
 
 import android.content.Context;
+import android.net.sip.SipSession;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,17 +15,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hoarauthomas.p04_withnotify.R;
 import com.hoarauthomas.p04_withnotify.model.Meeting;
+import com.hoarauthomas.p04_withnotify.view.AddMeetingActivity;
 
 import java.util.List;
 
-public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordViewHolder>
+public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordViewHolder> implements AddMeetingActivity.Listener
 {
     private final List<Meeting> mListMeeting;
     private LayoutInflater mInflater;
 
+
+
+
+
     public MeetingAdapter(Context context, List<Meeting> mListMeeting) {
         mInflater = LayoutInflater.from(context);
         this.mListMeeting = mListMeeting;
+
     }
 
     @NonNull
@@ -100,7 +107,11 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
         return mListMeeting.size();
     }
 
-
+    @Override
+    public void onAddMeeting(int position)
+    {
+        Log.i("THOMAS","callback add");
+    }
 
 
     class WordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener

@@ -1,10 +1,13 @@
 package com.hoarauthomas.p04_withnotify.view;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,7 +20,6 @@ import android.widget.TimePicker;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.hoarauthomas.p04_withnotify.R;
 import com.hoarauthomas.p04_withnotify.api.MeetingApiService;
 import com.hoarauthomas.p04_withnotify.di.DI;
@@ -27,7 +29,6 @@ import com.hoarauthomas.p04_withnotify.model.MeetingRoom;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
@@ -45,6 +46,14 @@ public class AddMeetingActivity extends AppCompatActivity {
     Button mBtnValidate;
     TextInputEditText mEditDate,mEditTime, mEditSubject;
     AutoCompleteTextView mRooms, mEmails;
+
+
+    private Listener callback;
+    public interface Listener
+    {
+        void onAddMeeting(int position);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,11 +88,24 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     }
 
+
+
+
+
+
+
+
+
     private void setupBtnValidate()
     {
-//        service.addMeeting(new Meeting("Réuion Z","","","",""));
-        service.getMeetings().add(new Meeting("test","test","","","test"));
+        //        service.addMeeting(new Meeting("Réuion Z","","","",""));
+        //service.getMeetings().add(new Meeting("test","test","","","test"));
+     //callback.onAddMeeting(0);
 
+        String message = "reponse de la 2";
+        Intent intent = new Intent();
+        intent.putExtra("MESSAGE", message);
+        setResult(1,intent);
         finish();
     }
 

@@ -1,11 +1,13 @@
 package com.hoarauthomas.p04_withnotify;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -27,6 +29,12 @@ public class MainActivity extends AppCompatActivity
 
     public MeetingApiService service;
 
+
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -45,6 +53,14 @@ public class MainActivity extends AppCompatActivity
 
 
 
+    }
+
+    //TODO: donné de base impossible
+    @Override
+    protected void onResume() {
+        super.onPostResume();
+        //setupData();
+        //mRecyclerView.getAdapter()..notifyDataSetChanged();
     }
 
     public void setupData()
@@ -104,11 +120,23 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 Intent OpenAddMeetingActivity = new Intent(getApplicationContext(), AddMeetingActivity.class);
-                startActivity(OpenAddMeetingActivity);
+                startActivityForResult(OpenAddMeetingActivity, 1);
 
             }
         });
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //back from add meeting activity
+        if (requestCode==1)
+        {
+            String message = data.getStringExtra("MESSAGE");
+            Log.i("THOMAS","retour activit éadd meetingf" + message );
+        }
+    }
 }
