@@ -23,4 +23,19 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         assertEquals("com.hoarauthomas.p04_withnotify", appContext.getPackageName());
     }
+
+
+
+    @Test
+    public void myMeetingList_shouldNotBeEmpty()
+    {
+       // o,View
+    }
+
+
+
+
+
+
+
 }

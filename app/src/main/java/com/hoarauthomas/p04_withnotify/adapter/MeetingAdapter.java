@@ -30,7 +30,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
 {
     private List<Meeting> mListMeeting = null;
     private LayoutInflater mInflater;
-List<Meeting> list;
+    List<Meeting> list;
     private List<Meeting> mCopyListMeeting;
 
     public MeetingApiService service;
@@ -40,7 +40,7 @@ List<Meeting> list;
     {
         void onClickDelete(int position, Meeting meetingToDel);
         void onUpdateList(List<Meeting> meets);
-        //void onUpdateMeet(Meeting newMeeting);
+
     }
 
 
