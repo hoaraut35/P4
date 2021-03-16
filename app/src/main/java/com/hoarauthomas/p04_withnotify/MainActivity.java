@@ -211,6 +211,7 @@ public class MainActivity extends AppCompatActivity
                 }
 
                 mRecyclerView.setAdapter(mAdapter);
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
 
 
