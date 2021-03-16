@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     private int mYear, mMonth, mDay, mHour, mMinutes;
     public MeetingApiService service;
     private DatePickerDialog mDatePicker;
+
+    private String datefilter;
 
 
     @Override
@@ -222,6 +225,11 @@ public class MainActivity extends AppCompatActivity {
                 setupDatePicker();
 
 
+
+
+
+
+
                 return false;
             }
         });
@@ -258,13 +266,63 @@ public class MainActivity extends AppCompatActivity {
         mDay = c.get(Calendar.DAY_OF_MONTH);
 
         mDatePicker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+
+
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 //viewBinding.viewEditDate2.setText(dayOfMonth+"/"+month +"/" + year);
                 //mEditDate.setText(LocalDate.of(year,(month+1),dayOfMonth).toString());
+                datefilter =  LocalDate.of(year,(month+1),dayOfMonth).toString();
+
+                List<Meeting> filteredList = new ArrayList<Meeting>();
+
+                if (datefilter == null || datefilter.length() == 0 || datefilter.isEmpty())
+                {
+                    Log.i("THOMAS", "Taille adapter : " + datefilter);
+                    mAdapter = new MeetingAdapter(getApplicationContext(), service.getMeetings());
+
+                } else {
+                    String filterPattern = datefilter.toString().toLowerCase().trim();
+
+                    for (Meeting item2 : service.getMeetings())
+                    {
+                        if (item2.getmDate().toLowerCase().contains(filterPattern))
+                        {
+                            Log.i("THOMAS","retour"+  item2.getmPosition().toString());
+                            filteredList.add(item2);
+                        }
+                    }
+
+
+
+                    // copyList = service.getMeetings();
+                    // filteredList = copyList;
+                    mAdapter = new MeetingAdapter(getApplicationContext(), filteredList);
+                }
+
+                // service.getMeetings().clear();
+                //service.getMeetings().addAll(filteredList);
+                //    mRecyclerView.getAdapter().notifyDataSetChanged();
+
+                mRecyclerView.setAdapter(mAdapter);
+
+
+
             }
 
         }, mYear, mMonth, mDay);
+
+
+        mDatePicker.setButton(DialogInterface.BUTTON_NEGATIVE, "cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.i("THOMAS","test cancel");
+                mAdapter = new MeetingAdapter(getApplicationContext(), service.getMeetings());
+                mRecyclerView.setAdapter(mAdapter);
+
+            }
+        });
 
         mDatePicker.show();
 
