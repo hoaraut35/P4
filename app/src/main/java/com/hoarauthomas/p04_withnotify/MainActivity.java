@@ -166,49 +166,50 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
 
-                //      mAdapter.getFilter().filter(newText);
+                //TODO:système avec getfilter
+                //mAdapter.getFilter().filter(newText);
 
-
-
-                Log.i("THOMAS", "Taille adapter : " + mAdapter.getItemCount());
-
+                List<Meeting> secours = service.getMeetings();
                 List<Meeting> filteredList = new ArrayList<Meeting>();
 
-                if (newText == null || newText.length() == 0 || newText.isEmpty())
-                {
+                if (newText == null || newText.length() == 0 || newText.isEmpty()) {
+
                     mAdapter = new MeetingAdapter(getApplicationContext(), service.getMeetings());
 
+                    /*service.getMeetings().clear();
+                    service.getMeetings().addAll(secours);
+                    //filteredList = secours;
+                    mRecyclerView.getAdapter().notifyDataSetChanged();
                     // filteredList = service.getMeetings();
-              //      copyList = service.getMeetings();
-                //    filteredList = copyList;
+                    //      copyList = service.getMeetings();
+                    //    filteredList = copyList;
+
+                     */
 
                 } else {
                     String filterPattern = newText.toString().toLowerCase().trim();
 
-                        for (Meeting item : service.getMeetings())
-                        {
-                            if (item.getmPosition().toLowerCase().contains(filterPattern))
-                            {
-                                Log.i("THOMAS","retour"+  item.getmPosition().toString());
-                                filteredList.add(item);
-                            }
+                    for (Meeting item : service.getMeetings()) {
+                        if (item.getmPosition().toLowerCase().contains(filterPattern)) {
+                            Log.i("THOMAS", "retour" + item.getmPosition().toString());
+                            filteredList.add(item);
                         }
+                    }
 
 
-
-                   // copyList = service.getMeetings();
-                   // filteredList = copyList;
+                    // copyList = service.getMeetings();
+                    // filteredList = copyList;
                     mAdapter = new MeetingAdapter(getApplicationContext(), filteredList);
                 }
 
                 // service.getMeetings().clear();
                 //service.getMeetings().addAll(filteredList);
-            //    mRecyclerView.getAdapter().notifyDataSetChanged();
+                //    mRecyclerView.getAdapter().notifyDataSetChanged();
 
-                   mRecyclerView.setAdapter(mAdapter);
+                mRecyclerView.setAdapter(mAdapter);
 
 
-                              return false;
+                return false;
             }
 
         });
@@ -225,11 +226,6 @@ public class MainActivity extends AppCompatActivity {
                 setupDatePicker();
 
 
-
-
-
-
-
                 return false;
             }
         });
@@ -242,8 +238,7 @@ public class MainActivity extends AppCompatActivity {
 
         final List<Meeting> filteredModelList = new ArrayList<>();
 
-        for (Meeting model : models)
-        {
+        for (Meeting model : models) {
             final String text = model.getmPosition().toLowerCase();
             final String textp = model.getmPosition().toLowerCase();
 
@@ -251,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
                 filteredModelList.add(model);
             }
 
-             }
+        }
         return filteredModelList;
     }
 
@@ -268,45 +263,35 @@ public class MainActivity extends AppCompatActivity {
         mDatePicker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 
 
-
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 //viewBinding.viewEditDate2.setText(dayOfMonth+"/"+month +"/" + year);
                 //mEditDate.setText(LocalDate.of(year,(month+1),dayOfMonth).toString());
-                datefilter =  LocalDate.of(year,(month+1),dayOfMonth).toString();
+                datefilter = LocalDate.of(year, (month + 1), dayOfMonth).toString();
 
                 List<Meeting> filteredList = new ArrayList<Meeting>();
 
-                if (datefilter == null || datefilter.length() == 0 || datefilter.isEmpty())
-                {
+                if (datefilter == null || datefilter.length() == 0 || datefilter.isEmpty()) {
                     Log.i("THOMAS", "Taille adapter : " + datefilter);
+
                     mAdapter = new MeetingAdapter(getApplicationContext(), service.getMeetings());
 
                 } else {
                     String filterPattern = datefilter.toString().toLowerCase().trim();
 
-                    for (Meeting item2 : service.getMeetings())
-                    {
-                        if (item2.getmDate().toLowerCase().contains(filterPattern))
-                        {
-                            Log.i("THOMAS","retour"+  item2.getmPosition().toString());
+                    for (Meeting item2 : service.getMeetings()) {
+                        if (item2.getmDate().toLowerCase().contains(filterPattern)) {
+                            Log.i("THOMAS", "retour" + item2.getmPosition().toString());
                             filteredList.add(item2);
                         }
                     }
 
 
-
-                    // copyList = service.getMeetings();
-                    // filteredList = copyList;
                     mAdapter = new MeetingAdapter(getApplicationContext(), filteredList);
                 }
 
-                // service.getMeetings().clear();
-                //service.getMeetings().addAll(filteredList);
-                //    mRecyclerView.getAdapter().notifyDataSetChanged();
 
                 mRecyclerView.setAdapter(mAdapter);
-
 
 
             }
@@ -317,7 +302,7 @@ public class MainActivity extends AppCompatActivity {
         mDatePicker.setButton(DialogInterface.BUTTON_NEGATIVE, "cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Log.i("THOMAS","test cancel");
+                Log.i("THOMAS", "test cancel");
                 mAdapter = new MeetingAdapter(getApplicationContext(), service.getMeetings());
                 mRecyclerView.setAdapter(mAdapter);
 
