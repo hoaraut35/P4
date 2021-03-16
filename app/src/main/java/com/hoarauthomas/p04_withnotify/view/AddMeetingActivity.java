@@ -107,8 +107,8 @@ public class AddMeetingActivity extends AppCompatActivity {
 
         }
 
-        service.addMeeting(new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(),mEditDate.getText().toString(),mEditTime.getText().toString(), participant));
-
+        service.getMeetings().add(new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(),mEditDate.getText().toString(),mEditTime.getText().toString(), participant));
+        Log.i("THOMAS", "Taille liste api " + service.getMeetings().size());
         String message = "reponse de la 2";
         Intent intent = new Intent();
         intent.putExtra("MESSAGE", message);

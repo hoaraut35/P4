@@ -10,11 +10,6 @@
         app:showAsAction="never"
         android:title="Filter par date"/>
 
-    <item
-        android:id="@+id/menu_lieu"
-        android:orderInCategory="1"
-        app:showAsAction="never"
-        android:title="Filter par lieu"/>
 
 
 

@@ -17,6 +17,7 @@ public class FakeMeetingApiService implements MeetingApiService {
     //list declaration
     private List<Collaborator> collaboratorsList = generateCollaborators();
     private List<Meeting> meetingsList = generateMeetings();
+    private List<Meeting> meetingsListWork;
     private List<MeetingRoom> meetingRoomsList = generateMeetingRooms();
 
     @Override
@@ -29,7 +30,8 @@ public class FakeMeetingApiService implements MeetingApiService {
     public List<Meeting> getMeetings()
     {
         Log.i("THOMAS","[FakeMeetingApiService] récupération réunion(s) " + meetingsList.size() );
-        return meetingsList;}
+        meetingsListWork = meetingsList;
+        return meetingsListWork;}
 
     @Override
     public List<MeetingRoom> getMeetingsRooms()
@@ -44,8 +46,8 @@ public class FakeMeetingApiService implements MeetingApiService {
     public void addMeeting(Meeting meeting)
     {
 
-        meetingsList.add(meeting);
-        Log.i("THOMAS","API ajout d'une réunion, tailel list : " + meetingsList.size());
+        meetingsListWork.add(meeting);
+        Log.i("THOMAS","API ajout d'une réunion, tailel list : " + meetingsListWork.size());
     }
 
     @Override
@@ -53,7 +55,7 @@ public class FakeMeetingApiService implements MeetingApiService {
 
     {
 
-        meetingsList.remove(meeting);
-        Log.i("THOMAS","API supprimer une réunion : " + meetingsList.size());
+        meetingsListWork.remove(meeting);
+        Log.i("THOMAS","API supprimer une réunion : " + meetingsListWork.size());
     }
 }

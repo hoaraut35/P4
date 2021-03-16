@@ -144,8 +144,9 @@ public class MainActivity extends AppCompatActivity
         if (requestCode==1)
         {
             String message = data.getStringExtra("MESSAGE");
-            Log.i("THOMAS","retour activit éadd meetingf" + message );
+            Log.i("THOMAS","retour activit éadd meetingf" + message + " liste " + service.getMeetings().size());
             mRecyclerView.getAdapter().notifyDataSetChanged();
+
         }
     }
 
@@ -164,6 +165,9 @@ public class MainActivity extends AppCompatActivity
             @Override
             public boolean onQueryTextChange(String newText)
             {
+                Log.i("THOMAS","Taille adapter : " + mAdapter.getItemCount());
+
+
                 mAdapter.getFilter().filter(newText);
                 return false;
             }
