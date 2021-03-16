@@ -29,7 +29,7 @@ public class FakeMeetingApiService implements MeetingApiService {
     @Override
     public List<Meeting> getMeetings()
     {
-        Log.i("THOMAS","[FakeMeetingApiService] récupération réunion(s) " + meetingsList.size() );
+//        Log.i("THOMAS","[FakeMeetingApiService] récupération réunion(s) " + meetingsList.size() );
 
         return meetingsList;
     }
@@ -48,7 +48,7 @@ public class FakeMeetingApiService implements MeetingApiService {
     {
 
         meetingsList.add(meeting);
-        Log.i("THOMAS","API ajout d'une réunion, tailel list : " + meetingsList.size());
+//        Log.i("THOMAS","API ajout d'une réunion, tailel list : " + meetingsList.size());
     }
 
     @Override
@@ -57,6 +57,6 @@ public class FakeMeetingApiService implements MeetingApiService {
     {
 
         meetingsList.remove(meeting);
-        Log.i("THOMAS","API supprimer une réunion : " + meetingsList.size());
+//        Log.i("THOMAS","API supprimer une réunion : " + meetingsList.size());
     }
 }

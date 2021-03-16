@@ -27,7 +27,7 @@ public class FakeGenerator {
 
     static List<Collaborator> generateCollaborators()
     {
-        Log.i("THOMAS","[FakeGenerator] Récupération liste collaborateur(s) de base !" + FakeMeeting.size());
+//        Log.i("THOMAS","[FakeGenerator] Récupération liste collaborateur(s) de base !" + FakeMeeting.size());
         return  new ArrayList<Collaborator>(FakeCollaborators);
     }
 
@@ -50,7 +50,7 @@ public class FakeGenerator {
 
     static List<MeetingRoom> generateMeetingRooms()
     {
-        Log.i("THOMAS","[FakeGenerator] Récupération liste salle(s) de base !" + FakeMeetingRooms.size());
+     //   Log.i("THOMAS","[FakeGenerator] Récupération liste salle(s) de base !" + FakeMeetingRooms.size());
         return  new ArrayList<MeetingRoom>(FakeMeetingRooms);
     }
 
@@ -76,7 +76,7 @@ public class FakeGenerator {
 
     static List<Meeting> generateMeetings()
     {
-        Log.i("THOMAS","[FakeGenerator] Récupération liste réunion(s) de base !" + FakeMeeting.size());
+  //      Log.i("THOMAS","[FakeGenerator] Récupération liste réunion(s) de base !" + FakeMeeting.size());
         return  new ArrayList<Meeting>(FakeMeeting);
     }
 

@@ -10,7 +10,7 @@ public class DI {
 
     public static MeetingApiService getMeetingApiService()
     {
-        Log.i("THOMAS","[DI] Injection des données ..." + service.getMeetings().size());
+     //   Log.i("THOMAS","[DI] Injection des données ..." + service.getMeetings().size());
         return service;
     }
 
