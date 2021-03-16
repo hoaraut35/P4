@@ -3,12 +3,14 @@ package com.hoarauthomas.p04_withnotify;
 import android.app.Activity;
 import android.content.Context;
 
+import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
 import com.hoarauthomas.p04_withnotify.model.Meeting;
+import com.hoarauthomas.p04_withnotify.utils.DeleteItemAction;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -18,6 +20,7 @@ import org.junit.runner.RunWith;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
+import static com.hoarauthomas.p04_withnotify.utils.RecyclerViewItemCountAssertion.withItemCount;
 import static org.junit.Assert.*;
 
 /**
@@ -59,6 +62,17 @@ public class ExampleInstrumentedTest {
 
     }
 
+    //This test check if
+    @Test
+    public void myMeetingList_deleteAction_shouldRemoveItem()
+    {
+        // Given : We remove the element at position 2
+        onView(ViewMatchers.withId(R.id.recyclerview)).check(withItemCount(3));
+        // When perform a click on a delete icon
+        onView(ViewMatchers.withId(R.id.recyclerview)).perform(RecyclerViewActions.actionOnItemAtPosition(0,  new DeleteItemAction()));
+        // Then : the number of element is 11
+        onView(ViewMatchers.withId(R.id.recyclerview)).check(withItemCount(3-1));
+    }
 
 
 
