@@ -30,7 +30,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
 {
     private List<Meeting> mListMeeting = null;
     private LayoutInflater mInflater;
-
+List<Meeting> list;
     private List<Meeting> mCopyListMeeting;
 
     public MeetingApiService service;
@@ -142,6 +142,9 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
     {
         Log.i("THOMAS","callback add");
     }
+
+
+
 
     @Override
     public Filter getFilter()

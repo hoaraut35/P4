@@ -159,10 +159,12 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
 
+
             @Override
             public boolean onQueryTextChange(String newText) {
 
                 //      mAdapter.getFilter().filter(newText);
+
 
 
                 Log.i("THOMAS", "Taille adapter : " + mAdapter.getItemCount());
@@ -202,7 +204,8 @@ public class MainActivity extends AppCompatActivity {
 
                    mRecyclerView.setAdapter(mAdapter);
 
-                return false;
+
+                              return false;
             }
 
         });
@@ -224,6 +227,24 @@ public class MainActivity extends AppCompatActivity {
         });
 
         return true;
+    }
+
+    private List<Meeting> filter(List<Meeting> models, String query) {
+        query = query.toLowerCase();
+
+        final List<Meeting> filteredModelList = new ArrayList<>();
+
+        for (Meeting model : models)
+        {
+            final String text = model.getmPosition().toLowerCase();
+            final String textp = model.getmPosition().toLowerCase();
+
+            if (text.contains(query)) {
+                filteredModelList.add(model);
+            }
+
+             }
+        return filteredModelList;
     }
 
 
