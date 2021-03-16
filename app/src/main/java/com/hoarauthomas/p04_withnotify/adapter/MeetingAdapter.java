@@ -15,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.hoarauthomas.p04_withnotify.R;
 import com.hoarauthomas.p04_withnotify.api.MeetingApiService;
 import com.hoarauthomas.p04_withnotify.di.DI;
@@ -109,6 +111,14 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
         holder.mStartTime.setText(mCurrent.getmStartTime() + " - ");
         holder.mPlace.setText(mCurrent.getmPosition());
         holder.mParticipants.setText(mCurrent.getmParticipants());
+
+       /* Glide.with(holder.mDeleteImage.getContext())
+                .load(R.drawable.ic_baseline_restore_from_trash_24)
+                .placeholder(R.drawable.ic_baseline_restore_from_trash_24)
+              //  .apply(RequestOptions.centerCropTransform())
+                .into(holder.mDeleteImage)  ;
+*/
+
 
         holder.mDeleteImage.setOnClickListener(new View.OnClickListener() {
             @Override

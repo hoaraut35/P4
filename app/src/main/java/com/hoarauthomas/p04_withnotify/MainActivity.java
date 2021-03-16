@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.DatePicker;
 import android.widget.Filter;
 import android.widget.SearchView;
 
@@ -22,42 +24,34 @@ import com.hoarauthomas.p04_withnotify.di.DI;
 import com.hoarauthomas.p04_withnotify.model.Meeting;
 import com.hoarauthomas.p04_withnotify.view.AddMeetingActivity;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity
-{
+public class MainActivity extends AppCompatActivity {
     private final LinkedList<String> mWordList = new LinkedList<>();
 
     private RecyclerView mRecyclerView;
     private MeetingAdapter mAdapter;
     public FloatingActionButton mFloatingBtn, mFloatingBtn2;
-
+    private int mYear, mMonth, mDay, mHour, mMinutes;
     public MeetingApiService service;
-
-
-
-
-
+    private DatePickerDialog mDatePicker;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
 
 
         setupData();
         setupRecyclerView();
         setupFab1();
         setupFab2();
-
-
 
 
     }
@@ -70,13 +64,11 @@ public class MainActivity extends AppCompatActivity
         //mRecyclerView.getAdapter()..notifyDataSetChanged();
     }
 
-    public void setupData()
-    {
+    public void setupData() {
         service = DI.getMeetingApiService();
     }
 
-    public void setupRecyclerView()
-    {
+    public void setupRecyclerView() {
         mRecyclerView = findViewById(R.id.recyclerview);
         mAdapter = new MeetingAdapter(this, service.getMeetings());
         mRecyclerView.setAdapter(mAdapter);
@@ -84,17 +76,13 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
-
-
-    public void setupFab1()
-    {
+    public void setupFab1() {
 
         mFloatingBtn = findViewById(R.id.floatingbtn);
 
         mFloatingBtn.hide();
 
-     //   myFilter();
+        //   myFilter();
 /*
         mFloatingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,14 +117,12 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public void setupFab2()
-    {
+    public void setupFab2() {
         mFloatingBtn2 = findViewById(R.id.floatingbtn2);
 
         mFloatingBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 Intent OpenAddMeetingActivity = new Intent(getApplicationContext(), AddMeetingActivity.class);
                 startActivityForResult(OpenAddMeetingActivity, 1);
 
@@ -146,51 +132,53 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
-    {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         //back from add meeting activity
-        if (requestCode==1)
-        {
+        if (requestCode == 1) {
             String message = data.getStringExtra("MESSAGE");
-            Log.i("THOMAS","retour activit éadd meetingf" + message + " liste " + service.getMeetings().size());
-          // mAdapter.notifyItemInserted(service.getMeetings().size() - 1);
-           // mRecyclerView.getAdapter().notifyItemInserted(service.getMeetings().size() - 1);
+            Log.i("THOMAS", "retour activit éadd meetingf" + message + " liste " + service.getMeetings().size());
+            // mAdapter.notifyItemInserted(service.getMeetings().size() - 1);
+            // mRecyclerView.getAdapter().notifyItemInserted(service.getMeetings().size() - 1);
             mRecyclerView.getAdapter().notifyDataSetChanged();
 
         }
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        getMenuInflater().inflate(R.menu.menumain,menu);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menumain, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView)searchItem.getActionView();
-         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
-        {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) { return false; }
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
             @Override
-            public boolean onQueryTextChange(String newText)
-            {
+            public boolean onQueryTextChange(String newText) {
 
-                Log.i("THOMAS","Taille adapter : " + mAdapter.getItemCount());
+                //      mAdapter.getFilter().filter(newText);
+
+
+                Log.i("THOMAS", "Taille adapter : " + mAdapter.getItemCount());
 
                 List<Meeting> filteredList = new ArrayList<Meeting>();
 
-                if (newText == null || newText.length() == 0 || newText.isEmpty() )
+                if (newText == null || newText.length() == 0 || newText.isEmpty())
                 {
                     mAdapter = new MeetingAdapter(getApplicationContext(), service.getMeetings());
 
-                }
-                else
-                    {
-                        String filterPattern = newText.toString().toLowerCase().trim();
+                    // filteredList = service.getMeetings();
+              //      copyList = service.getMeetings();
+                //    filteredList = copyList;
+
+                } else {
+                    String filterPattern = newText.toString().toLowerCase().trim();
 
                         for (Meeting item : service.getMeetings())
                         {
@@ -198,39 +186,69 @@ public class MainActivity extends AppCompatActivity
                             {
                                 Log.i("THOMAS","retour"+  item.getmPosition().toString());
                                 filteredList.add(item);
-
                             }
-                  //          mAdapter = new MeetingAdapter(getApplicationContext(), filteredList);
-                            //mAdapter.notifyDataSetChanged();
-
                         }
 
 
-                    mAdapter = new MeetingAdapter(getApplicationContext(), filteredList);
 
+                   // copyList = service.getMeetings();
+                   // filteredList = copyList;
+                    mAdapter = new MeetingAdapter(getApplicationContext(), filteredList);
                 }
 
-                mRecyclerView.setAdapter(mAdapter);
-                mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                // service.getMeetings().clear();
+                //service.getMeetings().addAll(filteredList);
+            //    mRecyclerView.getAdapter().notifyDataSetChanged();
 
-
-
-
-
-
-                // myFilter(newText, service.getMeetings());
-
-
-                //mAdapter.getFilter().filter(newText);
+                   mRecyclerView.setAdapter(mAdapter);
 
                 return false;
             }
 
         });
 
+
+        MenuItem menuDate = menu.findItem(R.id.menu_date);
+
+        menuDate.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+                Log.i("THOMAS", "menu date cliqué");
+
+                setupDatePicker();
+
+
+                return false;
+            }
+        });
+
         return true;
     }
 
+
+    private void setupDatePicker() {
+
+
+        //mEditDate.setEnabled(false);
+        final Calendar c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_MONTH);
+
+        mDatePicker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                //viewBinding.viewEditDate2.setText(dayOfMonth+"/"+month +"/" + year);
+                //mEditDate.setText(LocalDate.of(year,(month+1),dayOfMonth).toString());
+            }
+
+        }, mYear, mMonth, mDay);
+
+        mDatePicker.show();
+
+
+    }
 
 
 }
