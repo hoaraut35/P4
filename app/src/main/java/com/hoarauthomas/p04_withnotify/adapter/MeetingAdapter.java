@@ -143,15 +143,13 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
         @Override
         protected FilterResults performFiltering(CharSequence constraint)
         {
-            //  if (FilterResults instanceof )
-
-
             String charString = constraint.toString();
-
 
             List<Meeting> filteredlist = new ArrayList<Meeting>();
 
-            Log.i("THOMAS","Taille liste origine mListMeetingtemp :" + mListMeeting.size());
+          // mCopyListMeeting = service.getMeetings();
+
+            Log.i("THOMAS","Taille liste origine mListMeetingtemp :" + mListMeeting.size()+ " copie : " +  mCopyListMeeting.size());
 
             if (charString == null || charString.length() == 0 || charString.isEmpty() )
             {

@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Filter;
 import android.widget.SearchView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -21,7 +22,9 @@ import com.hoarauthomas.p04_withnotify.di.DI;
 import com.hoarauthomas.p04_withnotify.model.Meeting;
 import com.hoarauthomas.p04_withnotify.view.AddMeetingActivity;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -79,12 +82,19 @@ public class MainActivity extends AppCompatActivity
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
+
+
+
+
+
     public void setupFab1()
     {
 
         mFloatingBtn = findViewById(R.id.floatingbtn);
 
         mFloatingBtn.hide();
+
+     //   myFilter();
 /*
         mFloatingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,6 +155,8 @@ public class MainActivity extends AppCompatActivity
         {
             String message = data.getStringExtra("MESSAGE");
             Log.i("THOMAS","retour activit éadd meetingf" + message + " liste " + service.getMeetings().size());
+          // mAdapter.notifyItemInserted(service.getMeetings().size() - 1);
+           // mRecyclerView.getAdapter().notifyItemInserted(service.getMeetings().size() - 1);
             mRecyclerView.getAdapter().notifyDataSetChanged();
 
         }
@@ -158,17 +170,58 @@ public class MainActivity extends AppCompatActivity
         SearchView searchView = (SearchView)searchItem.getActionView();
          searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+        {
             @Override
             public boolean onQueryTextSubmit(String query) { return false; }
 
             @Override
             public boolean onQueryTextChange(String newText)
             {
+
                 Log.i("THOMAS","Taille adapter : " + mAdapter.getItemCount());
 
+                List<Meeting> filteredList = new ArrayList<Meeting>();
 
-                mAdapter.getFilter().filter(newText);
+                if (newText == null || newText.length() == 0 || newText.isEmpty() )
+                {
+                    mAdapter = new MeetingAdapter(getApplicationContext(), service.getMeetings());
+
+                }
+                else
+                    {
+                        String filterPattern = newText.toString().toLowerCase().trim();
+
+                        for (Meeting item : service.getMeetings())
+                        {
+                            if (item.getmPosition().toLowerCase().contains(filterPattern))
+                            {
+                                Log.i("THOMAS","retour"+  item.getmPosition().toString());
+                                filteredList.add(item);
+
+                            }
+                  //          mAdapter = new MeetingAdapter(getApplicationContext(), filteredList);
+                            //mAdapter.notifyDataSetChanged();
+
+                        }
+
+
+                    mAdapter = new MeetingAdapter(getApplicationContext(), filteredList);
+
+                }
+
+                mRecyclerView.setAdapter(mAdapter);
+
+
+
+
+
+
+                // myFilter(newText, service.getMeetings());
+
+
+                //mAdapter.getFilter().filter(newText);
+
                 return false;
             }
 
