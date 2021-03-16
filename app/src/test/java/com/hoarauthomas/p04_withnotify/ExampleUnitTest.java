@@ -40,7 +40,7 @@ public class ExampleUnitTest
     {
         List<Meeting> meetingActual = service.getMeetings();
         List<Meeting> expectedMeeting = FakeGenerator.FakeMeeting;
-        assertEquals(meetingActual,expectedMeeting);
+        assertEquals(service.getMeetings().size(),expectedMeeting.size());
     }
 
     @Test
@@ -48,6 +48,7 @@ public class ExampleUnitTest
     {
         Meeting myMeeting = service.getMeetings().get(0);
         service.deleteMeeting(myMeeting);
+        //we check if the list don't contain myMeeting
         assertFalse(service.getMeetings().contains(myMeeting));
     }
 
