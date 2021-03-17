@@ -151,62 +151,48 @@ public class MainActivity extends AppCompatActivity {
                 public boolean onQueryTextChange(String newText) {
 
 
-                    Log.i("THOMAS", " getmeetings " + service.getMeetings());
-
-                    spareMeetingList = service.getMeetings();
-
-
-                    //mRecyclerView.getAdapter().notifyDataSetChanged();
+                    Log.i("THOMAS","Taille adapter : " + mAdapter.getItemCount());
 
                     List<Meeting> filteredList = new ArrayList<Meeting>();
 
-                    if (newText == null || newText.length() == 0 || newText.isEmpty()) {
+                    if (newText == null || newText.length() == 0 || newText.isEmpty() )
+                    {
+                        mAdapter = new MeetingAdapter(getApplicationContext(), service.getMeetings());
 
-                        filteredList.addAll(spareMeetingList);
-                      //  mAdapter.notifyDataSetChanged();
-                         //mAdapter = new MeetingAdapter(getApplicationContext(), service.getMeetings());
-
-                    //service.getMeetings().clear();
-                    //service.getMeetings().addAll(secours);
-                    //filteredList = secours;
-                    //mRecyclerView.getAdapter().notifyDataSetChanged();
-                    // filteredList = service.getMeetings();
-                    //      copyList = service.getMeetings();
-                    //    filteredList = copyList;
-
-
-
-                    } else {
-
+                    }
+                    else
+                    {
                         String filterPattern = newText.toString().toLowerCase().trim();
 
-                        for (Meeting item : service.getMeetings()) {
-                            if (item.getmPosition().toLowerCase().contains(filterPattern)) {
-                                Log.i("THOMAS", "retour" + item.getmPosition().toString());
+                        for (Meeting item : service.getMeetings())
+                        {
+                            if (item.getmPosition().toLowerCase().contains(filterPattern))
+                            {
+                                Log.i("THOMAS","retour"+  item.getmPosition().toString());
                                 filteredList.add(item);
+
                             }
+                            //          mAdapter = new MeetingAdapter(getApplicationContext(), filteredList);
+                            //mAdapter.notifyDataSetChanged();
+
                         }
 
 
+                        mAdapter = new MeetingAdapter(getApplicationContext(), filteredList);
 
-
-                        // copyList = service.getMeetings();
-                        // filteredList = copyList;
-                     //   mAdapter = new MeetingAdapter(getApplicationContext(), filteredList);
                     }
 
-                    // service.getMeetings().clear();
-                    //service.getMeetings().addAll(filteredList);
-                    //    mRecyclerView.getAdapter().notifyDataSetChanged();
-
-                //   mRecyclerView.setAdapter(mAdapter);
-
-                     //   service.getMeetings().clear();
-    //                service.getMeetings().addAll(filteredList);
-  //                   mRecyclerView.getAdapter().notifyDataSetChanged();
+                    mRecyclerView.setAdapter(mAdapter);
 
 
 
+
+
+
+                    // myFilter(newText, service.getMeetings());
+
+
+                    //mAdapter.getFilter().filter(newText);
                     return false;
                 }
 
