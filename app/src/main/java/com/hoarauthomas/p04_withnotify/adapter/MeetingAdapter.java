@@ -35,6 +35,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
 
     public MeetingApiService service;
 
+    //----------------------------------------------------------------------------------------------
     private Listener callback;
     public interface Listener
     {
@@ -42,9 +43,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
         void onUpdateList(List<Meeting> meets);
 
     }
-
-
-
+    //----------------------------------------------------------------------------------------------
 
     public MeetingAdapter(Context context, List<Meeting> mListMeeting2)
     {
@@ -133,11 +132,6 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
     {
         Log.i("THOMAS","callback add");
     }
-
-
-
-
-
 
 
     class WordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener

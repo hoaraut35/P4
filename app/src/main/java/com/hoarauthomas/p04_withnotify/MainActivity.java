@@ -92,10 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 int wordListSize = mWordList.size();
 
                 service.getMeetings().add(new Meeting("test", "test", "", "", "test"));
-                //  mAdapter.notifyDataSetChanged();
                 mRecyclerView.getAdapter().notifyDataSetChanged();
-                //mRecyclerView.getAdapter().notifyItemInserted(wordListSize);
-                //mRecyclerView.smoothScrollToPosition(wordListSize);
             }
         });
 
@@ -119,12 +116,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        //back from add meeting activity
         if (requestCode == 1) {
             String message = data.getStringExtra("MESSAGE");
-            Log.i("THOMAS", "retour activit éadd meetingf" + message + " liste " + service.getMeetings().size());
-            // mAdapter.notifyItemInserted(service.getMeetings().size() - 1);
-            // mRecyclerView.getAdapter().notifyItemInserted(service.getMeetings().size() - 1);
             mRecyclerView.getAdapter().notifyDataSetChanged();
 
         }
