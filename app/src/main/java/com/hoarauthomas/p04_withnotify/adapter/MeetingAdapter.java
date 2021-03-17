@@ -26,7 +26,7 @@ import com.hoarauthomas.p04_withnotify.view.AddMeetingActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordViewHolder> implements AddMeetingActivity.Listener, Filterable
+public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordViewHolder> implements AddMeetingActivity.Listener
 {
     private List<Meeting> mListMeeting = null;
     private LayoutInflater mInflater;
@@ -111,15 +111,6 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
         holder.mStartTime.setText(mCurrent.getmStartTime() + " - ");
         holder.mPlace.setText(mCurrent.getmPosition());
         holder.mParticipants.setText(mCurrent.getmParticipants());
-
-       /* Glide.with(holder.mDeleteImage.getContext())
-                .load(R.drawable.ic_baseline_restore_from_trash_24)
-                .placeholder(R.drawable.ic_baseline_restore_from_trash_24)
-              //  .apply(RequestOptions.centerCropTransform())
-                .into(holder.mDeleteImage)  ;
-*/
-
-
         holder.mDeleteImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,61 +137,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
 
 
 
-    @Override
-    public Filter getFilter()
-    {
-        return mMeetingsFilter;
-    }
 
-    private Filter mMeetingsFilter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint)
-        {
-            String charString = constraint.toString();
-
-            List<Meeting> filteredlist = new ArrayList<Meeting>();
-
-          // mCopyListMeeting = service.getMeetings();
-
-            Log.i("THOMAS","Taille liste origine mListMeetingtemp :" + mListMeeting.size()+ " copie : " +  mCopyListMeeting.size());
-
-            if (charString == null || charString.length() == 0 || charString.isEmpty() )
-            {
-                Log.i("THOMAS","Contrainte inactive donc liste complète"+ mListMeeting.size()+ " " +mCopyListMeeting);
-                filteredlist.addAll(mCopyListMeeting);
-
-            }else
-            {
-                String filterPattern = constraint.toString().toLowerCase().trim();
-
-                for (Meeting item :mCopyListMeeting)
-                {
-                    if (item.getmPosition().toLowerCase().contains(filterPattern))
-                    {
-                        Log.i("THOMAS","retour"+  item.getmPosition().toString());
-                       filteredlist.add(item);
-
-                    }
-                }
-
-            }
-
-            FilterResults results = new FilterResults();
-            results.values = filteredlist;
-            return results;
-        }
-
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results)
-        {
-            mListMeeting.clear();
-            mListMeeting.addAll((List)results.values);
-
-
-
-            notifyDataSetChanged();
-       }
-    };
 
 
     class WordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener

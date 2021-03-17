@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     public RecyclerView mRecyclerView;
     public MeetingAdapter mAdapter;
     public FloatingActionButton mFloatingBtn, mFloatingBtn2;
-    private int mYear, mMonth, mDay, mHour, mMinutes;
+    private int mYear, mMonth, mDay;
     public MeetingApiService service;
     private DatePickerDialog mDatePicker;
 
@@ -72,9 +72,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setupRecyclerView() {
-        mRecyclerView = findViewById(R.id.recyclerview);
         mAdapter = new MeetingAdapter(this, service.getMeetings());
-        Log.i("THOMAS","setupRecyclerView " + mAdapter.getFilter().getClass().getName());
+        mRecyclerView = findViewById(R.id.recyclerview);
+
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -159,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
                     {
                         mAdapter = new MeetingAdapter(getApplicationContext(), service.getMeetings());
 
+
                     }
                     else
                     {
@@ -184,15 +185,6 @@ public class MainActivity extends AppCompatActivity {
 
                     mRecyclerView.setAdapter(mAdapter);
 
-
-
-
-
-
-                    // myFilter(newText, service.getMeetings());
-
-
-                    //mAdapter.getFilter().filter(newText);
                     return false;
                 }
 
