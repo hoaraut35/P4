@@ -17,6 +17,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.DatePicker;
 import android.widget.Filter;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.hoarauthomas.p04_withnotify.adapter.MeetingAdapter;
@@ -80,11 +81,10 @@ public class MainActivity extends AppCompatActivity {
     public void setupRecyclerView() {
 
         mAdapter = new MeetingAdapter(this, service.getMeetings());
-       mRecyclerView = findViewById(R.id.recyclerview);
+        mRecyclerView = findViewById(R.id.recyclerview);
 
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
 
 
 
@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void setupFab1() {
+
 
         mFloatingBtn = findViewById(R.id.floatingbtn);
 
@@ -102,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 int wordListSize = mWordList.size();
 
-                service.getMeetings().add(new Meeting("test", "test", "", "", "test"));
+                service.getMeetings().add(new Meeting("test", "test", "2021/03/01", "", "test"));
                 mRecyclerView.getAdapter().notifyDataSetChanged();
             }
         });
@@ -110,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setupFab2() {
+
         mFloatingBtn2 = findViewById(R.id.floatingbtn2);
 
         mFloatingBtn2.setOnClickListener(new View.OnClickListener() {
