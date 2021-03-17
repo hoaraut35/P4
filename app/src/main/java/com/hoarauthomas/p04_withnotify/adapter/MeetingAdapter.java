@@ -54,6 +54,12 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
         this.mCopyListMeeting = new ArrayList<Meeting>(mListMeeting2);
     }
 
+
+
+
+
+
+
     @NonNull
     @Override
     public MeetingAdapter.WordViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)

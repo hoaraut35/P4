@@ -51,10 +51,13 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        //TODO: for enable injection data set to true else set to false
+        setupData(true);
+        setupRecyclerView();
         setupFab1();
         setupFab2();
-        setupData();
-        setupRecyclerView();
 
 
     }
@@ -67,16 +70,24 @@ public class MainActivity extends AppCompatActivity {
         //mRecyclerView.getAdapter()..notifyDataSetChanged();
     }
 
-    public void setupData() {
-        service = DI.getMeetingApiService();
+    public void setupData(Boolean injection) {
+
+        if (injection) {
+            service = DI.getMeetingApiService();
+        }
     }
 
     public void setupRecyclerView() {
+
         mAdapter = new MeetingAdapter(this, service.getMeetings());
-        mRecyclerView = findViewById(R.id.recyclerview);
+       mRecyclerView = findViewById(R.id.recyclerview);
 
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+
+
     }
 
 
