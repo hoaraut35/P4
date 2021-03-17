@@ -34,12 +34,14 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private final LinkedList<String> mWordList = new LinkedList<>();
 
-    private RecyclerView mRecyclerView;
-    private MeetingAdapter mAdapter;
+    public RecyclerView mRecyclerView;
+    public MeetingAdapter mAdapter;
     public FloatingActionButton mFloatingBtn, mFloatingBtn2;
     private int mYear, mMonth, mDay, mHour, mMinutes;
     public MeetingApiService service;
     private DatePickerDialog mDatePicker;
+
+    private List<Meeting> spareMeetingList = new ArrayList<>();
 
     private String datefilter;
 
@@ -49,12 +51,10 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-        setupData();
-        setupRecyclerView();
         setupFab1();
         setupFab2();
+        setupData();
+        setupRecyclerView();
 
 
     }
@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
     public void setupRecyclerView() {
         mRecyclerView = findViewById(R.id.recyclerview);
         mAdapter = new MeetingAdapter(this, service.getMeetings());
+        Log.i("THOMAS","setupRecyclerView " + mAdapter.getFilter().getClass().getName());
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -83,40 +84,20 @@ public class MainActivity extends AppCompatActivity {
 
         mFloatingBtn = findViewById(R.id.floatingbtn);
 
-        mFloatingBtn.hide();
+        //mFloatingBtn.hide();
 
-        //   myFilter();
-/*
         mFloatingBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                int wordListSize = mWordList.size();
-                // Add a new word to the wordList.
-
-                service.getMeetings().add(new Meeting("test","test","","","test"));
-
-
-                //mWordList.addLast("+ Word " + wordListSize);
-                mRecyclerView.getAdapter().notifyItemInserted(wordListSize);
-                mRecyclerView.smoothScrollToPosition(wordListSize);
-            }
-        });
-        */
-        /*
-        mFloatingBtn2 = findViewById(R.id.floatingbtn2);
-        mFloatingBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int wordListSize = mWordList.size();
-                // Add a new word to the wordList.
-                mWordList.remove(0);
-                // Notify the adapter, that the data has changed.
-                mRecyclerView.getAdapter().notifyItemRemoved(0);
-                // Scroll to the bottom.
-                mRecyclerView.smoothScrollToPosition(wordListSize);
+
+                service.getMeetings().add(new Meeting("test", "test", "", "", "test"));
+                //  mAdapter.notifyDataSetChanged();
+                mRecyclerView.getAdapter().notifyDataSetChanged();
+                //mRecyclerView.getAdapter().notifyItemInserted(wordListSize);
+                //mRecyclerView.smoothScrollToPosition(wordListSize);
             }
-        });*/
+        });
 
     }
 
@@ -149,89 +130,108 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menumain, menu);
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) searchItem.getActionView();
-        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
+        @Override
+        public boolean onCreateOptionsMenu (Menu menu){
 
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
+            getMenuInflater().inflate(R.menu.menumain, menu);
+            MenuItem searchItem = menu.findItem(R.id.action_search);
+            SearchView searchView = (SearchView) searchItem.getActionView();
+            searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
-                //TODO:système avec getfilter
-                //mAdapter.getFilter().filter(newText);
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
 
-                List<Meeting> secours = service.getMeetings();
-                List<Meeting> filteredList = new ArrayList<Meeting>();
 
-                if (newText == null || newText.length() == 0 || newText.isEmpty()) {
+                @Override
+                public boolean onQueryTextChange(String newText) {
 
-                    mAdapter = new MeetingAdapter(getApplicationContext(), service.getMeetings());
 
-                    /*service.getMeetings().clear();
-                    service.getMeetings().addAll(secours);
+                    Log.i("THOMAS", " getmeetings " + service.getMeetings());
+
+                    spareMeetingList = service.getMeetings();
+
+
+                    //mRecyclerView.getAdapter().notifyDataSetChanged();
+
+                    List<Meeting> filteredList = new ArrayList<Meeting>();
+
+                    if (newText == null || newText.length() == 0 || newText.isEmpty()) {
+
+                        filteredList.addAll(spareMeetingList);
+                      //  mAdapter.notifyDataSetChanged();
+                         //mAdapter = new MeetingAdapter(getApplicationContext(), service.getMeetings());
+
+                    //service.getMeetings().clear();
+                    //service.getMeetings().addAll(secours);
                     //filteredList = secours;
-                    mRecyclerView.getAdapter().notifyDataSetChanged();
+                    //mRecyclerView.getAdapter().notifyDataSetChanged();
                     // filteredList = service.getMeetings();
                     //      copyList = service.getMeetings();
                     //    filteredList = copyList;
 
-                     */
 
-                } else {
-                    String filterPattern = newText.toString().toLowerCase().trim();
 
-                    for (Meeting item : service.getMeetings()) {
-                        if (item.getmPosition().toLowerCase().contains(filterPattern)) {
-                            Log.i("THOMAS", "retour" + item.getmPosition().toString());
-                            filteredList.add(item);
+                    } else {
+
+                        String filterPattern = newText.toString().toLowerCase().trim();
+
+                        for (Meeting item : service.getMeetings()) {
+                            if (item.getmPosition().toLowerCase().contains(filterPattern)) {
+                                Log.i("THOMAS", "retour" + item.getmPosition().toString());
+                                filteredList.add(item);
+                            }
                         }
+
+
+
+
+                        // copyList = service.getMeetings();
+                        // filteredList = copyList;
+                     //   mAdapter = new MeetingAdapter(getApplicationContext(), filteredList);
                     }
 
+                    // service.getMeetings().clear();
+                    //service.getMeetings().addAll(filteredList);
+                    //    mRecyclerView.getAdapter().notifyDataSetChanged();
 
-                    // copyList = service.getMeetings();
-                    // filteredList = copyList;
-                    mAdapter = new MeetingAdapter(getApplicationContext(), filteredList);
+                //   mRecyclerView.setAdapter(mAdapter);
+
+                     //   service.getMeetings().clear();
+    //                service.getMeetings().addAll(filteredList);
+  //                   mRecyclerView.getAdapter().notifyDataSetChanged();
+
+
+
+                    return false;
                 }
 
-                // service.getMeetings().clear();
-                //service.getMeetings().addAll(filteredList);
-                //    mRecyclerView.getAdapter().notifyDataSetChanged();
-
-                mRecyclerView.setAdapter(mAdapter);
+            });
 
 
-                return false;
-            }
+            MenuItem menuDate = menu.findItem(R.id.menu_date);
 
-        });
+            menuDate.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
 
+                    Log.i("THOMAS", "menu date cliqué");
 
-        MenuItem menuDate = menu.findItem(R.id.menu_date);
-
-        menuDate.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-
-                Log.i("THOMAS", "menu date cliqué");
-
-                setupDatePicker();
+                    setupDatePicker();
 
 
-                return false;
-            }
-        });
+                    return false;
+                }
+            });
 
-        return true;
-    }
+            return true;
+        }
+
+
 
     private List<Meeting> filter(List<Meeting> models, String query) {
         query = query.toLowerCase();

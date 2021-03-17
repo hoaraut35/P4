@@ -61,9 +61,4 @@ public class ExampleUnitTest
         assertEquals(compteur +1 , service.getMeetings().size());
     }
 
-
-
-
-
-
 }

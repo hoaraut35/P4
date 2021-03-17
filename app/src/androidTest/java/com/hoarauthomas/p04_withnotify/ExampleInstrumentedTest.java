@@ -104,12 +104,14 @@ public class ExampleInstrumentedTest {
     @Test
     public void myMeetingList_filteredByDate_shouldFilteredByDate()
     {
-
+       // onView(withId(R.id.menu_date)).perform(click());
     }
 
     @Test
     public void myMeetingList_filteredByLocation_shouldFilteredByLocation()
     {
+        onView(withId(R.id.action_search)).perform(click());
+      //  onView(withId(R.id.action_search)).perform(replaceText("Peach"));
 
     }
 

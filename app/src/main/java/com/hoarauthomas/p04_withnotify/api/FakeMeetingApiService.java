@@ -6,6 +6,7 @@ import com.hoarauthomas.p04_withnotify.model.Collaborator;
 import com.hoarauthomas.p04_withnotify.model.Meeting;
 import com.hoarauthomas.p04_withnotify.model.MeetingRoom;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.hoarauthomas.p04_withnotify.api.FakeGenerator.generateCollaborators;
@@ -16,7 +17,8 @@ public class FakeMeetingApiService implements MeetingApiService {
 
     //list declaration
     private List<Collaborator> collaboratorsList = generateCollaborators();
-    private List<Meeting> meetingsList = generateMeetings();
+    public List<Meeting> meetingsList = new ArrayList<>();
+
 
     private List<MeetingRoom> meetingRoomsList = generateMeetingRooms();
 
@@ -30,8 +32,17 @@ public class FakeMeetingApiService implements MeetingApiService {
     public List<Meeting> getMeetings()
     {
 //        Log.i("THOMAS","[FakeMeetingApiService] récupération réunion(s) " + meetingsList.size() );
-
+        firstBoot();
         return meetingsList;
+    }
+
+    public void  firstBoot()
+    {
+        if (meetingsList.isEmpty())
+        {
+            meetingsList = generateMeetings();
+        }
+
     }
 
     @Override
