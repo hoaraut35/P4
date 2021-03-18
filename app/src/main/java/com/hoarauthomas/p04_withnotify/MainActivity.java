@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                 List<Meeting> filteredList = new ArrayList<Meeting>();
 
                 if (newText == null || newText.length() == 0 || newText.isEmpty()) {
-                    mAdapter = new MeetingAdapter(getApplicationContext(), service.getMeetings());
+                    mAdapter = new MeetingAdapter(MainActivity.this, service.getMeetings());
                  //   mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
                 } else {
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
 
-                    mAdapter = new MeetingAdapter(getApplicationContext(), filteredList);
+                    mAdapter = new MeetingAdapter(MainActivity.this, filteredList);
 
                 }
 
