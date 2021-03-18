@@ -51,11 +51,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //TODO: for enable injection data set to true else set to false
         setupService();
         setupRecyclerView();
-        setupFab1();
         setupFab2();
+
+        //TODO: Fab for demo mode : add a random meeting
+        setupFabForDemo(true);
 
     }
 
@@ -70,22 +71,26 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    public void setupFab1() {
+    public void setupFabForDemo(Boolean setup) {
+
         mFloatingBtn = findViewById(R.id.floatingbtn);
-        //mFloatingBtn.hide();
-        mFloatingBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                int wordListSize = mWordList.size();
 
-                service.getMeetings().add(FakeGenerator.FakeMeeting.get(new Random().nextInt(FakeGenerator.FakeMeeting.size())));
+        if (setup) {
 
-
-                mRecyclerView.getAdapter().notifyDataSetChanged();
-            }
-        });
+            mFloatingBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    service.getMeetings().add(FakeGenerator.FakeMeeting.get(new Random().nextInt(FakeGenerator.FakeMeeting.size())));
+                    mRecyclerView.getAdapter().notifyDataSetChanged();
+                }
+            });
+        } else {
+            mFloatingBtn.hide();
+        }
 
     }
+
+    //**********************************************************************************************
 
     public void setupFab2() {
 
@@ -113,10 +118,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //**********************************************************************************************
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
 
         getMenuInflater().inflate(R.menu.menumain, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
@@ -133,14 +138,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
 
-
-                Log.i("THOMAS", "Taille adapter : " + mAdapter.getItemCount());
-
                 List<Meeting> filteredList = new ArrayList<Meeting>();
 
                 if (newText == null || newText.length() == 0 || newText.isEmpty()) {
                     mAdapter = new MeetingAdapter(getApplicationContext(), service.getMeetings());
-
+                 //   mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
                 } else {
                     String filterPattern = newText.toString().toLowerCase().trim();
@@ -151,7 +153,8 @@ public class MainActivity extends AppCompatActivity {
                             filteredList.add(item);
 
                         }
-                        //          mAdapter = new MeetingAdapter(getApplicationContext(), filteredList);
+
+                        //mAdapter = new MeetingAdapter(getApplicationContext(), filteredList);
                         //mAdapter.notifyDataSetChanged();
 
                     }
@@ -174,12 +177,7 @@ public class MainActivity extends AppCompatActivity {
         menuDate.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-
-                Log.i("THOMAS", "menu date cliqué");
-
                 setupDatePicker();
-
-
                 return false;
             }
         });
@@ -188,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private List<Meeting> filter(List<Meeting> models, String query) {
+    /*private List<Meeting> filter(List<Meeting> models, String query) {
         query = query.toLowerCase();
 
         final List<Meeting> filteredModelList = new ArrayList<>();
@@ -205,23 +203,20 @@ public class MainActivity extends AppCompatActivity {
         return filteredModelList;
     }
 
+     */
+
 
     private void setupDatePicker() {
 
-
-        //mEditDate.setEnabled(false);
         final Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
 
         mDatePicker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-
-
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                //viewBinding.viewEditDate2.setText(dayOfMonth+"/"+month +"/" + year);
-                //mEditDate.setText(LocalDate.of(year,(month+1),dayOfMonth).toString());
+
                 datefilter = LocalDate.of(year, (month + 1), dayOfMonth).toString();
 
                 List<Meeting> filteredList = new ArrayList<Meeting>();
@@ -241,13 +236,10 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
 
-
                     mAdapter = new MeetingAdapter(getApplicationContext(), filteredList);
                 }
 
-
                 mRecyclerView.setAdapter(mAdapter);
-
 
             }
 
