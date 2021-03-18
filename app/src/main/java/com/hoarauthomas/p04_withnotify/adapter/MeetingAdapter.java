@@ -1,43 +1,25 @@
 package com.hoarauthomas.p04_withnotify.adapter;
 
 import android.content.Context;
-import android.net.sip.SipSession;
-import android.renderscript.Sampler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.disklrucache.DiskLruCache;
-import com.bumptech.glide.request.RequestOptions;
 import com.hoarauthomas.p04_withnotify.R;
-import com.hoarauthomas.p04_withnotify.api.MeetingApiService;
-import com.hoarauthomas.p04_withnotify.di.DI;
 import com.hoarauthomas.p04_withnotify.model.Meeting;
 import com.hoarauthomas.p04_withnotify.view.AddMeetingActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordViewHolder> implements AddMeetingActivity.Listener {
 
-    private List<Meeting> mListMeeting = null;
-    private List<Meeting> mCopyListMeeting;
-
-    public MeetingApiService service;
+    private List<Meeting> mListMeeting;
     private LayoutInflater mInflater;
-    List<Meeting> list;
 
     //----------------------------------------------------------------------------------------------
     private Listener callback;
@@ -52,7 +34,6 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
     public MeetingAdapter(Context context, List<Meeting> mListMeeting2) {
         mInflater = LayoutInflater.from(context);
         this.mListMeeting = mListMeeting2;
-        this.mCopyListMeeting = new ArrayList<Meeting>(mListMeeting2);
     }
 
     @NonNull
@@ -152,7 +133,6 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
             Log.i("THOMAS", "Position item cliqué : " + Integer.valueOf(mPosition));
 
         }
-
 
     }
 }

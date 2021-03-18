@@ -5,7 +5,6 @@ import android.util.Log;
 import com.hoarauthomas.p04_withnotify.model.Collaborator;
 import com.hoarauthomas.p04_withnotify.model.Meeting;
 import com.hoarauthomas.p04_withnotify.model.MeetingRoom;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,9 +24,8 @@ public class FakeGenerator {
     );
 
     static List<Collaborator> generateCollaborators() {
-        return new ArrayList<Collaborator>(FakeCollaborators);
+        return new ArrayList<>(FakeCollaborators);
     }
-
 
     public static List<MeetingRoom> FakeMeetingRooms = Arrays.asList(
             new MeetingRoom(1, "Mario", "Rennes", 10),
@@ -42,9 +40,8 @@ public class FakeGenerator {
             new MeetingRoom(10, "Bero", "Le MAns", 10)
     );
 
-
     static List<MeetingRoom> generateMeetingRooms() {
-        return new ArrayList<MeetingRoom>(FakeMeetingRooms);
+        return new ArrayList<>(FakeMeetingRooms);
     }
 
     public static List<Meeting> FakeMeeting = Arrays.asList(
@@ -63,7 +60,7 @@ public class FakeGenerator {
     );
 
     static List<Meeting> generateMeetings() {
-        return new ArrayList<Meeting>(FakeMeeting);
+        return new ArrayList<>(FakeMeeting);
     }
 
 
