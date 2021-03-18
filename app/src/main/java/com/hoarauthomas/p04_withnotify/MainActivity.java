@@ -45,10 +45,21 @@ public class MainActivity extends AppCompatActivity {
     private List<Meeting> spareMeetingList = new ArrayList<>();
     private String datefilter;
 
+
+
+    //TODO: ? persistance
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        service.getMeetings().clear();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        //TODO: persistance des données à supprimer
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         setupService();
