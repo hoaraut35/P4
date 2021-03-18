@@ -70,12 +70,16 @@ public class AddMeetingActivity extends AppCompatActivity {
         setupClickTime();
         setupDataRooms();
         setupDataParticipants();
+        setupClickValidate();
 
+    }
+
+    private void setupClickValidate()
+    {
         mBtnValidate.setOnClickListener(v -> {
             setupBtnValidate();
             finish();
         });
-
     }
 
     private void setupBtnValidate() {
