@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-
-
     <color name="col1">#F05545</color>
     <color name="col2">#BC477B</color>
     <color name="col3">#7c43BD</color>
@@ -13,6 +10,4 @@
     <color name="col8">#c3fdff</color>
     <color name="col9">#4f5b62</color>
     <color name="col10">#ffffff</color>
-
-
 </resources>

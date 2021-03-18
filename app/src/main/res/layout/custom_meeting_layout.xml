@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
 
 
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    android:layout_height="wrap_content">
 
 
     <ImageView
         android:id="@+id/view_image_meeting"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-android:background="@drawable/circular"
-        android:scaleType="centerCrop"
-
-
         android:layout_margin="16dp"
-        >
+        android:background="@drawable/circular"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
     </ImageView>
 
@@ -28,29 +24,25 @@ android:background="@drawable/circular"
         android:id="@+id/view_name_meeting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@+id/view_image_meeting"
-        app:layout_constraintTop_toTopOf="@id/view_image_meeting"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:text="Réunion A - "
         android:layout_marginLeft="16dp"
-        >
+        android:text="Réunion A - "
+        android:textSize="@dimen/size_subject"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/view_image_meeting"
+        app:layout_constraintTop_toTopOf="@id/view_image_meeting">
 
     </TextView>
-
-
 
 
     <TextView
         android:id="@+id/view_start_time_meeting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@id/view_name_meeting"
-        app:layout_constraintTop_toTopOf="@id/view_name_meeting"
-        android:textStyle="bold"
         android:text="14h00 - "
-        >
+        android:textSize="@dimen/size_time"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/view_name_meeting"
+        app:layout_constraintTop_toTopOf="@id/view_name_meeting">
 
     </TextView>
 
@@ -58,29 +50,26 @@ android:background="@drawable/circular"
         android:id="@+id/view_position_meeting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/view_start_time_meeting"
-        app:layout_constraintTop_toTopOf="@id/view_name_meeting"
-        android:textStyle="bold"
-        android:textSize="16sp"
         android:text="Peach"
-        >
-    </TextView>
+        android:textSize="@dimen/size_location"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/view_start_time_meeting"
+        app:layout_constraintTop_toTopOf="@id/view_name_meeting"></TextView>
 
     <TextView
         android:id="@+id/view_email_meeting"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:textSize="14sp"
-        app:layout_constraintLeft_toRightOf="@id/view_image_meeting"
-        app:layout_constraintTop_toBottomOf="@+id/view_name_meeting"
+        android:layout_margin="16dp"
+        android:text="maxime@gmail.com alex@gmail.Com"
+        android:textSize="@dimen/size_participants"
         app:layout_constraintBottom_toBottomOf="@id/view_image_meeting"
+        app:layout_constraintLeft_toRightOf="@id/view_image_meeting"
+
+
         app:layout_constraintRight_toLeftOf="@id/view_delete_meeting"
 
-
-        android:layout_margin="16dp"
-
-        android:text="maxime@gmail.com alex@gmail.Com"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/view_name_meeting">
 
     </TextView>
 
@@ -88,17 +77,14 @@ android:background="@drawable/circular"
         android:id="@+id/view_delete_meeting"
         android:layout_width="24dp"
         android:layout_height="24dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/ic_baseline_restore_from_trash_24"
         android:src="@drawable/ic_baseline_restore_from_trash_24"
-        app:layout_constraintTop_toTopOf="@id/view_image_meeting"
         app:layout_constraintBottom_toBottomOf="@id/view_image_meeting"
         app:layout_constraintRight_toRightOf="parent"
-android:background="@drawable/ic_baseline_restore_from_trash_24"
-        android:layout_margin="16dp"
-        >
+        app:layout_constraintTop_toTopOf="@id/view_image_meeting">
 
     </ImageView>
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
