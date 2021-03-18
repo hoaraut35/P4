@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -51,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        service.getMeetings().clear();
+        Log.i("THOMAS"," OnResume...");
+       // service.getMeetings().clear();
     }
 
     @Override
@@ -71,6 +73,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
+
+    //TODO: à supprimer ? car les données sont stockée
     public void setupService() {
         service = DI.getMeetingApiService();
     }
@@ -153,6 +159,10 @@ public class MainActivity extends AppCompatActivity {
 
                 if (newText == null || newText.length() == 0 || newText.isEmpty()) {
                     mAdapter = new MeetingAdapter(MainActivity.this, service.getMeetings());
+
+
+
+
                  //   mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
                 } else {
@@ -164,6 +174,8 @@ public class MainActivity extends AppCompatActivity {
                             filteredList.add(item);
 
                         }
+
+
 
                         //mAdapter = new MeetingAdapter(getApplicationContext(), filteredList);
                         //mAdapter.notifyDataSetChanged();
@@ -196,27 +208,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-
-    /*private List<Meeting> filter(List<Meeting> models, String query) {
-        query = query.toLowerCase();
-
-        final List<Meeting> filteredModelList = new ArrayList<>();
-
-        for (Meeting model : models) {
-            final String text = model.getmPosition().toLowerCase();
-            final String textp = model.getmPosition().toLowerCase();
-
-            if (text.contains(query)) {
-                filteredModelList.add(model);
-            }
-
-        }
-        return filteredModelList;
-    }
-
-     */
-
-
     private void setupDatePicker() {
 
         final Calendar c = Calendar.getInstance();
@@ -235,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
                 if (datefilter == null || datefilter.length() == 0 || datefilter.isEmpty()) {
                     Log.i("THOMAS", "Taille adapter : " + datefilter);
 
-                    mAdapter = new MeetingAdapter(getApplicationContext(), service.getMeetings());
+                    mAdapter = new MeetingAdapter(MainActivity.this, service.getMeetings());
 
                 } else {
                     String filterPattern = datefilter.toString().toLowerCase().trim();
@@ -247,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
 
-                    mAdapter = new MeetingAdapter(getApplicationContext(), filteredList);
+                    mAdapter = new MeetingAdapter(MainActivity.this, filteredList);
                 }
 
                 mRecyclerView.setAdapter(mAdapter);
@@ -261,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Log.i("THOMAS", "test cancel");
-                mAdapter = new MeetingAdapter(getApplicationContext(), service.getMeetings());
+                mAdapter = new MeetingAdapter(MainActivity.this, service.getMeetings());
                 mRecyclerView.setAdapter(mAdapter);
 
             }
