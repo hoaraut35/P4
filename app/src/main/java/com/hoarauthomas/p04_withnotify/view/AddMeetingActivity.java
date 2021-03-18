@@ -95,16 +95,34 @@ public class AddMeetingActivity extends AppCompatActivity {
 
 
 
+        for (Meeting meeting : service.getMeetings())
+        {
 
+            if (meeting.getmPosition().equals(mRooms.getText().toString()))
+            {
+                if (meeting.getmDate().equals(mEditDate.getEditableText().toString())) {
+
+                    Log.i("THOMAS", "Réunion présente le : " + meeting.getmDate() + "vérifier l'heure => " + mEditDate.getEditableText() + mEditTime.getEditableText());
+                }
+            }
+        }
+
+
+        if(mEditSubject.getEditableText().toString().isEmpty())
+        {
+
+        }
+        else
+        {
             service.addMeeting(new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(), mEditDate.getText().toString(), mEditTime.getText().toString(), participant));
+
+            String message = "reponse de la 2";
+            Intent intent = new Intent();
+            intent.putExtra("MESSAGE", message);
+            setResult(1, intent);
             finish();
+        }
 
-
-        String message = "reponse de la 2";
-        Intent intent = new Intent();
-        intent.putExtra("MESSAGE", message);
-        setResult(1, intent);
-        //finish();
     }
 
     //**********************************************************************************************

@@ -131,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 1) {
             String message = data.getStringExtra("MESSAGE");
             mRecyclerView.getAdapter().notifyDataSetChanged();
+            Log.i("THOMAS","onActivityResult");
 
         }
     }

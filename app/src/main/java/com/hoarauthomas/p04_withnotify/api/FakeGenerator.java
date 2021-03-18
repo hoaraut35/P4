@@ -53,7 +53,7 @@ public class FakeGenerator {
             new Meeting("Réunion E", "Yoshi", "2021-03-01", "14H00", "test1@gmail.Com;test2@gmail.Com;test3@gmail.Com"),
             new Meeting("Réunion F", "Peach", "2021-03-02", "14H00", "test1@gmail.Com"),
             new Meeting("Réunion G", "Mario", "2021-03-03", "11H00", "test2@gmail.Com"),
-            new Meeting("Réunion H", "Luigi", "2021-03-053", "08H00", "test3@gmail.Com"),
+            new Meeting("Réunion H", "Luigi", "2021-03-05", "08H00", "test3@gmail.Com"),
             new Meeting("Réunion I", "Toad", "2021-03-04", "16H00", "test4@gmail.Com"),
             new Meeting("Réunion J", "Yoshi", "2021-03-06", "14H00", "test1@gmail.Com"),
             new Meeting("Réunion K", "Wario", LocalDate.now().toString(), "16H00", "test5@gmail.Com")
