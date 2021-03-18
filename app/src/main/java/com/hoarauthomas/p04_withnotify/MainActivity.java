@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.hoarauthomas.p04_withnotify.adapter.MeetingAdapter;
+import com.hoarauthomas.p04_withnotify.api.FakeGenerator;
 import com.hoarauthomas.p04_withnotify.api.MeetingApiService;
 import com.hoarauthomas.p04_withnotify.di.DI;
 import com.hoarauthomas.p04_withnotify.model.Meeting;
@@ -31,21 +32,18 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     private final LinkedList<String> mWordList = new LinkedList<>();
-
     public RecyclerView mRecyclerView;
     public MeetingAdapter mAdapter;
     public FloatingActionButton mFloatingBtn, mFloatingBtn2;
     private int mYear, mMonth, mDay;
     public MeetingApiService service;
     private DatePickerDialog mDatePicker;
-
     private List<Meeting> spareMeetingList = new ArrayList<>();
-
     private String datefilter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,55 +52,36 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //TODO: for enable injection data set to true else set to false
-        setupService(true);
+        setupService();
         setupRecyclerView();
         setupFab1();
         setupFab2();
 
-        
-
     }
 
-    //TODO: donné de base impossible
-    @Override
-    protected void onResume() {
-        super.onPostResume();
-        //setupData();
-        //mRecyclerView.getAdapter()..notifyDataSetChanged();
-    }
-
-    public void setupService(Boolean injection) {
-        if (injection) {
-            service = DI.getMeetingApiService();
-        }
+    public void setupService() {
+        service = DI.getMeetingApiService();
     }
 
     public void setupRecyclerView() {
-
         mAdapter = new MeetingAdapter(this, service.getMeetings());
         mRecyclerView = findViewById(R.id.recyclerview);
-
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
-
     }
 
-
     public void setupFab1() {
-
-
         mFloatingBtn = findViewById(R.id.floatingbtn);
-
         //mFloatingBtn.hide();
-
         mFloatingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int wordListSize = mWordList.size();
 
-                service.getMeetings().add(new Meeting("test", "test", "2021/03/01", "", "test"));
+               // service.getMeetings().add(new Meeting(FakeGenerator.FakeMeeting.get()"Réuniontest", "test", "2021/03/01", "", "test"));
+                service.getMeetings().add(FakeGenerator.FakeMeeting.get(new Random().nextInt(FakeGenerator.FakeMeeting.size())));
+
+
                 mRecyclerView.getAdapter().notifyDataSetChanged();
             }
         });
@@ -136,84 +115,78 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-        @Override
-        public boolean onCreateOptionsMenu (Menu menu){
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
 
 
-            getMenuInflater().inflate(R.menu.menumain, menu);
-            MenuItem searchItem = menu.findItem(R.id.action_search);
-            SearchView searchView = (SearchView) searchItem.getActionView();
-            searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        getMenuInflater().inflate(R.menu.menumain, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    return false;
-                }
-
-
-                @Override
-                public boolean onQueryTextChange(String newText) {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
 
-                    Log.i("THOMAS","Taille adapter : " + mAdapter.getItemCount());
-
-                    List<Meeting> filteredList = new ArrayList<Meeting>();
-
-                    if (newText == null || newText.length() == 0 || newText.isEmpty() )
-                    {
-                        mAdapter = new MeetingAdapter(getApplicationContext(), service.getMeetings());
+            @Override
+            public boolean onQueryTextChange(String newText) {
 
 
-                    }
-                    else
-                    {
-                        String filterPattern = newText.toString().toLowerCase().trim();
+                Log.i("THOMAS", "Taille adapter : " + mAdapter.getItemCount());
 
-                        for (Meeting item : service.getMeetings())
-                        {
-                            if (item.getmPosition().toLowerCase().contains(filterPattern))
-                            {
-                                Log.i("THOMAS","retour"+  item.getmPosition().toString());
-                                filteredList.add(item);
+                List<Meeting> filteredList = new ArrayList<Meeting>();
 
-                            }
-                            //          mAdapter = new MeetingAdapter(getApplicationContext(), filteredList);
-                            //mAdapter.notifyDataSetChanged();
+                if (newText == null || newText.length() == 0 || newText.isEmpty()) {
+                    mAdapter = new MeetingAdapter(getApplicationContext(), service.getMeetings());
+
+
+                } else {
+                    String filterPattern = newText.toString().toLowerCase().trim();
+
+                    for (Meeting item : service.getMeetings()) {
+                        if (item.getmPosition().toLowerCase().contains(filterPattern)) {
+                            Log.i("THOMAS", "retour" + item.getmPosition().toString());
+                            filteredList.add(item);
 
                         }
-
-
-                        mAdapter = new MeetingAdapter(getApplicationContext(), filteredList);
+                        //          mAdapter = new MeetingAdapter(getApplicationContext(), filteredList);
+                        //mAdapter.notifyDataSetChanged();
 
                     }
 
-                    mRecyclerView.setAdapter(mAdapter);
 
-                    return false;
+                    mAdapter = new MeetingAdapter(getApplicationContext(), filteredList);
+
                 }
 
-            });
+                mRecyclerView.setAdapter(mAdapter);
+
+                return false;
+            }
+
+        });
 
 
-            MenuItem menuDate = menu.findItem(R.id.menu_date);
+        MenuItem menuDate = menu.findItem(R.id.menu_date);
 
-            menuDate.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
+        menuDate.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
 
-                    Log.i("THOMAS", "menu date cliqué");
+                Log.i("THOMAS", "menu date cliqué");
 
-                    setupDatePicker();
+                setupDatePicker();
 
 
-                    return false;
-                }
-            });
+                return false;
+            }
+        });
 
-            return true;
-        }
-
+        return true;
+    }
 
 
     private List<Meeting> filter(List<Meeting> models, String query) {

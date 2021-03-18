@@ -33,7 +33,10 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
     private RecyclerView.AdapterDataObserver mObserver = new RecyclerView.AdapterDataObserver() {
         @Override
         public void onChanged() {
-            super.onChanged();
+           super.onChanged();
+           Log.i("THOMAS","ddddd");
+
+
         }
 
         @Override
@@ -60,7 +63,11 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
         public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
             super.onItemRangeMoved(fromPosition, toPosition, itemCount);
         }
-    }
+    };
+
+    //----------------------------------------------------------------------------------------------
+
+
     private List<Meeting> mListMeeting = null;
     private LayoutInflater mInflater;
     List<Meeting> list;
