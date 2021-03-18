@@ -5,7 +5,17 @@ public class MeetingRoom {
     private String mRoomName;
     private String mRoomPosition;
     private int mMaxCollaborator;
-    private String mColor;
+
+    public MeetingRoom(int mId, String mRoomName, String mRoomPosition, int mMaxCollaborator) {
+        this.mId = mId;
+        this.mRoomName = mRoomName;
+        this.mRoomPosition = mRoomPosition;
+        this.mMaxCollaborator = mMaxCollaborator;
+    }
+
+    public String getmRoomName() {
+        return mRoomName;
+    }
 
     public int getmId() {
         return mId;
@@ -13,20 +23,6 @@ public class MeetingRoom {
 
     public void setmId(int mId) {
         this.mId = mId;
-    }
-
-    public MeetingRoom(int mId, String mRoomName, String mRoomPosition, int mMaxCollaborator)
-    {
-        this.mId = mId;
-        this.mRoomName = mRoomName;
-        this.mRoomPosition = mRoomPosition;
-        this.mMaxCollaborator = mMaxCollaborator;
-        //this.mColor = mColor;
-    }
-
-
-    public String getmRoomName() {
-        return mRoomName;
     }
 
     public void setmRoomName(String mRoomName) {

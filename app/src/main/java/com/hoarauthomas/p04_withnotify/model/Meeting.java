@@ -1,7 +1,6 @@
 package com.hoarauthomas.p04_withnotify.model;
 
-public class Meeting
-{
+public class Meeting {
     private String mSubject;
     private String mPosition;
     private String mDate;
@@ -9,18 +8,12 @@ public class Meeting
     private String mEndTime;
     private String mParticipants;
 
-
-
-
-    public Meeting(String mSubject, String mPosition,  String mDate, String mStartTime, String mParticipants) {
+    public Meeting(String mSubject, String mPosition, String mDate, String mStartTime, String mParticipants) {
         this.mSubject = mSubject;
         this.mPosition = mPosition;
-
         this.mStartTime = mStartTime;
-        //this.mStartTimeDate = mStartTimeDate;
         this.mDate = mDate;
         this.mParticipants = mParticipants;
-
     }
 
     public String getmSubject() {
@@ -70,9 +63,5 @@ public class Meeting
     public void setmDate(String mDate) {
         this.mDate = mDate;
     }
-
-
-
-
 
 }
