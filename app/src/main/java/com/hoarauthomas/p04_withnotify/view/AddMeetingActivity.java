@@ -1,8 +1,5 @@
 package com.hoarauthomas.p04_withnotify.view;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -16,6 +13,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -35,25 +34,18 @@ import java.util.List;
 
 public class AddMeetingActivity extends AppCompatActivity {
 
-    //For DatePickerDialog
     private DatePickerDialog mDatePicker;
     private TimePickerDialog mTimePicker;
-    private int mYear, mMonth, mDay, mHour, mMinutes;
     private ChipGroup mChipGroup;
-
+    private Button mBtnValidate;
+    private TextInputEditText mEditDate, mEditTime, mEditSubject;
+    private AutoCompleteTextView mRooms, mEmails;
     MeetingApiService service;
 
-    Button mBtnValidate;
-    TextInputEditText mEditDate,mEditTime, mEditSubject;
-    AutoCompleteTextView mRooms, mEmails;
 
+    private int mYear, mMonth, mDay, mHour, mMinutes;
 
-    private Listener callback;
-    public interface Listener
-    {
-        void onAddMeeting(int position);
-    }
-
+    //**********************************************************************************************
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,87 +71,73 @@ public class AddMeetingActivity extends AppCompatActivity {
         setupDataRooms();
         setupDataParticipants();
 
-        mBtnValidate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setupBtnValidate();
-                finish();
-            }
+        mBtnValidate.setOnClickListener(v -> {
+            setupBtnValidate();
+            finish();
         });
+
     }
 
-    private void setupBtnValidate()
-    {
-        String participant ="";
+    private void setupBtnValidate() {
+        String participant = "";
 
-        for (int i=0;i < mChipGroup.getChildCount(); i++)
-        {
-            Chip chip = (Chip)mChipGroup.getChildAt(i);
+        for (int i = 0; i < mChipGroup.getChildCount(); i++) {
+            Chip chip = (Chip) mChipGroup.getChildAt(i);
 
-            if (participant.length() != 0 )
-            {
+            if (participant.length() != 0) {
                 participant += ";" + chip.getText();
-            }
-            else
-            {
+            } else {
                 participant += chip.getText();
             }
 
         }
 
-        service.addMeeting(new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(),mEditDate.getText().toString(),mEditTime.getText().toString(), participant));
+        service.addMeeting(new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(), mEditDate.getText().toString(), mEditTime.getText().toString(), participant));
         Log.i("THOMAS", "Taille liste api " + service.getMeetings().size());
         String message = "reponse de la 2";
         Intent intent = new Intent();
         intent.putExtra("MESSAGE", message);
-        setResult(1,intent);
-        finish();
+        setResult(1, intent);
+        //finish();
     }
 
     //**********************************************************************************************
-    private void addNewChipParticipant(String name)
-    {
+    private void addNewChipParticipant(String name) {
         LayoutInflater inflater = LayoutInflater.from(this);
 
-        Chip newChip = (Chip)inflater.inflate(R.layout.chip_participant,this.mChipGroup,false);
+        Chip newChip = (Chip) inflater.inflate(R.layout.chip_participant, this.mChipGroup, false);
         newChip.setText(name);
 
         this.mChipGroup.addView(newChip);
 
-        newChip.setOnCloseIconClickListener(new View.OnClickListener()
-        {
+        newChip.setOnCloseIconClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 handleChipCloseIconClicked((Chip) v);
             }
         });
     }
 
 
-
-
-    private void handleChipCloseIconClicked(Chip chip)
-    {
+    private void handleChipCloseIconClicked(Chip chip) {
         mChipGroup.removeView(chip);
     }
 
-    private void handleChipCheckChanged(Chip chip, boolean isChecked)   {    }
+    private void handleChipCheckChanged(Chip chip, boolean isChecked) {
+    }
 
     //**********************************************************************************************
 
-    private void setupClickDate()
-    {
-         mEditDate.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 mDatePicker.show();
-             }
-         });
+    private void setupClickDate() {
+        mEditDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDatePicker.show();
+            }
+        });
     }
 
-    private void setupClickTime()
-    {
+    private void setupClickTime() {
         mEditTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -169,69 +147,52 @@ public class AddMeetingActivity extends AppCompatActivity {
     }
 
 
+    private void setupDatePicker() {
 
-    private void setupDatePicker()
-    {
-
-
-        //mEditDate.setEnabled(false);
         final Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
 
-        mDatePicker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener()
-        {
+        mDatePicker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth)
-            {
-                //viewBinding.viewEditDate2.setText(dayOfMonth+"/"+month +"/" + year);
-                mEditDate.setText(LocalDate.of(year,(month+1),dayOfMonth).toString());
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                mEditDate.setText(LocalDate.of(year, (month + 1), dayOfMonth).toString());
             }
 
-        },mYear, mMonth, mDay     );
+        }, mYear, mMonth, mDay);
     }
 
-    private void setupTimePicker()
-    {
-        //mEditDate.setEnabled(false);
-
+    private void setupTimePicker() {
         mHour = java.time.LocalTime.now().getHour();
         mMinutes = java.time.LocalTime.now().getMinute();
 
-        mTimePicker = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener()
-        {
+        mTimePicker = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute)
-            {
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 mEditTime.setText(hourOfDay + ":" + minute);
-                //viewBinding.viewEditTimeend.setText(hourOfDay+":"+minute);
+
             }
         }, mHour, mMinutes, false);
     }
 
-    private void setupDataRooms()
-    {
+    private void setupDataRooms() {
         List<String> rooms = new ArrayList<>();
 
-        for (MeetingRoom item: service.getMeetingsRooms())
-        {
-            rooms.add(item.getmRoomName().toString());
+        for (MeetingRoom item : service.getMeetingsRooms()) {
+            rooms.add(item.getmRoomName());
         }
 
         Collections.sort(rooms);
-
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, rooms);
         mRooms.setAdapter(adapter);
     }
 
-    private void setupDataParticipants()
-    {
+    private void setupDataParticipants() {
         List<String> emails = new ArrayList<>();
 
-        for (Collaborator item: service.getCollaborators())
-        {
-            emails.add(item.getmEmail().toString());
+        for (Collaborator item : service.getCollaborators()) {
+            emails.add(item.getmEmail());
         }
 
         Collections.sort(emails);
@@ -260,8 +221,6 @@ public class AddMeetingActivity extends AppCompatActivity {
         });
 
         */
-
-
 
 
     }

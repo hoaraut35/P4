@@ -18,7 +18,7 @@ import com.hoarauthomas.p04_withnotify.view.AddMeetingActivity;
 
 import java.util.List;
 
-public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordViewHolder> implements AddMeetingActivity.Listener {
+public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordViewHolder>  {
 
     private List<Meeting> mListMeeting;
     private LayoutInflater mInflater;
@@ -100,11 +100,6 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
     @Override
     public int getItemCount() {
         return mListMeeting.size();
-    }
-
-    @Override
-    public void onAddMeeting(int position) {
-        Log.i("THOMAS", "callback add");
     }
 
     class WordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

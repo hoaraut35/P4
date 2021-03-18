@@ -4,11 +4,7 @@ import com.hoarauthomas.p04_withnotify.api.FakeGenerator;
 import com.hoarauthomas.p04_withnotify.api.MeetingApiService;
 import com.hoarauthomas.p04_withnotify.di.DI;
 import com.hoarauthomas.p04_withnotify.model.Meeting;
-import com.hoarauthomas.p04_withnotify.repository.MeetingRepository;
 
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.collection.IsIterableContainingInAnyOrder;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
