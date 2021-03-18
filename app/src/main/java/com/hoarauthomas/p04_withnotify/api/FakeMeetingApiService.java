@@ -31,8 +31,6 @@ public class FakeMeetingApiService implements MeetingApiService {
     @Override
     public List<Meeting> getMeetings()
     {
-
-//        Log.i("THOMAS","[FakeMeetingApiService] récupération réunion(s) " + meetingsList.size() );
        // firstBoot();
         return meetingsList;
     }
