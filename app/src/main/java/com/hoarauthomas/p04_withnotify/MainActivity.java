@@ -76,9 +76,8 @@ public class MainActivity extends AppCompatActivity {
         mFloatingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int wordListSize = mWordList.size();
+//                int wordListSize = mWordList.size();
 
-               // service.getMeetings().add(new Meeting(FakeGenerator.FakeMeeting.get()"Réuniontest", "test", "2021/03/01", "", "test"));
                 service.getMeetings().add(FakeGenerator.FakeMeeting.get(new Random().nextInt(FakeGenerator.FakeMeeting.size())));
 
 
