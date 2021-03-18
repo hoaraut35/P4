@@ -13,6 +13,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -40,12 +41,8 @@ public class AddMeetingActivity extends AppCompatActivity {
     private Button mBtnValidate;
     private TextInputEditText mEditDate, mEditTime, mEditSubject;
     private AutoCompleteTextView mRooms, mEmails;
+
     MeetingApiService service;
-
-
-    private int mYear, mMonth, mDay, mHour, mMinutes;
-
-    //**********************************************************************************************
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,14 +68,14 @@ public class AddMeetingActivity extends AppCompatActivity {
         setupDataRooms();
         setupDataParticipants();
         setupClickValidate();
-
     }
 
-    private void setupClickValidate()
-    {
+    //**********************************************************************************************
+
+    private void setupClickValidate() {
         mBtnValidate.setOnClickListener(v -> {
             setupBtnValidate();
-            finish();
+
         });
     }
 
@@ -96,8 +93,13 @@ public class AddMeetingActivity extends AppCompatActivity {
 
         }
 
-        service.addMeeting(new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(), mEditDate.getText().toString(), mEditTime.getText().toString(), participant));
-        Log.i("THOMAS", "Taille liste api " + service.getMeetings().size());
+
+
+
+            service.addMeeting(new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(), mEditDate.getText().toString(), mEditTime.getText().toString(), participant));
+            finish();
+
+
         String message = "reponse de la 2";
         Intent intent = new Intent();
         intent.putExtra("MESSAGE", message);
@@ -114,12 +116,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
         this.mChipGroup.addView(newChip);
 
-        newChip.setOnCloseIconClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handleChipCloseIconClicked((Chip) v);
-            }
-        });
+        newChip.setOnCloseIconClickListener(v -> handleChipCloseIconClicked((Chip) v));
     }
 
 
@@ -133,30 +130,20 @@ public class AddMeetingActivity extends AppCompatActivity {
     //**********************************************************************************************
 
     private void setupClickDate() {
-        mEditDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mDatePicker.show();
-            }
-        });
+        mEditDate.setOnClickListener(v -> mDatePicker.show());
     }
 
     private void setupClickTime() {
-        mEditTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mTimePicker.show();
-            }
-        });
+        mEditTime.setOnClickListener(v -> mTimePicker.show());
     }
 
 
     private void setupDatePicker() {
 
         final Calendar c = Calendar.getInstance();
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
+        int mYear = c.get(Calendar.YEAR);
+        int mMonth = c.get(Calendar.MONTH);
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
 
         mDatePicker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -168,8 +155,8 @@ public class AddMeetingActivity extends AppCompatActivity {
     }
 
     private void setupTimePicker() {
-        mHour = java.time.LocalTime.now().getHour();
-        mMinutes = java.time.LocalTime.now().getMinute();
+        int mHour = java.time.LocalTime.now().getHour();
+        int mMinutes = java.time.LocalTime.now().getMinute();
 
         mTimePicker = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override

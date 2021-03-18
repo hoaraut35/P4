@@ -5,6 +5,7 @@ public class MeetingRoom {
     private String mRoomName;
     private String mRoomPosition;
     private int mMaxCollaborator;
+    private
 
     public MeetingRoom(int mId, String mRoomName, String mRoomPosition, int mMaxCollaborator) {
         this.mId = mId;
