@@ -7,9 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.hoarauthomas.p04_withnotify.R;
 import com.hoarauthomas.p04_withnotify.model.Meeting;
 import com.hoarauthomas.p04_withnotify.view.AddMeetingActivity;
@@ -26,6 +28,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
 
     public interface Listener {
         void onClickDelete(int position, Meeting meetingToDel);
+
         void onUpdateList(List<Meeting> meets);
 
     }

@@ -5,6 +5,7 @@ import android.util.Log;
 import com.hoarauthomas.p04_withnotify.model.Collaborator;
 import com.hoarauthomas.p04_withnotify.model.Meeting;
 import com.hoarauthomas.p04_withnotify.model.MeetingRoom;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
