@@ -23,20 +23,23 @@ public class ExampleUnitTest
 {
 
     private MeetingApiService service;
+    private int nbToDel;
 
     @Before
     public void setup()
     {
         service = DI.getMeetingApiService();
+        service.getMeetings().addAll(FakeGenerator.FakeMeeting);
     }
 
 
+    //check if the service retrieves the list of meetings
     @Test
     public void getMeetingWithSuccess()
     {
         List<Meeting> meetingActual = service.getMeetings();
         List<Meeting> expectedMeeting = FakeGenerator.FakeMeeting;
-        assertEquals(service.getMeetings().size(),expectedMeeting.size());
+        assertEquals(expectedMeeting.size(),meetingActual.size());
     }
 
     @Test
@@ -53,7 +56,7 @@ public class ExampleUnitTest
     {
         int compteur = service.getMeetings().size();
         Meeting myMeetingToAdd = service.getMeetings().get(0);
-        service.getMeetings().add(myMeetingToAdd);
+        service.addMeeting(myMeetingToAdd);
         assertEquals(compteur +1 , service.getMeetings().size());
     }
 
