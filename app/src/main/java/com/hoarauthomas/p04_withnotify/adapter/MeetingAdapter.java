@@ -2,6 +2,7 @@ package com.hoarauthomas.p04_withnotify.adapter;
 
 import android.content.Context;
 import android.net.sip.SipSession;
+import android.renderscript.Sampler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.disklrucache.DiskLruCache;
 import com.bumptech.glide.request.RequestOptions;
 import com.hoarauthomas.p04_withnotify.R;
 import com.hoarauthomas.p04_withnotify.api.MeetingApiService;
@@ -29,37 +31,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordViewHolder> implements AddMeetingActivity.Listener {
+
     private List<Meeting> mListMeeting = null;
-    private LayoutInflater mInflater;
-    List<Meeting> list;
     private List<Meeting> mCopyListMeeting;
 
     public MeetingApiService service;
+    private LayoutInflater mInflater;
+    List<Meeting> list;
 
     //----------------------------------------------------------------------------------------------
     private Listener callback;
 
     public interface Listener {
         void onClickDelete(int position, Meeting meetingToDel);
-
         void onUpdateList(List<Meeting> meets);
 
     }
     //----------------------------------------------------------------------------------------------
 
     public MeetingAdapter(Context context, List<Meeting> mListMeeting2) {
-        Log.i("THOMAS", "Constructeur adapteur : " + mListMeeting2.size());
         mInflater = LayoutInflater.from(context);
         this.mListMeeting = mListMeeting2;
-        //  this.mListMeeting = service.getMeetings();
         this.mCopyListMeeting = new ArrayList<Meeting>(mListMeeting2);
     }
-
-
-    //**********************************************************************************************
-
-
-    //**********************************************************************************************
 
     @NonNull
     @Override
@@ -113,16 +107,10 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
         holder.mStartTime.setText(mCurrent.getmStartTime() + " - ");
         holder.mPlace.setText(mCurrent.getmPosition());
         holder.mParticipants.setText(mCurrent.getmParticipants());
-        holder.mDeleteImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListMeeting.remove(position);
-                // service.getMeetings().remove(position);
-                notifyDataSetChanged();
-            }
+        holder.mDeleteImage.setOnClickListener(v -> {
+            mListMeeting.remove(position);
+            notifyDataSetChanged();
         });
-
-
     }
 
     @Override
@@ -134,7 +122,6 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
     public void onAddMeeting(int position) {
         Log.i("THOMAS", "callback add");
     }
-
 
     class WordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final TextView wordItemView;
@@ -161,15 +148,11 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
 
         @Override
         public void onClick(View v) {
-
             int mPosition = getLayoutPosition();
+            Log.i("THOMAS", "Position item cliqué : " + Integer.valueOf(mPosition));
 
-            // Meeting element = mListMeetingtemp.get(mPosition);
-
-
-            //mListMeeting.addAll(mPosition,)
-            // mListMeetings.set(mPosition, "Clicked! " + element);
-            mAdapter.notifyDataSetChanged();
         }
+
+
     }
 }
