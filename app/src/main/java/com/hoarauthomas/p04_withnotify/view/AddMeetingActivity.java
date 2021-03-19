@@ -27,10 +27,12 @@ import com.hoarauthomas.p04_withnotify.model.Collaborator;
 import com.hoarauthomas.p04_withnotify.model.Meeting;
 import com.hoarauthomas.p04_withnotify.model.MeetingRoom;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class AddMeetingActivity extends AppCompatActivity {
@@ -95,17 +97,6 @@ public class AddMeetingActivity extends AppCompatActivity {
 
 
 
-        for (Meeting meeting : service.getMeetings())
-        {
-
-            if (meeting.getmPosition().equals(mRooms.getText().toString()))
-            {
-                if (meeting.getmDate().equals(mEditDate.getEditableText().toString())) {
-
-                    Log.i("THOMAS", "Réunion présente le : " + meeting.getmDate() + "vérifier l'heure => " + mEditDate.getEditableText() + mEditTime.getEditableText());
-                }
-            }
-        }
 
 
         if(mEditSubject.getEditableText().toString().isEmpty())
