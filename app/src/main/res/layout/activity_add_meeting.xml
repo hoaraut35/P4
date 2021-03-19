@@ -38,6 +38,7 @@
         app:layout_constraintTop_toBottomOf="@id/til_subject"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/til_start_time"
+        android:focusable="false"
         app:startIconContentDescription="@string/add_subject"
 
         android:hint="Date">

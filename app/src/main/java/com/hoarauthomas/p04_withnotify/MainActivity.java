@@ -41,63 +41,52 @@ public class MainActivity extends AppCompatActivity {
     public MeetingAdapter mAdapter;
     public FloatingActionButton mFloatingBtn, mFloatingBtn2;
     private int mYear, mMonth, mDay;
-    public MeetingApiService service;
+
     private DatePickerDialog mDatePicker;
     private List<Meeting> spareMeetingList = new ArrayList<>();
     private String datefilter;
-
-
+    private List<Meeting> meetingsList = new ArrayList<>();
 
     //TODO: ? persistance
-    @Override
-    protected void onPostResume() {
+
+/*    protected void onPostResume() {
         super.onPostResume();
         Log.i("THOMAS"," OnResume...");
        // service.getMeetings().clear();
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        //TODO: persistance des données à supprimer
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
-
-        setupService();
         setupRecyclerView();
         setupFab2();
-
         //TODO: Fab for demo mode : add a random meeting
         setupFabForDemo(true);
 
     }
 
-
-
-
-    //TODO: à supprimer ? car les données sont stockée
-    public void setupService() {
-        service = DI.getMeetingApiService();
+    private List<Meeting> filterByRoom(String query) {
+        // Loop on meetingsList
+        return null;
     }
 
     public void setupRecyclerView() {
-        mAdapter = new MeetingAdapter(this, service.getMeetings());
+        mAdapter = new MeetingAdapter(this, meetingsList);
         mRecyclerView = findViewById(R.id.recyclerview);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     public void setupFabForDemo(Boolean setup) {
-
         mFloatingBtn = findViewById(R.id.floatingbtn);
+        mFloatingBtn.setVisibility(View.GONE);
 
         if (setup) {
-
             mFloatingBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    service.getMeetings().add(FakeGenerator.FakeMeeting.get(new Random().nextInt(FakeGenerator.FakeMeeting.size())));
+                    //service.getMeetings().add(FakeGenerator.FakeMeeting.get(new Random().nextInt(FakeGenerator.FakeMeeting.size())));
                     mRecyclerView.getAdapter().notifyDataSetChanged();
                 }
             });
@@ -128,11 +117,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 1) {
-            String message = data.getStringExtra("MESSAGE");
+        if (requestCode == 1 && data != null) {
             mRecyclerView.getAdapter().notifyDataSetChanged();
             Log.i("THOMAS","onActivityResult");
-
+            Meeting meeting = data.getParcelableExtra(AddMeetingActivity.MEETING_KEY);
+            meetingsList.add(meeting);
+            mAdapter.notifyDataSetChanged();
         }
     }
 
@@ -159,33 +149,23 @@ public class MainActivity extends AppCompatActivity {
                 List<Meeting> filteredList = new ArrayList<Meeting>();
 
                 if (newText == null || newText.length() == 0 || newText.isEmpty()) {
-                    mAdapter = new MeetingAdapter(MainActivity.this, service.getMeetings());
-
-
-
-
+                    //mAdapter = new MeetingAdapter(MainActivity.this, service.getMeetings());
                  //   mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
                 } else {
                     String filterPattern = newText.toString().toLowerCase().trim();
 
-                    for (Meeting item : service.getMeetings()) {
+                    /*for (Meeting item : service.getMeetings()) {
                         if (item.getmPosition().toLowerCase().contains(filterPattern)) {
                             Log.i("THOMAS", "retour" + item.getmPosition().toString());
                             filteredList.add(item);
 
                         }
 
-
-
                         //mAdapter = new MeetingAdapter(getApplicationContext(), filteredList);
                         //mAdapter.notifyDataSetChanged();
-
-                    }
-
-
+                    }*/
                     mAdapter = new MeetingAdapter(MainActivity.this, filteredList);
-
                 }
 
                 mRecyclerView.setAdapter(mAdapter);
@@ -227,18 +207,18 @@ public class MainActivity extends AppCompatActivity {
                 if (datefilter == null || datefilter.length() == 0 || datefilter.isEmpty()) {
                     Log.i("THOMAS", "Taille adapter : " + datefilter);
 
-                    mAdapter = new MeetingAdapter(MainActivity.this, service.getMeetings());
+                    mAdapter = new MeetingAdapter(MainActivity.this, meetingsList);
 
                 } else {
                     String filterPattern = datefilter.toLowerCase().trim();
 
-                    for (Meeting item2 : service.getMeetings()) {
+                    for (Meeting item2 : meetingsList) {
 
                         Log.i("THOMAS","Comparaison date => "+ item2.getmDate() + " " +  LocalDate.parse(filterPattern));
-                        if (item2.getmDate().isEqual(LocalDate.parse(filterPattern))) {
+                        /*if (item2.getmDate().isEqual(LocalDate.parse(filterPattern))) {
                             Log.i("THOMAS", "retour" + item2.getmPosition().toString());
                             filteredList.add(item2);
-                        }
+                        }*/
                     }
 
                     mAdapter = new MeetingAdapter(MainActivity.this, filteredList);
@@ -255,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Log.i("THOMAS", "test cancel");
-                mAdapter = new MeetingAdapter(MainActivity.this, service.getMeetings());
+                mAdapter = new MeetingAdapter(MainActivity.this, meetingsList);
                 mRecyclerView.setAdapter(mAdapter);
 
             }

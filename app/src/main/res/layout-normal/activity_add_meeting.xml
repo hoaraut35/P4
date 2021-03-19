@@ -33,6 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:hint="Date"
+        android:focusable="false"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/til_start_time"
         app:layout_constraintTop_toBottomOf="@id/til_subject"

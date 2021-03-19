@@ -46,17 +46,7 @@ public class FakeGenerator {
     }
 
     public static List<Meeting> FakeMeeting = Arrays.asList(
-            new Meeting("Réunion A", "Peach", LocalDate.parse("2021-03-01"), "14H00", "test1@gmail.Com;testz@gmail.Com"),
-            new Meeting("Réunion B", "Mario", LocalDate.parse("2021-03-02"), "11H00", "test2@gmail.Com"),
-            new Meeting("Réunion C", "Luigi", LocalDate.parse("2021-03-03"), "08H00", "test3@gmail.Com"),
-            new Meeting("Réunion D", "Toad", LocalDate.parse("2021-03-04"), "16H00", "test4@gmail.Com"),
-            new Meeting("Réunion E", "Yoshi", LocalDate.parse("2021-03-01"), "14H00", "test1@gmail.Com;test2@gmail.Com;test3@gmail.Com"),
-            new Meeting("Réunion F", "Peach", LocalDate.parse("2021-03-02"), "14H00", "test1@gmail.Com"),
-            new Meeting("Réunion G", "Mario", LocalDate.parse("2021-03-03"), "11H00", "test2@gmail.Com"),
-            new Meeting("Réunion H", "Luigi", LocalDate.parse("2021-03-05"), "08H00", "test3@gmail.Com"),
-            new Meeting("Réunion I", "Toad", LocalDate.parse("2021-03-04"), "16H00", "test4@gmail.Com"),
-            new Meeting("Réunion J", "Yoshi", LocalDate.parse("2021-03-06"), "14H00", "test1@gmail.Com"),
-            new Meeting("Réunion K", "Wario", LocalDate.now(), "16H00", "test5@gmail.Com")
+
 
     );
 

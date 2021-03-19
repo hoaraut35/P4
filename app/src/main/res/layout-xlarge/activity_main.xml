@@ -24,19 +24,17 @@
         android:layout_margin="30dp"
 
         tools:layout_editor_absoluteX="220dp"
-        tools:layout_editor_absoluteY="156dp"></com.google.android.material.floatingactionbutton.FloatingActionButton>
+        tools:layout_editor_absoluteY="156dp"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingbtn2"
         android:layout_margin="20dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_width="@dimen/size_fab"
-
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:src="@drawable/ic_baseline_add_circle_outline_24"
-        android:layout_height="@dimen/size_fab"
         app:layout_constraintBottom_toBottomOf="parent"
-
-        ></com.google.android.material.floatingactionbutton.FloatingActionButton>
+        />
 
 
     <TextView

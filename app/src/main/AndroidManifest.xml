@@ -13,9 +13,7 @@
 
         <activity
             android:name=".view.AddMeetingActivity"
-            android:parentActivityName=".MainActivity"
             >
-
 
         </activity>
 

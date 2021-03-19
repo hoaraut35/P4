@@ -3,6 +3,7 @@ package com.hoarauthomas.p04_withnotify.view;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.DatePicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.chip.Chip;
@@ -29,6 +31,7 @@ import com.hoarauthomas.p04_withnotify.model.MeetingRoom;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -36,6 +39,8 @@ import java.util.Date;
 import java.util.List;
 
 public class AddMeetingActivity extends AppCompatActivity {
+
+    public static final String MEETING_KEY = "MEETING_KEY";
 
     private DatePickerDialog mDatePicker;
     private TimePickerDialog mTimePicker;
@@ -81,6 +86,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void setupBtnValidate() {
         String participant = "";
 
@@ -96,29 +102,22 @@ public class AddMeetingActivity extends AppCompatActivity {
         }
 
 
-
-
-
-        if(mEditSubject.getEditableText().toString().isEmpty())
-        {
-
-        }
+        if(mEditSubject.getEditableText().toString().isEmpty()) { }
         else
         {
-
-
-
-            service.addMeeting(new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(), LocalDate.parse(mEditDate.getText().toString()), mEditTime.getText().toString(), participant));
-
-
-
-            String message = "reponse de la 2";
+            Meeting meeting = new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(), convertToDateViaInstant(LocalDate.parse(mEditDate.getText().toString())), mEditTime.getText().toString(), participant);
             Intent intent = new Intent();
-            intent.putExtra("MESSAGE", message);
+            intent.putExtra(MEETING_KEY, meeting);
             setResult(1, intent);
             finish();
         }
+    }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public Date convertToDateViaInstant(LocalDate dateToConvert) {
+        return java.util.Date.from(dateToConvert.atStartOfDay()
+                .atZone(ZoneId.systemDefault())
+                .toInstant());
     }
 
     //**********************************************************************************************
