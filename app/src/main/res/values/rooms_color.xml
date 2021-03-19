@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="col1">#F05545</color>
-    <color name="col2">#BC477B</color>
-    <color name="col3">#7c43BD</color>
-    <color name="col4">#428e92</color>
-    <color name="col5">#4c8c4a</color>
-    <color name="col6">#FFb04c</color>
-    <color name="col7">#ff833a</color>
-    <color name="col8">#c3fdff</color>
-    <color name="col9">#4f5b62</color>
-    <color name="col10">#ffffff</color>
-    <color name="col11">#ffffff</color>
+
+    <color name="Mario">#F05545</color>
+    <color name="Luigi">#BC477B</color>
+    <color name="Peach">#7c43BD</color>
+    <color name="Toad">#428e92</color>
+    <color name="Yoshi">#4c8c4a</color>
+    <color name="Bowser">#FFb04c</color>
+    <color name="Wario">#ff833a</color>
+    <color name="Waluigi">#c3fdff</color>
+    <color name="Bidosaure">#4f5b62</color>
+    <color name="Bero">#ffffff</color>
+
 </resources>

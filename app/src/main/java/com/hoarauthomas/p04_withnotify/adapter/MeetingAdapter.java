@@ -1,6 +1,7 @@
 package com.hoarauthomas.p04_withnotify.adapter;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.hoarauthomas.p04_withnotify.R;
 import com.hoarauthomas.p04_withnotify.model.Meeting;
 import com.hoarauthomas.p04_withnotify.view.AddMeetingActivity;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordViewHolder>  {
@@ -52,12 +54,32 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
 
         Meeting mCurrent = mListMeeting.get(position);
 
-      //  Log.i("THOMAS", "Salle en cours : " + mCurrent.getmPosition());
+        try
+        {
+            Field field = R.color.class.getDeclaredField(mCurrent.getmPosition());
+            field.setAccessible(true);
+            int idField = field.getInt(null);
+            holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), idField));
 
-        switch (mCurrent.getmPosition()) {
+            //Field field = R.color.class.getDeclaredField(mCurrent.getmPosition());
+            //field.getInt(null);
+            Log.i("THOMAS","Id ressource : " + idField);
+
+
+        }
+        catch (Exception e)
+        {
+            throw new Resources.NotFoundException(e.getMessage());
+        }
+
+
+
+
+      /*  switch (mCurrent.getmPosition()) {
             case "Peach":
                 Log.i("COLOR", "couleur col1");
                 //holder.mAvatar.getBackground().setTint(DrawableCompat.setTint(R.drawable.circular, R.color.col1));
+                holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.col2));
                 //ContextCompat.getColor(holder.itemView.getContext(), R.color.col1));
                 break;
             case "Toad":
@@ -100,7 +122,11 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
                 Log.i("COLOR", "couleur col11 default");
                 holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.col11));
 
+
+
         }
+
+       */
 
         holder.mNameView.setText(mCurrent.getmSubject() + " - ");
         holder.mStartTime.setText(mCurrent.getmStartTime() + " - ");
