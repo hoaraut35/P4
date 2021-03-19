@@ -1,14 +1,16 @@
 package com.hoarauthomas.p04_withnotify.model;
 
+import java.time.LocalDate;
+
 public class Meeting {
     private String mSubject;
     private String mPosition;
-    private String mDate;
+    private LocalDate mDate;
     private String mStartTime;
     private String mEndTime;
     private String mParticipants;
 
-    public Meeting(String mSubject, String mPosition, String mDate, String mStartTime, String mParticipants) {
+    public Meeting(String mSubject, String mPosition, LocalDate mDate, String mStartTime, String mParticipants) {
         this.mSubject = mSubject;
         this.mPosition = mPosition;
         this.mStartTime = mStartTime;
@@ -56,11 +58,11 @@ public class Meeting {
         this.mEndTime = mEndTime;
     }
 
-    public String getmDate() {
+    public LocalDate getmDate() {
         return mDate;
     }
 
-    public void setmDate(String mDate) {
+    public void setmDate(LocalDate mDate) {
         this.mDate = mDate;
     }
 

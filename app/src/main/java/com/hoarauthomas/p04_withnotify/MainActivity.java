@@ -230,10 +230,12 @@ public class MainActivity extends AppCompatActivity {
                     mAdapter = new MeetingAdapter(MainActivity.this, service.getMeetings());
 
                 } else {
-                    String filterPattern = datefilter.toString().toLowerCase().trim();
+                    String filterPattern = datefilter.toLowerCase().trim();
 
                     for (Meeting item2 : service.getMeetings()) {
-                        if (item2.getmDate().toLowerCase().contains(filterPattern)) {
+
+                        Log.i("THOMAS","Comparaison date => "+ item2.getmDate() + " " +  LocalDate.parse(filterPattern));
+                        if (item2.getmDate().isEqual(LocalDate.parse(filterPattern))) {
                             Log.i("THOMAS", "retour" + item2.getmPosition().toString());
                             filteredList.add(item2);
                         }

@@ -105,7 +105,12 @@ public class AddMeetingActivity extends AppCompatActivity {
         }
         else
         {
-            service.addMeeting(new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(), mEditDate.getText().toString(), mEditTime.getText().toString(), participant));
+
+
+
+            service.addMeeting(new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(), LocalDate.parse(mEditDate.getText().toString()), mEditTime.getText().toString(), participant));
+
+
 
             String message = "reponse de la 2";
             Intent intent = new Intent();

@@ -50,7 +50,6 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
 
         Meeting mCurrent = mListMeeting.get(position);
 
-        //get the ressource id to match the color to replace switch method
         try {
             Field field = R.color.class.getDeclaredField(mCurrent.getmPosition());
             field.setAccessible(true);
@@ -59,6 +58,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
         } catch (Exception e) {
             throw new Resources.NotFoundException(e.getMessage());
         }
+
 
         holder.mNameView.setText(mCurrent.getmSubject() + " - ");
         holder.mStartTime.setText(mCurrent.getmStartTime() + " - ");
@@ -75,6 +75,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
     public int getItemCount() {return mListMeeting.size();}
 
     class WordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
         public final TextView wordItemView;
         final MeetingAdapter mAdapter;
         public ImageView mAvatar;
@@ -86,7 +87,9 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
 
         public WordViewHolder(@NonNull View itemView, MeetingAdapter adapter) {
             super(itemView);
+
             wordItemView = itemView.findViewById(R.id.view_name_meeting);
+
             mNameView = itemView.findViewById(R.id.view_name_meeting);
             mStartTime = itemView.findViewById(R.id.view_start_time_meeting);
             mAvatar = itemView.findViewById(R.id.view_image_meeting);
