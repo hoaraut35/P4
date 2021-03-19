@@ -6,29 +6,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.hoarauthomas.p04_withnotify.MainActivity;
 import com.hoarauthomas.p04_withnotify.R;
 import com.hoarauthomas.p04_withnotify.model.Meeting;
-import com.hoarauthomas.p04_withnotify.view.AddMeetingActivity;
-
 import java.lang.reflect.Field;
 import java.util.List;
 
-public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordViewHolder>  {
+public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordViewHolder> {
 
     private List<Meeting> mListMeeting;
     private LayoutInflater mInflater;
-
 
     //----------------------------------------------------------------------------------------------
     private Listener callback;
@@ -47,8 +38,6 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
     }
 
 
-
-
     @NonNull
     @Override
     public MeetingAdapter.WordViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -61,15 +50,13 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
 
         Meeting mCurrent = mListMeeting.get(position);
 
-        try
-        {
+        //get the ressource id to match the color to replace switch method
+        try {
             Field field = R.color.class.getDeclaredField(mCurrent.getmPosition());
             field.setAccessible(true);
             int idField = field.getInt(null);
             holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), idField));
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             throw new Resources.NotFoundException(e.getMessage());
         }
 
@@ -85,13 +72,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
     }
 
     @Override
-    public int getItemCount() {
-
-
-
-
-        return mListMeeting.size();
-    }
+    public int getItemCount() {return mListMeeting.size();}
 
     class WordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final TextView wordItemView;
