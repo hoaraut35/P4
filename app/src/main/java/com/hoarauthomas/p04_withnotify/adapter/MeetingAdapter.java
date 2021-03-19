@@ -57,15 +57,9 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
         try
         {
             Field field = R.color.class.getDeclaredField(mCurrent.getmPosition());
-            field.setAccessible(true);
+            //field.setAccessible(true);
             int idField = field.getInt(null);
             holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), idField));
-
-            //Field field = R.color.class.getDeclaredField(mCurrent.getmPosition());
-            //field.getInt(null);
-            Log.i("THOMAS","Id ressource : " + idField);
-
-
         }
         catch (Exception e)
         {
