@@ -21,22 +21,10 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
     private List<Meeting> mListMeeting;
     private LayoutInflater mInflater;
 
-    //----------------------------------------------------------------------------------------------
-    private Listener callback;
-
-    public interface Listener {
-        void onClickDelete(int position, Meeting meetingToDel);
-
-        void onUpdateList(List<Meeting> meets);
-
-    }
-    //----------------------------------------------------------------------------------------------
-
     public MeetingAdapter(Context context, List<Meeting> mListMeeting2) {
         mInflater = LayoutInflater.from(context);
         this.mListMeeting = mListMeeting2;
     }
-
 
     @NonNull
     @Override
@@ -59,7 +47,6 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
             throw new Resources.NotFoundException(e.getMessage());
         }
 
-
         holder.mNameView.setText(mCurrent.getmSubject() + " - ");
         holder.mStartTime.setText(mCurrent.getmStartTime() + " - ");
         holder.mPlace.setText(mCurrent.getmPosition());
@@ -68,7 +55,6 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
             mListMeeting.remove(position);
             notifyDataSetChanged();
         });
-
     }
 
     @Override
@@ -89,7 +75,6 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
             super(itemView);
 
             wordItemView = itemView.findViewById(R.id.view_name_meeting);
-
             mNameView = itemView.findViewById(R.id.view_name_meeting);
             mStartTime = itemView.findViewById(R.id.view_start_time_meeting);
             mAvatar = itemView.findViewById(R.id.view_image_meeting);
@@ -104,8 +89,6 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
         public void onClick(View v) {
             int mPosition = getLayoutPosition();
             Log.i("THOMAS", "Position item cliqué : " + Integer.valueOf(mPosition));
-
         }
-
     }
 }

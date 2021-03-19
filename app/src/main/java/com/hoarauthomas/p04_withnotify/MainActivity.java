@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-    private final LinkedList<String> mWordList = new LinkedList<>();
+
     public RecyclerView mRecyclerView;
     public MeetingAdapter mAdapter;
     public FloatingActionButton mFloatingBtn, mFloatingBtn2;
@@ -46,14 +46,6 @@ public class MainActivity extends AppCompatActivity {
     private List<Meeting> spareMeetingList = new ArrayList<>();
     private String datefilter;
     private List<Meeting> meetingsList = new ArrayList<>();
-
-    //TODO: ? persistance
-
-/*    protected void onPostResume() {
-        super.onPostResume();
-        Log.i("THOMAS"," OnResume...");
-       // service.getMeetings().clear();
-    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
