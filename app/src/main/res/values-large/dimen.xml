@@ -9,12 +9,5 @@
         <!-- Images -->
         <dimen name="size_image_height">30dip</dimen>
         <dimen name="size_image_width">30dip</dimen>
-
-
-
-        <!-- Subject view  -->
-        <dimen name="size_text_subject">8sp</dimen>
-
-
-</resources>
+    </resources>
 

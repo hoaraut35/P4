@@ -134,6 +134,13 @@ app:startIconDrawable="@drawable/ic_baseline_account_circle_24"
         app:layout_constraintRight_toRightOf="parent"
         android:text="Valider"
         ></Button>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/btn_valid"
+        android:text="activitymeeting.xml (large mode)"
+        android:gravity="center"
+        ></TextView>
 
 
 

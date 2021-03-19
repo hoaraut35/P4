@@ -7,135 +7,135 @@
     tools:context=".view.AddMeetingActivity">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_margin="16dp"
         android:id="@+id/til_subject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="16dp"
+        android:padding="2dp"
+        android:hint="Sujet"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-
-        android:hint="Sujet">
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/subject_text"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"/>
+            android:layout_width="match_parent"
+            android:textSize="@dimen/size_text_subject"
+            android:layout_height="wrap_content" />
 
 
     </com.google.android.material.textfield.TextInputLayout>
 
 
-
-
     <com.google.android.material.textfield.TextInputLayout
-       android:layout_margin="16dp"
         android:id="@+id/til_start_date"
         android:layout_width="0dp"
-            app:startIconDrawable="@drawable/ic_baseline_calendar_today_24"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/til_subject"
+        android:layout_margin="16dp"
+        android:hint="Date"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/til_start_time"
+        app:layout_constraintTop_toBottomOf="@id/til_subject"
         app:startIconContentDescription="@string/add_subject"
 
-        android:hint="Date">
+        app:startIconDrawable="@drawable/ic_baseline_calendar_today_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tiet_start_date"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
 
 
-            android:layout_width="match_parent"/>
+            android:layout_height="wrap_content" />
 
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_margin="16dp"
         android:id="@+id/til_start_time"
         android:layout_width="0dp"
-app:startIconDrawable="@drawable/ic_baseline_access_time_24"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/til_subject"
+        android:layout_margin="16dp"
+        android:hint="Time"
         app:layout_constraintLeft_toRightOf="@id/til_start_date"
         app:layout_constraintRight_toRightOf="parent"
-        android:hint="Time">
+        app:layout_constraintTop_toBottomOf="@id/til_subject"
+        app:startIconDrawable="@drawable/ic_baseline_access_time_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tiet_start_time"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
 
     </com.google.android.material.textfield.TextInputLayout>
-
 
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/view_locations"
-        android:layout_margin="16dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-        app:layout_constraintTop_toBottomOf="@id/til_start_time"
-app:startIconDrawable="@drawable/ic_baseline_meeting_room_24"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="Salle">
+        android:layout_margin="16dp"
+        android:hint="Salle"
+        app:layout_constraintTop_toBottomOf="@id/til_start_time"
+        app:startIconDrawable="@drawable/ic_baseline_meeting_room_24">
 
         <AutoCompleteTextView
             android:id="@+id/list_location"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="none"/>
+            android:inputType="none" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/view_participants"
-        android:layout_margin="16dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-        app:layout_constraintTop_toBottomOf="@id/view_locations"
-app:startIconDrawable="@drawable/ic_baseline_account_circle_24"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="Participant(s)">
+        android:layout_margin="16dp"
+        android:hint="Participant(s)"
+        app:layout_constraintTop_toBottomOf="@id/view_locations"
+        app:startIconDrawable="@drawable/ic_baseline_account_circle_24">
 
         <AutoCompleteTextView
             android:id="@+id/list_participants"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="none"/>
+            android:inputType="none" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.chip.ChipGroup
-        android:layout_margin="16dp"
         android:id="@+id/group_participants"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/view_participants"
+        android:layout_margin="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_participants"
 
         >
 
     </com.google.android.material.chip.ChipGroup>
 
 
-
     <Button
         android:id="@+id/btn_valid"
+        style="?attr/materialButtonOutlinedStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Valider"
         app:icon="@drawable/ic_baseline_insert_drive_file_24"
-        style="?attr/materialButtonOutlinedStyle"
-        app:layout_constraintTop_toBottomOf="@id/group_participants"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="Valider"
-        ></Button>
+        app:layout_constraintTop_toBottomOf="@id/group_participants"></Button>
 
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="activitymeeting.xml (normal)"
+        app:layout_constraintTop_toBottomOf="@+id/btn_valid"></TextView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,7 +12,7 @@
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/infoxml"
         android:layout_height="0dp">
 
     </androidx.recyclerview.widget.RecyclerView>
@@ -22,7 +22,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
-
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="220dp"
         tools:layout_editor_absoluteY="156dp"></com.google.android.material.floatingactionbutton.FloatingActionButton>
 
@@ -38,4 +39,16 @@
 
         ></com.google.android.material.floatingactionbutton.FloatingActionButton>
 
+    <TextView
+        android:id="@+id/infoxml"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/recyclerview"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+           app:layout_constraintRight_toRightOf="parent"
+        android:text="mode large xml"
+        >
+
+    </TextView>
 </androidx.constraintlayout.widget.ConstraintLayout>

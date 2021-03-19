@@ -18,3 +18,6 @@ Pour commencer à travailler sur ce projet, suivez les étapes ci-dessous.
 3. - Démarrer Android Studio
 4. - Cliquer sur Open Project
 5. - Ouvrir le projet depuis de le dossier sélectionné à l'étape 2
+
+
+
