@@ -20,7 +20,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/subject_text"
             android:layout_width="match_parent"
-            android:textSize="@dimen/size_text_subject"
+            android:textSize="@dimen/size_text_addmeeting_activity"
             android:layout_height="wrap_content" />
 
 
@@ -43,6 +43,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tiet_start_date"
             android:layout_width="match_parent"
+            android:textSize="@dimen/size_text_addmeeting_activity"
 
 
             android:layout_height="wrap_content" />
@@ -64,6 +65,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tiet_start_time"
             android:layout_width="match_parent"
+            android:textSize="@dimen/size_text_addmeeting_activity"
+
             android:layout_height="wrap_content" />
 
 
@@ -83,6 +86,8 @@
         <AutoCompleteTextView
             android:id="@+id/list_location"
             android:layout_width="match_parent"
+            android:textSize="@dimen/size_text_addmeeting_activity"
+
             android:layout_height="match_parent"
             android:inputType="none" />
 
