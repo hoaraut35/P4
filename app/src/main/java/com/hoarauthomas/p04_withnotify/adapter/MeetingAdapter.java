@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hoarauthomas.p04_withnotify.R;
@@ -48,31 +49,43 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
 
     @Override
     public void onBindViewHolder(@NonNull MeetingAdapter.WordViewHolder holder, int position) {
+
         Meeting mCurrent = mListMeeting.get(position);
+
+      //  Log.i("THOMAS", "Salle en cours : " + mCurrent.getmPosition());
 
         switch (mCurrent.getmPosition()) {
             case "Peach":
-                holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.col1));
+                Log.i("COLOR", "couleur col1");
+                //holder.mAvatar.getBackground().setTint(DrawableCompat.setTint(R.drawable.circular, R.color.col1));
+                //ContextCompat.getColor(holder.itemView.getContext(), R.color.col1));
                 break;
             case "Toad":
+                Log.i("COLOR", "couleur col2");
                 holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.col2));
                 break;
             case "Yoshi":
+                Log.i("COLOR", "couleur col3");
                 holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.col3));
                 break;
             case "Bowser":
+                Log.i("COLOR", "couleur col4");
                 holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.col4));
                 break;
             case "Wario":
+                Log.i("COLOR", "couleur col5");
                 holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.col5));
                 break;
             case "Waluigi":
+                Log.i("COLOR", "couleur col6");
                 holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.col6));
                 break;
             case "Bidosaure":
+                Log.i("COLOR", "couleur col7");
                 holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.col7));
                 break;
             case "Bero":
+                Log.i("COLOR", "couleur col8");
                 holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.col8));
                 break;
             case "Mario":
@@ -80,10 +93,12 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
                 holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.col9));
                 break;
             case "Xmen":
+                Log.i("COLOR", "couleur col10");
                 holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.col10));
                 break;
             default:
-                holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.col1));
+                Log.i("COLOR", "couleur col11 default");
+                holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.col11));
 
         }
 
@@ -95,6 +110,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
             mListMeeting.remove(position);
             notifyDataSetChanged();
         });
+
     }
 
     @Override
