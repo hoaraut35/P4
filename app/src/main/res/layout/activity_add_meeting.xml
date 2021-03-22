@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".view.AddMeetingActivity">
 
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+
+
+
     <com.google.android.material.textfield.TextInputLayout
         android:layout_margin="16dp"
         android:id="@+id/til_subject"

@@ -17,6 +17,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -72,6 +74,8 @@ public class AddMeetingActivity extends AppCompatActivity {
 
      //   getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         setupDatePicker();
         setupTimePicker();
