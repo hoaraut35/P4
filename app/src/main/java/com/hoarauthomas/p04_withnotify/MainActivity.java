@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 1 && data != null) {
-            myRecyclerView.getAdapter().notifyDataSetChanged();
+           // myRecyclerView.getAdapter().notifyDataSetChanged();
             Meeting meeting = data.getParcelableExtra(AddMeetingActivity.MEETING_KEY);
             meetingsList.add(meeting);
             myAdapter.notifyDataSetChanged();
@@ -91,20 +91,25 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
 
-                List<Meeting> filteredList = new ArrayList<Meeting>();
+
+
+                List<Meeting> filteredList = new ArrayList<>();
 
 
                 if (newText == null || newText.length() == 0 || newText.isEmpty()) {
 
                     filteredList.addAll(meetingsList);
-                   // myAdapter = new MeetingAdapter(MainActivity.this, meetingsList);
-                    //myRecyclerView.getAdapter().notifyDataSetChanged();
+                     myAdapter = new MeetingAdapter(MainActivity.this, meetingsList);
+                     myRecyclerView.setAdapter(myAdapter);
+                     myRecyclerView.getAdapter().notifyDataSetChanged();
 
                 } else {
 
+
                     String filterPattern = newText.toLowerCase().trim();
 
-                    for (Meeting item : meetingsList) {
+                    for (Meeting item : meetingsList)
+                    {
 
                         if (item.getmPosition().toLowerCase().contains(filterPattern)) {
                             Log.i("THOMAS", "retour" + item.getmPosition().toString());
@@ -112,17 +117,14 @@ public class MainActivity extends AppCompatActivity {
 
                         }
 
-
                     }
-                    //meetingsList.clear();
+
+                    myAdapter = new MeetingAdapter(MainActivity.this, filteredList);
+                    myRecyclerView.setAdapter(myAdapter);
+                    myRecyclerView.getAdapter().notifyDataSetChanged();
+
 
                 }
-
-                meetingsList.clear();
-                meetingsList.addAll(filteredList);
-
-                myAdapter.notifyDataSetChanged();
-                myRecyclerView.getAdapter().notifyDataSetChanged();
 
                 return false;
             }
