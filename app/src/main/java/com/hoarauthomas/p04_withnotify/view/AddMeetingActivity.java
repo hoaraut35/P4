@@ -50,7 +50,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     private DatePickerDialog mDatePicker;
     private TimePickerDialog mTimePicker;
     private ChipGroup mChipGroup;
-    private Button mBtnValidate;
+    private Button mBtnValidate, mBtnCancel;
     private EditText mEditDate;
     private TextInputEditText mEditTime, mEditSubject;
     private AutoCompleteTextView mRooms, mEmails;
@@ -68,14 +68,14 @@ public class AddMeetingActivity extends AppCompatActivity {
         mEmails = findViewById(R.id.list_participants);
         mChipGroup = findViewById(R.id.group_participants);
         mBtnValidate = findViewById(R.id.btn_valid);
+        mBtnCancel = findViewById(R.id.btn_cancel);
         mEditSubject = findViewById(R.id.subject_text);
 
         service = DI.getMeetingApiService();
 
-     //   getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setOnClickListener(v -> finish());
 
         setupDatePicker();
         setupTimePicker();
@@ -84,7 +84,17 @@ public class AddMeetingActivity extends AppCompatActivity {
         setupDataRooms();
         setupDataParticipants();
         setupClickValidate();
+
+
+
+        mBtnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
+
 
 
     //Setup Action bar
@@ -94,6 +104,8 @@ public class AddMeetingActivity extends AppCompatActivity {
     }
 
     //**********************************************************************************************
+
+
 
     private void setupClickValidate() {
         mBtnValidate.setOnClickListener(v -> {
