@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     public FloatingActionButton myFab;
     private String datefilter;
     private final List<Meeting> meetingsList = new ArrayList<>();
-    private List<Meeting> spareMeetingList = new ArrayList<>();
+    private final List<Meeting> spareMeetingList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

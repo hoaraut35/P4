@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -68,7 +70,8 @@ public class AddMeetingActivity extends AppCompatActivity {
 
         service = DI.getMeetingApiService();
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+     //   getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         setupDatePicker();
         setupTimePicker();
@@ -77,6 +80,13 @@ public class AddMeetingActivity extends AppCompatActivity {
         setupDataRooms();
         setupDataParticipants();
         setupClickValidate();
+    }
+
+
+    //Setup Action bar
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return super.onOptionsItemSelected(item);
     }
 
     //**********************************************************************************************
