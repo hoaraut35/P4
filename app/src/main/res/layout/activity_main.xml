@@ -12,7 +12,10 @@
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/xml2"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         android:layout_height="0dp">
 
     </androidx.recyclerview.widget.RecyclerView>
@@ -25,6 +28,16 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_baseline_add_circle_outline_24"
         app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/xml2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/recyclerview"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="center"
+        android:text="portrait"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
