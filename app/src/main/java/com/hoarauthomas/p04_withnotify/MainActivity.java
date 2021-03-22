@@ -158,11 +158,8 @@ public class MainActivity extends AppCompatActivity {
                         filteredList.add(meeting);
                     }
 
-                    Log.i("THOMAS", "Comparaison date => " +LocalDate.of(year,month,day)  + " " + LocalDate.parse(filterPattern));
-                    /*if (item2.getmDate().isEqual(LocalDate.parse(filterPattern))) {
-                        Log.i("THOMAS", "retour" + item2.getmPosition().toString());
+                    //Log.i("THOMAS", "Comparaison date => " +LocalDate.of(year,month,day)  + " " + LocalDate.parse(filterPattern));
 
-                    }*/
                 }
 
                 myAdapter = new MeetingAdapter(MainActivity.this, filteredList);

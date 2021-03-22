@@ -8,59 +8,36 @@
 
 
 
-
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        app:layout_constraintVertical_weight="1"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/tv_mode"
+        app:layout_constraintBottom_toTopOf="@id/xml2"
         android:layout_height="0dp">
 
     </androidx.recyclerview.widget.RecyclerView>
 
-    <TextView
-        android:id="@+id/tv_mode"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:text="version xml landscape"
-        app:layout_constraintVertical_weight="0.1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerview"
-        app:layout_constraintBottom_toBottomOf="parent"
-
-        android:gravity="center"
-        android:textStyle="bold"
-        >
-
-    </TextView>
-
-<com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:id="@+id/floatingbtn"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:layout_constraintLeft_toLeftOf="parent"
-    android:layout_marginBottom="20dip"
-    android:layout_marginLeft="20dip"
-
-    app:layout_constraintBottom_toBottomOf="parent"
-
-    ></com.google.android.material.floatingactionbutton.FloatingActionButton>
-
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingbtn2"
+        android:layout_margin="20dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_width="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="20dip"
-        android:layout_marginRight="20dip"
         android:layout_height="wrap_content"
-        ></com.google.android.material.floatingactionbutton.FloatingActionButton>
+        android:src="@drawable/ic_baseline_add_circle_outline_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
+    <TextView
+        android:id="@+id/xml2"
+        app:layout_constraintTop_toBottomOf="@id/recyclerview"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="landscape">
 
-
+    </TextView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
