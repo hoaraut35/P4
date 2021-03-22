@@ -21,10 +21,13 @@ import com.hoarauthomas.p04_withnotify.adapter.MeetingAdapter;
 import com.hoarauthomas.p04_withnotify.model.Meeting;
 import com.hoarauthomas.p04_withnotify.view.AddMeetingActivity;
 
+import java.sql.Date;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -63,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 1 && data != null) {
-           // myRecyclerView.getAdapter().notifyDataSetChanged();
             Meeting meeting = data.getParcelableExtra(AddMeetingActivity.MEETING_KEY);
             meetingsList.add(meeting);
             myAdapter.notifyDataSetChanged();
@@ -78,10 +80,6 @@ public class MainActivity extends AppCompatActivity {
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
-
-
-
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -90,42 +88,26 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-
-
-
                 List<Meeting> filteredList = new ArrayList<>();
 
-
                 if (newText == null || newText.length() == 0 || newText.isEmpty()) {
-
                     filteredList.addAll(meetingsList);
                      myAdapter = new MeetingAdapter(MainActivity.this, meetingsList);
-                     myRecyclerView.setAdapter(myAdapter);
-                     myRecyclerView.getAdapter().notifyDataSetChanged();
-
                 } else {
 
-
                     String filterPattern = newText.toLowerCase().trim();
-
                     for (Meeting item : meetingsList)
                     {
-
                         if (item.getmPosition().toLowerCase().contains(filterPattern)) {
                             Log.i("THOMAS", "retour" + item.getmPosition().toString());
                             filteredList.add(item);
-
                         }
-
                     }
-
                     myAdapter = new MeetingAdapter(MainActivity.this, filteredList);
-                    myRecyclerView.setAdapter(myAdapter);
-                    myRecyclerView.getAdapter().notifyDataSetChanged();
-
-
                 }
 
+                myRecyclerView.setAdapter(myAdapter);
+                myRecyclerView.getAdapter().notifyDataSetChanged();
                 return false;
             }
 
@@ -152,22 +134,34 @@ public class MainActivity extends AppCompatActivity {
 
             datefilter = LocalDate.of(year, (month + 1), dayOfMonth).toString();
 
+
             List<Meeting> filteredList = new ArrayList<Meeting>();
 
             if (datefilter == null || datefilter.length() == 0 || datefilter.isEmpty()) {
-                Log.i("THOMAS", "Taille adapter : " + datefilter);
-
                 myAdapter = new MeetingAdapter(MainActivity.this, meetingsList);
-
             } else {
+
                 String filterPattern = datefilter.toLowerCase().trim();
+                Log.i("THOMAS","Date filtre : " + filterPattern);
 
-                for (Meeting item2 : meetingsList) {
+                Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
 
-                    Log.i("THOMAS", "Comparaison date => " + item2.getmDate() + " " + LocalDate.parse(filterPattern));
+                for (Meeting meeting : meetingsList) {
+
+                    cal.setTime(meeting.getmDate());
+                    year = cal.get(Calendar.YEAR);
+                    month = cal.get(Calendar.MONTH)+1;
+                    int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                    if (LocalDate.of(year,month,day).isEqual(LocalDate.parse(filterPattern)))
+                    {
+                        filteredList.add(meeting);
+                    }
+
+                    Log.i("THOMAS", "Comparaison date => " +LocalDate.of(year,month,day)  + " " + LocalDate.parse(filterPattern));
                     /*if (item2.getmDate().isEqual(LocalDate.parse(filterPattern))) {
                         Log.i("THOMAS", "retour" + item2.getmPosition().toString());
-                        filteredList.add(item2);
+
                     }*/
                 }
 
@@ -178,22 +172,11 @@ public class MainActivity extends AppCompatActivity {
 
         }, mYear, mMonth, mDay);
 
-        mDatePicker.setButton(DialogInterface.BUTTON_NEGATIVE, "cancel", (dialog, which) -> {
-            Log.i("THOMAS", "test cancel");
+        mDatePicker.setButton(DialogInterface.BUTTON_NEGATIVE, "Annuler", (dialog, which) -> {
             myAdapter = new MeetingAdapter(MainActivity.this, meetingsList);
             myRecyclerView.setAdapter(myAdapter);
-
         });
-
         mDatePicker.show();
-
     }
-
-
-    private List<Meeting> filterByRoom(String query) {
-        // Loop on meetingsList
-        return null;
-    }
-
 
 }
