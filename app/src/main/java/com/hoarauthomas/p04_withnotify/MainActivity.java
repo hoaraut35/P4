@@ -40,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
     public RecyclerView mRecyclerView;
     public MeetingAdapter mAdapter;
     public FloatingActionButton mFloatingBtn, mFloatingBtn2;
-    private int mYear, mMonth, mDay;
-
     private DatePickerDialog mDatePicker;
     private List<Meeting> spareMeetingList = new ArrayList<>();
     private String datefilter;
@@ -53,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setupRecyclerView();
         setupFab2();
-        //TODO: Fab for demo mode : add a random meeting
+
         setupFabForDemo(true);
 
     }
@@ -111,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == 1 && data != null) {
             mRecyclerView.getAdapter().notifyDataSetChanged();
-            Log.i("THOMAS","onActivityResult");
+            Log.i("THOMAS", "onActivityResult");
             Meeting meeting = data.getParcelableExtra(AddMeetingActivity.MEETING_KEY);
             meetingsList.add(meeting);
             mAdapter.notifyDataSetChanged();
@@ -142,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (newText == null || newText.length() == 0 || newText.isEmpty()) {
                     //mAdapter = new MeetingAdapter(MainActivity.this, service.getMeetings());
-                 //   mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                    //   mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
                 } else {
                     String filterPattern = newText.toString().toLowerCase().trim();
@@ -184,9 +182,9 @@ public class MainActivity extends AppCompatActivity {
     private void setupDatePicker() {
 
         final Calendar c = Calendar.getInstance();
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
+        int mYear = c.get(Calendar.YEAR);
+        int mMonth = c.get(Calendar.MONTH);
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
 
         mDatePicker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -206,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
 
                     for (Meeting item2 : meetingsList) {
 
-                        Log.i("THOMAS","Comparaison date => "+ item2.getmDate() + " " +  LocalDate.parse(filterPattern));
+                        Log.i("THOMAS", "Comparaison date => " + item2.getmDate() + " " + LocalDate.parse(filterPattern));
                         /*if (item2.getmDate().isEqual(LocalDate.parse(filterPattern))) {
                             Log.i("THOMAS", "retour" + item2.getmPosition().toString());
                             filteredList.add(item2);
