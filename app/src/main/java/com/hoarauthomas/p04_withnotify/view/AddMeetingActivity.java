@@ -233,32 +233,15 @@ public class AddMeetingActivity extends AppCompatActivity {
         mEmails.setAdapter(adapter);
 
 
-        mEmails.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        mEmails.setOnItemClickListener((parent, view, position, id) -> {
 
-                //TODO: check if already exist in the list
+            //TODO: check if already exist in the list
 
-                if (mChipGroup.getChildCount() < 10)
-                {
-                    addNewChipParticipant(mEmails.getText().toString());
-                }
-            }
-        });
-
-       /* mEmails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
+            if (mChipGroup.getChildCount() < 10)
             {
-                Log.i("THOMAS","onclick ");
-                service.addMeeting(new Meeting("","","","",""));
-               // finish();
+                addNewChipParticipant(mEmails.getText().toString());
             }
         });
-
-        */
-
-
     }
 
 }
