@@ -18,14 +18,6 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        tools:layout_editor_absoluteX="220dp"
-        tools:layout_editor_absoluteY="156dp"/>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingbtn2"
         android:layout_margin="20dp"
         app:layout_constraintRight_toRightOf="parent"

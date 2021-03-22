@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -46,7 +47,8 @@ public class AddMeetingActivity extends AppCompatActivity {
     private TimePickerDialog mTimePicker;
     private ChipGroup mChipGroup;
     private Button mBtnValidate;
-    private TextInputEditText mEditDate, mEditTime, mEditSubject;
+    private EditText mEditDate;
+    private TextInputEditText mEditTime, mEditSubject;
     private AutoCompleteTextView mRooms, mEmails;
 
     MeetingApiService service;
