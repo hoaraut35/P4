@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -14,16 +16,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hoarauthomas.p04_withnotify.R;
 import com.hoarauthomas.p04_withnotify.model.Meeting;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
-public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordViewHolder> {
+public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordViewHolder> implements Filterable {
 
     private final List<Meeting> mListMeeting;
+    private final List<Meeting> mListMeetingAll;
     private final LayoutInflater mInflater;
 
     public MeetingAdapter(Context context, List<Meeting> mListMeeting2) {
         mInflater = LayoutInflater.from(context);
         this.mListMeeting = mListMeeting2;
+        this.mListMeetingAll = new ArrayList<>(mListMeeting2);
     }
 
     @NonNull
@@ -59,6 +64,35 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
 
     @Override
     public int getItemCount() {return mListMeeting.size();}
+
+    @Override
+    public Filter getFilter() {
+
+
+
+
+        return filter;
+    }
+
+
+    Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            return null;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+
+        }
+    }
+
+
+
+
+
+
+
 
     class WordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 

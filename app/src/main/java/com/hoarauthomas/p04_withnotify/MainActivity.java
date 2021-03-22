@@ -32,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private MeetingAdapter myAdapter;
     public FloatingActionButton myFab;
     private String datefilter;
-    private final List<Meeting> meetingsList = new ArrayList<>();
-    private final List<Meeting> spareMeetingList = new ArrayList<>();
+    private List<Meeting> meetingsList = new ArrayList<>();
+    private List<Meeting> spareMeetingList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
         SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
+
+
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -90,27 +93,36 @@ public class MainActivity extends AppCompatActivity {
 
                 List<Meeting> filteredList = new ArrayList<Meeting>();
 
+
                 if (newText == null || newText.length() == 0 || newText.isEmpty()) {
-                    //mAdapter = new MeetingAdapter(MainActivity.this, service.getMeetings());
-                    //   mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+                    filteredList.addAll(meetingsList);
+                   // myAdapter = new MeetingAdapter(MainActivity.this, meetingsList);
+                    //myRecyclerView.getAdapter().notifyDataSetChanged();
 
                 } else {
-                    String filterPattern = newText.toString().toLowerCase().trim();
 
-                    /*for (Meeting item : service.getMeetings()) {
+                    String filterPattern = newText.toLowerCase().trim();
+
+                    for (Meeting item : meetingsList) {
+
                         if (item.getmPosition().toLowerCase().contains(filterPattern)) {
                             Log.i("THOMAS", "retour" + item.getmPosition().toString());
                             filteredList.add(item);
 
                         }
 
-                        //mAdapter = new MeetingAdapter(getApplicationContext(), filteredList);
-                        //mAdapter.notifyDataSetChanged();
-                    }*/
-                    myAdapter = new MeetingAdapter(MainActivity.this, filteredList);
+
+                    }
+                    //meetingsList.clear();
+
                 }
 
-                myRecyclerView.setAdapter(myAdapter);
+                meetingsList.clear();
+                meetingsList.addAll(filteredList);
+
+                myAdapter.notifyDataSetChanged();
+                myRecyclerView.getAdapter().notifyDataSetChanged();
 
                 return false;
             }
@@ -124,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
 
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     private void setupDatePicker() {
