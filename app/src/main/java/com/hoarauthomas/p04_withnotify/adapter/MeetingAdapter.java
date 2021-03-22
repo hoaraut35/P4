@@ -18,8 +18,8 @@ import java.util.List;
 
 public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordViewHolder> {
 
-    private List<Meeting> mListMeeting;
-    private LayoutInflater mInflater;
+    private final List<Meeting> mListMeeting;
+    private final LayoutInflater mInflater;
 
     public MeetingAdapter(Context context, List<Meeting> mListMeeting2) {
         mInflater = LayoutInflater.from(context);

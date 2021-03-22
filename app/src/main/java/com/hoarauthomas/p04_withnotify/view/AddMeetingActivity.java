@@ -114,7 +114,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
     private void setupBtnValidate() {
         String participant = "";
 
@@ -238,7 +238,11 @@ public class AddMeetingActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 //TODO: check if already exist in the list
-                addNewChipParticipant(mEmails.getText().toString());
+
+                if (mChipGroup.getChildCount() < 10)
+                {
+                    addNewChipParticipant(mEmails.getText().toString());
+                }
             }
         });
 
