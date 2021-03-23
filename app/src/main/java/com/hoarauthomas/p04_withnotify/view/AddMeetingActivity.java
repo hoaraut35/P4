@@ -159,10 +159,10 @@ public class AddMeetingActivity extends AppCompatActivity {
             Log.i("THOMAS","date :" + calendar.getTime());
 
 
-            calendar.set(mDatePicker.getDatePicker().getYear(),mDatePicker.getDatePicker().getMonth(),mDatePicker.getDatePicker().getDayOfMonth());
+            //calendar.set(mDatePicker.getDatePicker().getYear(),mDatePicker.getDatePicker().getMonth(),mDatePicker.getDatePicker().getDayOfMonth());
             Log.i("THOMAS","get calendar :  " + calendar.getTime());
-
-            Meeting meeting = new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(), calendar.getTime(), mEditTime.getText().toString(), participant);
+            Meeting meeting = new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(), convertToDateViaInstant(LocalDate.parse(mEditDate.getText().toString())), mEditTime.getText().toString(), participant);
+            //Meeting meeting = new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(), calendar.getTime(), mEditTime.getText().toString(), participant);
             //Meeting meeting = new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(), calendar.getTime(), mEditTime.getText().toString(), participant);
             Intent intent = new Intent();
             intent.putExtra(MEETING_KEY, meeting);
