@@ -57,6 +57,8 @@ public class AddMeetingActivity extends AppCompatActivity {
     private TextInputEditText mEditTime, mEditSubject;
     private AutoCompleteTextView mRooms, mEmails;
 
+    private Calendar calendar;
+
     MeetingApiService service;
 
     @Override
@@ -155,10 +157,13 @@ public class AddMeetingActivity extends AppCompatActivity {
         else
         {
 
-            LocalDateTime.of(LocalDate.parse(mEditDate.getText().toString()), LocalTime.parse(mEditTime.getText().toString()));
 
 
-            Meeting meeting = new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(), convertToDateViaInstant(LocalDate.parse(mEditDate.getText().toString())), mEditTime.getText().toString(), participant);
+
+
+
+            //Meeting meeting = new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(), convertToDateViaInstant(LocalDate.parse(mEditDate.getText().toString())), mEditTime.getText().toString(), participant);
+            Meeting meeting = new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(), calendar.getTime(), mEditTime.getText().toString(), participant);
             Intent intent = new Intent();
             intent.putExtra(MEETING_KEY, meeting);
             setResult(1, intent);
@@ -196,10 +201,10 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     private void setupDatePicker() {
 
-        final Calendar c = Calendar.getInstance();
-        int mYear = c.get(Calendar.YEAR);
-        int mMonth = c.get(Calendar.MONTH);
-        int mDay = c.get(Calendar.DAY_OF_MONTH);
+        calendar = Calendar.getInstance();
+        int mYear = calendar.get(Calendar.YEAR);
+        int mMonth = calendar.get(Calendar.MONTH);
+        int mDay = calendar.get(Calendar.DAY_OF_MONTH);
 
         mDatePicker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
