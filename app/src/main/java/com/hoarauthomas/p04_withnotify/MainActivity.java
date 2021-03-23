@@ -172,11 +172,13 @@ public class MainActivity extends AppCompatActivity {
             } else {
 
                 String filterPattern = datefilter.toLowerCase().trim();
-                Log.i("THOMAS","Date filtre : " + filterPattern);
+                Log.i("THOMAS","Date filtre : " + filterPattern );
 
                 Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
 
                 for (Meeting meeting : meetingsList) {
+
+
 
                     cal.setTime(meeting.getmDate());
                     year = cal.get(Calendar.YEAR);
@@ -188,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
                         filteredList.add(meeting);
                     }
 
-                    //Log.i("THOMAS", "Comparaison date => " +LocalDate.of(year,month,day)  + " " + LocalDate.parse(filterPattern));
+                    Log.i("THOMAS", "Comparaison date => " +LocalDate.of(year,month,day)  + " " + LocalDate.parse(filterPattern));
 
                 }
 
