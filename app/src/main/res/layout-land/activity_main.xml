@@ -17,7 +17,6 @@
         android:text="NO DATA TO SHOW"
         />
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"

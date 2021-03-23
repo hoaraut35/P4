@@ -1,7 +1,5 @@
 <resources>
-    <string name="app_name">MaRéu (mdpi mode)</string>
-
-
+    <string name="app_name">MaRéu</string>
     <string name="add_subject">Réunion Z</string>
     <string name="add_location">Mario</string>
 </resources>

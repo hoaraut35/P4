@@ -2,10 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-
-
     android:layout_height="wrap_content">
-
 
     <ImageView
         android:id="@+id/view_image_meeting"
@@ -16,9 +13,7 @@
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
     </ImageView>
-
 
     <TextView
         android:id="@+id/view_name_meeting"
@@ -30,9 +25,7 @@
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/view_image_meeting"
         app:layout_constraintTop_toTopOf="@id/view_image_meeting">
-
     </TextView>
-
 
     <TextView
         android:id="@+id/view_start_time_meeting"
@@ -43,7 +36,6 @@
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/view_name_meeting"
         app:layout_constraintTop_toTopOf="@id/view_name_meeting">
-
     </TextView>
 
     <TextView
@@ -54,7 +46,7 @@
         android:textSize="@dimen/size_text_item_meeting_layout"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/view_start_time_meeting"
-        app:layout_constraintTop_toTopOf="@id/view_name_meeting"></TextView>
+        app:layout_constraintTop_toTopOf="@id/view_name_meeting"/>
 
     <TextView
         android:id="@+id/view_email_meeting"
@@ -65,12 +57,8 @@
         android:textSize="@dimen/size_text_item_meeting_layout"
         app:layout_constraintBottom_toBottomOf="@id/view_image_meeting"
         app:layout_constraintLeft_toRightOf="@id/view_image_meeting"
-
-
         app:layout_constraintRight_toLeftOf="@id/view_delete_meeting"
-
         app:layout_constraintTop_toBottomOf="@+id/view_name_meeting">
-
     </TextView>
 
     <ImageView
@@ -83,8 +71,6 @@
         app:layout_constraintBottom_toBottomOf="@id/view_image_meeting"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/view_image_meeting">
-
     </ImageView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

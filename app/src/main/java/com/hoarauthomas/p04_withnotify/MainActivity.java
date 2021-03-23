@@ -27,6 +27,7 @@ import org.w3c.dom.Text;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -49,9 +50,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setupRecyclerView();
         setupFabOpenAddActivity();
-
-
         checkEmptyData();
+
+        LocalTime time = LocalTime.now();
+        Log.i("THOMAS","Time : "  + time);
 
     }
 
