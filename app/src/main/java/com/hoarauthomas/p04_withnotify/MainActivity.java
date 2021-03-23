@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.DatePicker;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +23,8 @@ import com.hoarauthomas.p04_withnotify.adapter.MeetingAdapter;
 import com.hoarauthomas.p04_withnotify.model.Meeting;
 import com.hoarauthomas.p04_withnotify.view.AddMeetingActivity;
 
+import org.w3c.dom.Text;
+
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -29,7 +33,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MeetingAdapter.Listener{
 
     public RecyclerView myRecyclerView;
     private MeetingAdapter myAdapter;
@@ -41,9 +45,32 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         setupRecyclerView();
         setupFabOpenAddActivity();
+
+
+        checkEmptyData();
+
+    }
+
+    public void checkEmptyData()
+    {
+        if (meetingsList.isEmpty())
+        {
+            myRecyclerView.setVisibility(View.GONE);
+            TextView myTextEmpty = findViewById(R.id.txt_empty);
+            myTextEmpty.setVisibility(View.VISIBLE);
+
+        }
+        else
+        {
+            myRecyclerView.setVisibility(View.VISIBLE);
+            TextView myTextEmpty = findViewById(R.id.txt_empty);
+            myTextEmpty.setVisibility(View.GONE);
+
+        }
     }
 
     public void setupRecyclerView() {
@@ -69,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
             Meeting meeting = data.getParcelableExtra(AddMeetingActivity.MEETING_KEY);
             meetingsList.add(meeting);
             myAdapter.notifyDataSetChanged();
+            checkEmptyData();
         }
     }
 
@@ -176,4 +204,13 @@ public class MainActivity extends AppCompatActivity {
         mDatePicker.show();
     }
 
+    @Override
+    public void onDelete() {
+        Log.i("THOMAS","callback ondelete");
+    }
+
+    @Override
+    public void onChanged() {
+        Log.i("THOMAS", "callback onchanged");
+    }
 }

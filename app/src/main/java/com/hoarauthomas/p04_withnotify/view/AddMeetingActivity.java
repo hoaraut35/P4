@@ -87,6 +87,8 @@ public class AddMeetingActivity extends AppCompatActivity {
 
 
 
+
+
         mBtnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -130,7 +132,54 @@ public class AddMeetingActivity extends AppCompatActivity {
         }
 
 
-        if(mEditSubject.getEditableText().toString().isEmpty()) { }
+        if (mEditSubject.getEditableText().toString().isEmpty())
+        {
+            mEditSubject.setError("Sujet requis");
+        }else
+        {
+            mEditSubject.setError(null);
+        }
+
+        if (mEditDate.getText().toString().isEmpty())
+        {
+            mEditDate.setError("Date requise");
+        }else
+        {
+            mEditDate.setError(null);
+        }
+
+        if (mRooms.getText().toString().isEmpty())
+        {
+            mRooms.setError("Choisir une salle");
+        }else
+        {
+            mRooms.setError(null);
+        }
+
+        if (mChipGroup.getChildCount() ==0)
+        {
+            mEmails.setError("Choisir les participants");
+        }else
+        {
+            mEmails.setError(null);
+        }
+
+        if (mEditTime.getEditableText().toString().isEmpty())
+        {
+            mEditTime.setError("choisir l'heure de début");
+        }else
+        {
+            mEditTime.setError(null);
+        }
+
+
+
+        if(mEditSubject.getEditableText().toString().isEmpty() || mRooms.getText().toString().isEmpty() || mEditDate.getText().toString().isEmpty() || mEditTime.getEditableText().toString().isEmpty() || mChipGroup.getChildCount() <= 0) {
+
+
+
+
+        }
         else
         {
             Meeting meeting = new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(), convertToDateViaInstant(LocalDate.parse(mEditDate.getText().toString())), mEditTime.getText().toString(), participant);

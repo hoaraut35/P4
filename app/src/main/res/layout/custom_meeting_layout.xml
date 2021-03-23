@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:text="Réunion A - "
-        android:textSize="@dimen/size_subject"
+        android:textSize="@dimen/size_text_item_meeting_layout"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/view_image_meeting"
         app:layout_constraintTop_toTopOf="@id/view_image_meeting">
@@ -39,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="14h00 - "
-        android:textSize="@dimen/size_time"
+        android:textSize="@dimen/size_text_item_meeting_layout"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/view_name_meeting"
         app:layout_constraintTop_toTopOf="@id/view_name_meeting">
@@ -51,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Peach"
-        android:textSize="@dimen/size_location"
+        android:textSize="@dimen/size_text_item_meeting_layout"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/view_start_time_meeting"
         app:layout_constraintTop_toTopOf="@id/view_name_meeting"></TextView>
@@ -62,7 +62,7 @@
         android:layout_height="match_parent"
         android:layout_margin="16dp"
         android:text="maxime@gmail.com alex@gmail.Com"
-        android:textSize="@dimen/size_participants"
+        android:textSize="@dimen/size_text_item_meeting_layout"
         app:layout_constraintBottom_toBottomOf="@id/view_image_meeting"
         app:layout_constraintLeft_toRightOf="@id/view_image_meeting"
 
