@@ -5,4 +5,5 @@
     <string name="add_subject">Réunion Z</string>
     <string name="add_location">Mario</string>
     <string name="btn_valid_text">Valider</string>
+    <string name="btn_cancel_text">Annuler</string>
 </resources>

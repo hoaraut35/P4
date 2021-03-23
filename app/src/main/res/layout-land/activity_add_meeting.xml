@@ -9,7 +9,9 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/til_subject"
+        android:layout_height="wrap_content">
     </androidx.appcompat.widget.Toolbar>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -20,7 +22,7 @@
         android:hint="Sujet"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/subject_text"
@@ -43,6 +45,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tiet_start_date"
+            android:editable="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -61,6 +64,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tiet_start_time"
             android:layout_width="match_parent"
+            android:editable="false"
             android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -105,7 +109,8 @@
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/group_participants"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:layout_height="40dp"
         android:layout_margin="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view_participants"
@@ -124,7 +129,7 @@
         app:icon="@drawable/ic_baseline_insert_drive_file_24"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/btn_cancel"
-        app:layout_constraintTop_toBottomOf="@id/group_participants"></Button>
+        app:layout_constraintTop_toBottomOf="@id/group_participants"/>
 
     <Button
         android:id="@+id/btn_cancel"

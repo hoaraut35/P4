@@ -130,14 +130,14 @@
         app:icon="@drawable/ic_baseline_insert_drive_file_24"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/btn_cancel"
-        app:layout_constraintTop_toBottomOf="@id/group_participants"></Button>
+        app:layout_constraintTop_toBottomOf="@id/group_participants"/>
 
     <Button
         android:id="@+id/btn_cancel"
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btn_valid_text"
+        android:text="@string/btn_cancel_text"
         app:icon="@drawable/ic_baseline_insert_drive_file_24"
         app:layout_constraintLeft_toRightOf="@id/btn_valid"
         app:layout_constraintRight_toRightOf="parent"
