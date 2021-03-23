@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-                    cal.setTime(meeting.getmDate());
+                  //  cal.setTime(meeting.getmDate());
                     year = cal.get(Calendar.YEAR);
                     month = cal.get(Calendar.MONTH)+1;
                     int day = cal.get(Calendar.DAY_OF_MONTH);
