@@ -1,12 +1,9 @@
 package com.hoarauthomas.p04_withnotify.api;
 
-import android.util.Log;
-
 import com.hoarauthomas.p04_withnotify.model.Collaborator;
 import com.hoarauthomas.p04_withnotify.model.Meeting;
 import com.hoarauthomas.p04_withnotify.model.MeetingRoom;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -53,6 +50,4 @@ public class FakeGenerator {
     static List<Meeting> generateMeetings() {
         return new ArrayList<>(FakeMeeting);
     }
-
-
 }

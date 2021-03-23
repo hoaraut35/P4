@@ -33,7 +33,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 
-public class MainActivity extends AppCompatActivity implements MeetingAdapter.Listener{
+public class MainActivity extends AppCompatActivity {
 
     public RecyclerView myRecyclerView;
     private MeetingAdapter myAdapter;
@@ -204,13 +204,4 @@ public class MainActivity extends AppCompatActivity implements MeetingAdapter.Li
         mDatePicker.show();
     }
 
-    @Override
-    public void onDelete() {
-        Log.i("THOMAS","callback ondelete");
-    }
-
-    @Override
-    public void onChanged() {
-        Log.i("THOMAS", "callback onchanged");
-    }
 }

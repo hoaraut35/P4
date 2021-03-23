@@ -175,10 +175,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
 
         if(mEditSubject.getEditableText().toString().isEmpty() || mRooms.getText().toString().isEmpty() || mEditDate.getText().toString().isEmpty() || mEditTime.getEditableText().toString().isEmpty() || mChipGroup.getChildCount() <= 0) {
-
-
-
-
+            //Nothing
         }
         else
         {
