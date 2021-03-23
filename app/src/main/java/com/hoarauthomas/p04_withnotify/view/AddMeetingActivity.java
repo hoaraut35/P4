@@ -36,6 +36,8 @@ import com.hoarauthomas.p04_withnotify.model.MeetingRoom;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -152,6 +154,10 @@ public class AddMeetingActivity extends AppCompatActivity {
         }
         else
         {
+
+            LocalDateTime.of(LocalDate.parse(mEditDate.getText().toString()), LocalTime.parse(mEditTime.getText().toString()));
+
+
             Meeting meeting = new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(), convertToDateViaInstant(LocalDate.parse(mEditDate.getText().toString())), mEditTime.getText().toString(), participant);
             Intent intent = new Intent();
             intent.putExtra(MEETING_KEY, meeting);

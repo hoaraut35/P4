@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
 
@@ -11,7 +12,6 @@ public class Meeting implements Parcelable {
     private String mSubject;
     private String mPosition;
     private Date mDate;
-    private LocalTime localTime;
     private String mStartTime;
     private String mEndTime;
     private String mParticipants;
