@@ -85,37 +85,14 @@ public class AddMeetingActivity extends AppCompatActivity {
         setupDataParticipants();
         setupClickValidate();
 
-
-
-
-
-        mBtnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        mBtnCancel.setOnClickListener(v -> finish());
     }
-
-
-
-    //Setup Action bar
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
-
-    //**********************************************************************************************
-
-
 
     private void setupClickValidate() {
         mBtnValidate.setOnClickListener(v -> {
             setupBtnValidate();
-
         });
     }
-
 
     private void setupBtnValidate() {
         String participant = "";
@@ -128,9 +105,7 @@ public class AddMeetingActivity extends AppCompatActivity {
             } else {
                 participant += chip.getText();
             }
-
         }
-
 
         if (mEditSubject.getEditableText().toString().isEmpty())
         {
@@ -172,8 +147,6 @@ public class AddMeetingActivity extends AppCompatActivity {
             mEditTime.setError(null);
         }
 
-
-
         if(mEditSubject.getEditableText().toString().isEmpty() || mRooms.getText().toString().isEmpty() || mEditDate.getText().toString().isEmpty() || mEditTime.getEditableText().toString().isEmpty() || mChipGroup.getChildCount() <= 0) {
             //Nothing
         }
@@ -194,27 +167,17 @@ public class AddMeetingActivity extends AppCompatActivity {
                 .toInstant());
     }
 
-    //**********************************************************************************************
     private void addNewChipParticipant(String name) {
         LayoutInflater inflater = LayoutInflater.from(this);
-
         Chip newChip = (Chip) inflater.inflate(R.layout.chip_participant, this.mChipGroup, false);
         newChip.setText(name);
-
         this.mChipGroup.addView(newChip);
-
         newChip.setOnCloseIconClickListener(v -> handleChipCloseIconClicked((Chip) v));
     }
-
 
     private void handleChipCloseIconClicked(Chip chip) {
         mChipGroup.removeView(chip);
     }
-
-    private void handleChipCheckChanged(Chip chip, boolean isChecked) {
-    }
-
-    //**********************************************************************************************
 
     private void setupClickDate() {
         mEditDate.setOnClickListener(v -> mDatePicker.show());
