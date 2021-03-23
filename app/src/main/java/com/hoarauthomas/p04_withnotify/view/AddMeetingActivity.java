@@ -158,16 +158,16 @@ public class AddMeetingActivity extends AppCompatActivity {
         else
         {
 
+
+            //TODO: modif pour api 21
             try {
                 datePickerToDate = new SimpleDateFormat("yyyy/MM/dd").parse(mEditDate.getText().toString());
             }catch (Exception e)
             {
 
             }
-
             //Meeting meeting = new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(), convertToDateViaInstant(LocalDate.parse(mEditDate.getText().toString())), mEditTime.getText().toString(), participant);
             Meeting meeting = new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(), datePickerToDate, mEditTime.getText().toString(), participant);
-            //Meeting meeting = new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(), calendar.getTime(), mEditTime.getText().toString(), participant);
             Intent intent = new Intent();
             intent.putExtra(MEETING_KEY, meeting);
             setResult(1, intent);
@@ -175,12 +175,14 @@ public class AddMeetingActivity extends AppCompatActivity {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+   /* @RequiresApi(api = Build.VERSION_CODES.O)
     public Date convertToDateViaInstant(LocalDate dateToConvert) {
         return java.util.Date.from(dateToConvert.atStartOfDay()
                 .atZone(ZoneId.systemDefault())
                 .toInstant());
     }
+
+    */
 
     private void addNewChipParticipant(String name) {
         LayoutInflater inflater = LayoutInflater.from(this);
