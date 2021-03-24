@@ -1,7 +1,7 @@
-package com.hoarauthomas.p04_withnotify.di;
+package com.hoarauthomas.p4_mareu.di;
 
-import com.hoarauthomas.p04_withnotify.api.FakeMeetingApiService;
-import com.hoarauthomas.p04_withnotify.api.MeetingApiService;
+import com.hoarauthomas.p4_mareu.api.FakeMeetingApiService;
+import com.hoarauthomas.p4_mareu.api.MeetingApiService;
 
 public class DI {
     private static MeetingApiService service = new FakeMeetingApiService();

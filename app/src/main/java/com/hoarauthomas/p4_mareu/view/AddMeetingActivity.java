@@ -1,44 +1,35 @@
-package com.hoarauthomas.p04_withnotify.view;
+package com.hoarauthomas.p4_mareu.view;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
-import android.widget.Toast;
+
 import androidx.appcompat.widget.Toolbar;
 
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputEditText;
-import com.hoarauthomas.p04_withnotify.R;
-import com.hoarauthomas.p04_withnotify.api.MeetingApiService;
-import com.hoarauthomas.p04_withnotify.di.DI;
-import com.hoarauthomas.p04_withnotify.model.Collaborator;
-import com.hoarauthomas.p04_withnotify.model.Meeting;
-import com.hoarauthomas.p04_withnotify.model.MeetingRoom;
+import com.hoarauthomas.p4_mareu.R;
+import com.hoarauthomas.p4_mareu.api.MeetingApiService;
+import com.hoarauthomas.p4_mareu.di.DI;
+import com.hoarauthomas.p4_mareu.model.Collaborator;
+import com.hoarauthomas.p4_mareu.model.Meeting;
+import com.hoarauthomas.p4_mareu.model.MeetingRoom;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -161,11 +152,14 @@ public class AddMeetingActivity extends AppCompatActivity {
 
             //TODO: modif pour api 21
             try {
-                datePickerToDate = new SimpleDateFormat("yyyy/MM/dd").parse(mEditDate.getText().toString());
+                datePickerToDate = new SimpleDateFormat("yyyy-MM-dd").parse(mEditDate.getText().toString());
+                Log.i("THOMAS","Date : " + datePickerToDate.toString());
             }catch (Exception e)
             {
-
+                Log.i("THOMAS","erreur : " );
             }
+
+//            Log.i("THOMAS","Date : " + datePickerToDate.toString());
             //Meeting meeting = new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(), convertToDateViaInstant(LocalDate.parse(mEditDate.getText().toString())), mEditTime.getText().toString(), participant);
             Meeting meeting = new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(), datePickerToDate, mEditTime.getText().toString(), participant);
             Intent intent = new Intent();

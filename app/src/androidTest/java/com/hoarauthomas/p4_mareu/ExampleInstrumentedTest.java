@@ -1,17 +1,13 @@
-package com.hoarauthomas.p04_withnotify;
+package com.hoarauthomas.p4_mareu;
 
-import android.app.Activity;
 import android.content.Context;
 
-import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.contrib.RecyclerViewActions;
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
-import com.hoarauthomas.p04_withnotify.model.Meeting;
-import com.hoarauthomas.p04_withnotify.utils.DeleteItemAction;
+import com.hoarauthomas.p4_mareu.utils.DeleteItemAction;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -25,7 +21,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.isClickable;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static com.hoarauthomas.p04_withnotify.utils.RecyclerViewItemCountAssertion.withItemCount;
+import static com.hoarauthomas.p4_mareu.utils.RecyclerViewItemCountAssertion.withItemCount;
 import static org.junit.Assert.*;
 
 /**
@@ -59,7 +55,7 @@ public class ExampleInstrumentedTest {
 
 
 
-    //This test check if we have a minimum of one item in the recyclerview
+    //TODO: This test check if we have a minimum of one item in the recyclerview
     @Test
     public void myMeetingList_shouldNotBeEmpty()
     {

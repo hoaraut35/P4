@@ -1,8 +1,8 @@
-package com.hoarauthomas.p04_withnotify.api;
+package com.hoarauthomas.p4_mareu.api;
 
-import com.hoarauthomas.p04_withnotify.model.Collaborator;
-import com.hoarauthomas.p04_withnotify.model.Meeting;
-import com.hoarauthomas.p04_withnotify.model.MeetingRoom;
+import com.hoarauthomas.p4_mareu.model.Collaborator;
+import com.hoarauthomas.p4_mareu.model.Meeting;
+import com.hoarauthomas.p4_mareu.model.MeetingRoom;
 
 import java.util.ArrayList;
 import java.util.Arrays;

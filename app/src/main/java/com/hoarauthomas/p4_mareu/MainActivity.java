@@ -1,4 +1,4 @@
-package com.hoarauthomas.p04_withnotify;
+package com.hoarauthomas.p4_mareu;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.DatePicker;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -19,20 +18,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.hoarauthomas.p04_withnotify.adapter.MeetingAdapter;
-import com.hoarauthomas.p04_withnotify.model.Meeting;
-import com.hoarauthomas.p04_withnotify.view.AddMeetingActivity;
+import com.hoarauthomas.p4_mareu.adapter.MeetingAdapter;
+import com.hoarauthomas.p4_mareu.model.Meeting;
+import com.hoarauthomas.p4_mareu.view.AddMeetingActivity;
 
-import org.w3c.dom.Text;
-
-import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+
+import static java.util.function.Predicate.isEqual;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private String datefilter;
     private List<Meeting> meetingsList = new ArrayList<>();
     private List<Meeting> spareMeetingList = new ArrayList<>();
+    DatePickerDialog mDatePicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
         int mMonth = c.get(Calendar.MONTH);
         int mDay = c.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog mDatePicker = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
+        mDatePicker = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
 
             datefilter = LocalDate.of(year, (month + 1), dayOfMonth).toString();
 
@@ -171,8 +171,8 @@ public class MainActivity extends AppCompatActivity {
                 myAdapter = new MeetingAdapter(MainActivity.this, meetingsList);
             } else {
 
-                String filterPattern = datefilter.toLowerCase().trim();
-                Log.i("THOMAS","Date filtre : " + filterPattern );
+             //   String filterPattern = datefilter.toLowerCase().trim();
+             //   Log.i("THOMAS","Date filtre : " + filterPattern );
 
                 Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
 
@@ -180,17 +180,29 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-                  //  cal.setTime(meeting.getmDate());
-                    year = cal.get(Calendar.YEAR);
-                    month = cal.get(Calendar.MONTH)+1;
-                    int day = cal.get(Calendar.DAY_OF_MONTH);
 
-                    if (LocalDate.of(year,month,day).isEqual(LocalDate.parse(filterPattern)))
+                    year = mDatePicker.getDatePicker().getYear();
+                    month = mDatePicker.getDatePicker().getMonth();
+                    dayOfMonth = mDatePicker.getDatePicker().getDayOfMonth();
+
+                    Calendar mycalendar = Calendar.getInstance();
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    mycalendar.set(year,month,dayOfMonth);
+                    String dateStr = sdf.format(mycalendar.getTime());
+                    String date2Str = sdf.format(meeting.getmDate());
+
+                    Log.i("THOMAS" , "comparaison " + dateStr + "== " + date2Str);
+
+                 //   Log.i("THOMAS","Voir date filtre : " + mycalendar.getTime() + meeting.getmDate());
+
+                    if (dateStr.equals(date2Str))
                     {
                         filteredList.add(meeting);
                     }
 
-                    Log.i("THOMAS", "Comparaison date => " +LocalDate.of(year,month,day)  + " " + LocalDate.parse(filterPattern));
+
+
+                   // Log.i("THOMAS", "Comparaison date => " +LocalDate.of(year,month,day)  + " " + LocalDate.parse(filterPattern));
 
                 }
 

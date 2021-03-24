@@ -1,8 +1,7 @@
-package com.hoarauthomas.p04_withnotify.adapter;
+package com.hoarauthomas.p4_mareu.adapter;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.hoarauthomas.p04_withnotify.R;
-import com.hoarauthomas.p04_withnotify.model.Meeting;
+import com.hoarauthomas.p4_mareu.R;
+import com.hoarauthomas.p4_mareu.model.Meeting;
 
 import java.lang.reflect.Field;
 import java.util.List;

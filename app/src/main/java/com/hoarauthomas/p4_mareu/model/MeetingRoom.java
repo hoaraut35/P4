@@ -1,4 +1,4 @@
-package com.hoarauthomas.p04_withnotify.model;
+package com.hoarauthomas.p4_mareu.model;
 
 public class MeetingRoom {
     private int mId;

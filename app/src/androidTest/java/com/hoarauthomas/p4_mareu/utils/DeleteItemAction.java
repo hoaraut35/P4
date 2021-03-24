@@ -1,4 +1,4 @@
-package com.hoarauthomas.p04_withnotify.utils;
+package com.hoarauthomas.p4_mareu.utils;
 
 
 
@@ -7,7 +7,7 @@ import android.view.View;
 import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
 
-import com.hoarauthomas.p04_withnotify.R;
+import com.hoarauthomas.p4_mareu.R;
 import org.hamcrest.Matcher;
 
 public class DeleteItemAction implements ViewAction

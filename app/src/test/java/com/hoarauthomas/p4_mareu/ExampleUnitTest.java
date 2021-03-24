@@ -1,9 +1,9 @@
-package com.hoarauthomas.p04_withnotify;
+package com.hoarauthomas.p4_mareu;
 
-import com.hoarauthomas.p04_withnotify.api.FakeGenerator;
-import com.hoarauthomas.p04_withnotify.api.MeetingApiService;
-import com.hoarauthomas.p04_withnotify.di.DI;
-import com.hoarauthomas.p04_withnotify.model.Meeting;
+import com.hoarauthomas.p4_mareu.api.FakeGenerator;
+import com.hoarauthomas.p4_mareu.api.MeetingApiService;
+import com.hoarauthomas.p4_mareu.di.DI;
+import com.hoarauthomas.p4_mareu.model.Meeting;
 
 import org.junit.Before;
 import org.junit.Test;

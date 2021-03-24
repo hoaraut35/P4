@@ -1,11 +1,8 @@
-package com.hoarauthomas.p04_withnotify.model;
+package com.hoarauthomas.p4_mareu.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Date;
 
 public class Meeting implements Parcelable {
