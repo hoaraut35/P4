@@ -69,7 +69,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
         service = DI.getMeetingApiService();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar =findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setOnClickListener(v -> finish());
 
