@@ -2,7 +2,7 @@
 
 Ce dépôt contient une mini-application de gestion de réunion.
 
-Une application qui permet à des personnes d’un même quartier de se rendre des petits services : 
+Une application qui permet aux collaborateurs de créer des réunions : 
 * Lister les réunions,
 * Ajouter une réunion,
 * Supprimer une réunion,
