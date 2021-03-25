@@ -1,5 +1,6 @@
 package com.hoarauthomas.p4_mareu.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
@@ -56,6 +57,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
         holder.mDeleteImage.setOnClickListener(v -> {
             mListMeeting.remove(position);
             notifyDataSetChanged();
+
         });
     }
 
