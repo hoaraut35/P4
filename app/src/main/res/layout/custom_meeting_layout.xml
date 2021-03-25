@@ -12,18 +12,21 @@
         android:background="@drawable/circular"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
     </ImageView>
 
     <TextView
         android:id="@+id/view_name_meeting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:layout_marginLeft="16dp"
         android:text="Réunion A - "
         android:textSize="@dimen/size_text_item_meeting_layout"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/view_image_meeting"
+        app:layout_constraintRight_toLeftOf="@id/view_delete_meeting"
         app:layout_constraintTop_toTopOf="@id/view_image_meeting">
     </TextView>
 
@@ -51,11 +54,12 @@
     <TextView
         android:id="@+id/view_email_meeting"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_margin="16dp"
-        android:text="maxime@gmail.com alex@gmail.Com"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+
+        android:text="maxime@gmail.com alex@gmail.Comqsdsddsdddsdsdsdsd"
         android:textSize="@dimen/size_text_item_meeting_layout"
-        app:layout_constraintBottom_toBottomOf="@id/view_image_meeting"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/view_image_meeting"
         app:layout_constraintRight_toLeftOf="@id/view_delete_meeting"
         app:layout_constraintTop_toBottomOf="@+id/view_name_meeting">

@@ -156,7 +156,7 @@ public class AddMeetingActivity extends AppCompatActivity {
                 Log.i("THOMAS","erreur : " );
             }
 
-//            Log.i("THOMAS","Date : " + datePickerToDate.toString());
+            //Log.i("THOMAS","Date : " + datePickerToDate.toString());
             //Meeting meeting = new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(), convertToDateViaInstant(LocalDate.parse(mEditDate.getText().toString())), mEditTime.getText().toString(), participant);
             Meeting meeting = new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(), datePickerToDate, mEditTime.getText().toString(), participant);
             Intent intent = new Intent();
@@ -195,7 +195,6 @@ public class AddMeetingActivity extends AppCompatActivity {
         mEditTime.setOnClickListener(v -> mTimePicker.show());
     }
 
-
     private void setupDatePicker() {
 
         calendar = Calendar.getInstance();
@@ -207,13 +206,9 @@ public class AddMeetingActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 mEditDate.setText(LocalDate.of(year, (month + 1), dayOfMonth).toString());
-
-
             }
 
         }, mYear, mMonth, mDay);
-
-
     }
 
     private void setupTimePicker() {
