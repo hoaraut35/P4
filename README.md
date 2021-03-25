@@ -7,7 +7,7 @@ Une application qui permet à des personnes d’un même quartier de se rendre d
 * Ajouter une réunion,
 * Supprimer une réunion,
 
-![start image](https://github.com/hoaraut35/p3_test/blob/master/Pr%C3%A9sentation/Images/neighbour_list.PNG)
+![start image](https://github.com/hoaraut35/p4_02/doc/screenshoot.PNG)
 
 Pour commencer à travailler sur ce projet, suivez les étapes ci-dessous.
 
