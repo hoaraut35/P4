@@ -19,6 +19,7 @@
     <dimen name="size_time">10sp</dimen>
     <dimen name="size_location">10sp</dimen>
     <dimen name="size_participants">10sp</dimen>
+    <dimen name="size_text_item_meeting_layout">16sp</dimen>
 
 </resources>
 
