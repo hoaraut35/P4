@@ -156,7 +156,6 @@ public class AddMeetingActivity extends AppCompatActivity {
                 Log.i("THOMAS","erreur : " );
             }
 
-            //Log.i("THOMAS","Date : " + datePickerToDate.toString());
             //Meeting meeting = new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(), convertToDateViaInstant(LocalDate.parse(mEditDate.getText().toString())), mEditTime.getText().toString(), participant);
             Meeting meeting = new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(), datePickerToDate, mEditTime.getText().toString(), participant);
             Intent intent = new Intent();
