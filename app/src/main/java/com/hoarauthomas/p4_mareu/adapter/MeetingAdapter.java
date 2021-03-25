@@ -66,7 +66,6 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
 
     class WordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public final TextView wordItemView;
         final MeetingAdapter mAdapter;
         public ImageView mAvatar;
         public TextView mNameView;
@@ -78,7 +77,6 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
         public WordViewHolder(@NonNull View itemView, MeetingAdapter adapter) {
             super(itemView);
 
-            wordItemView = itemView.findViewById(R.id.view_name_meeting);
             mNameView = itemView.findViewById(R.id.view_name_meeting);
             mStartTime = itemView.findViewById(R.id.view_start_time_meeting);
             mAvatar = itemView.findViewById(R.id.view_image_meeting);

@@ -148,9 +148,6 @@ public class AddMeetingActivity extends AppCompatActivity {
         }
         else
         {
-
-
-            //TODO: modif pour api 21
             try {
                 datePickerToDate = new SimpleDateFormat("yyyy-MM-dd").parse(mEditDate.getText().toString());
                 Log.i("THOMAS","Date : " + datePickerToDate.toString());
