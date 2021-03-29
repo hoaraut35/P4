@@ -201,9 +201,11 @@ public class AddMeetingActivity extends AppCompatActivity {
         int mMonth = calendar.get(Calendar.MONTH);
         int mDay = calendar.get(Calendar.DAY_OF_MONTH);
 
+
         mDatePicker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
                 mEditDate.setText(LocalDate.of(year, (month + 1), dayOfMonth).toString());
             }
 

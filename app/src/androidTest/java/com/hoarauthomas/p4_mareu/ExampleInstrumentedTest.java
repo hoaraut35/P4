@@ -1,13 +1,16 @@
 package com.hoarauthomas.p4_mareu;
 
+import android.app.DatePickerDialog;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.widget.DatePicker;
 
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.espresso.DataInteraction;
 import androidx.test.espresso.Root;
 import androidx.test.espresso.ViewInteraction;
+import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -21,6 +24,7 @@ import com.hoarauthomas.p4_mareu.utils.DeleteItemAction;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Before;
 import org.junit.Rule;
@@ -40,15 +44,18 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.RootMatchers.isDialog;
 import static androidx.test.espresso.matcher.RootMatchers.isPlatformPopup;
 import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
+import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static com.hoarauthomas.p4_mareu.utils.RecyclerViewItemCountAssertion.withItemCount;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
@@ -83,7 +90,7 @@ public class ExampleInstrumentedTest {
     }
 
     //TODO: We ensure that our recycler is displaying at least on tiem
-    @Test
+  //  @Test
     public void myMeetingList_shouldBeEmpty() {
 
         //First time we check if the list is empty
@@ -91,10 +98,8 @@ public class ExampleInstrumentedTest {
     }
 
 
-
-
     //TODO: this test check if we can add a new meeting
-    @Test
+    //@Test
     public void addNewMeeting_shouldAddMeeting() {
 
         int total_of_meeting = myApiServiceForTest.getMeetings().size();
@@ -114,29 +119,21 @@ public class ExampleInstrumentedTest {
         //click on the fist element in the list of participants
         onView(withText("user1@gmail.com")).inRoot(isPlatformPopup()).perform(click());
 
-       //click on valid button to add the new meeting to the list
+        //click on valid button to add the new meeting to the list
         onView(withId(R.id.btn_valid)).perform(click());
 
-       //check if the recyclerview is incremented by one
-       onView(ViewMatchers.withId(R.id.recyclerview)).check(withItemCount(total_of_meeting + 1));
+        //check if the recyclerview is incremented by one
+        onView(ViewMatchers.withId(R.id.recyclerview)).check(withItemCount(total_of_meeting + 1));
 
     }
 
     //TODO:this test check if we can remove a meetinf from recycerview
-    @Test
+  //  @Test
     public void removeMeeting_shouldRemoveItem() {
 
-        //add a new meeting before delete
+        //add two meetings before delete
         addNewMeetingFortTest();
         addNewMeetingFortTest();
-        addNewMeetingFortTest();
-        addNewMeetingFortTest();
-        addNewMeetingFortTest();
-        addNewMeetingFortTest();
-        addNewMeetingFortTest();
-     //   addNewMeetingFortTest();
-       // addNewMeetingFortTest();
-
 
         //get the total of meeting
         int total_of_meeting = mActivity.myRecyclerView.getAdapter().getItemCount();
@@ -144,18 +141,75 @@ public class ExampleInstrumentedTest {
         onView(ViewMatchers.withId(R.id.recyclerview)).perform(RecyclerViewActions.actionOnItemAtPosition(0, new DeleteItemAction()));
 
         //check if the recyclerview is incremented by one
-        onView(ViewMatchers.withId(R.id.recyclerview)).check(withItemCount(total_of_meeting-1));
+        onView(ViewMatchers.withId(R.id.recyclerview)).check(withItemCount(total_of_meeting - 1));
 
     }
 
+    //TODO: filter meetings by room
 
+    public void filterMeetingByRoom_shoulbBeFilterByRoom() {
+        //add meetings for filter by room
+        // addNewMeetingFortTest();
+        // addNewMeetingFortTest();
+        // addNewMeetingFortTest();
+        // addNewMeetingFortTest();
+        // addNewMeetingFortTest();
+        // addNewMeetingFortTest();
+
+
+    }
+
+    //TODO: filter meetings by date
+    @Test
+    public void filterMeetingByDate_shouldBeFilterByDate() {
+
+        //add a newmeeting to test filter by date
+        addNewMeetingFortTest();//bug is this line is present
+
+
+
+        onView(allOf(withContentDescription("More options"),
+                childAtPosition(
+                        childAtPosition(
+                                withId(R.id.action_bar),
+                                1),
+                        1),
+                isDisplayed())).perform(click());
+
+
+        onView(allOf(withId(R.id.title), withText("Filtrer par date"), isDisplayed())).perform(click());
+        try {
+            Thread.sleep(2050);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2021, 11,26));
+
+        try {
+            Thread.sleep(2050);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        onView(withText("OK")).perform(click());//TODO: voir bug settime ou gettime
+        /*, childAtPosition(allOf(withClassName(is("android.widget.LinearLayout")),
+                childAtPosition(
+                        withClassName(is("android.widget.LinearLayout")),
+                        3)),
+                3),
+                isDisplayed())).perform(click());//bug if addNewMeetingFortTest() is present in first line
+
+         */
+
+    }
 
 
     //TODO: this tool add a new meeting
     public void addNewMeetingFortTest() {
 
         List<String> mySubjects = Arrays.asList("Réunion A", "Réunion B", "Réunion C", "Réunion D");
-        List<String> myRooms = Arrays.asList("Luigi", "Peach", "Toad", "Yoshi","Boser","Wario");
+        List<String> myRooms = Arrays.asList("Luigi", "Peach", "Toad", "Yoshi", "Boser", "Wario");
 
         //click on the fab button to open the activity for add a new meeting
         onView(withId(R.id.add_fab_btn)).perform(click());
@@ -176,9 +230,13 @@ public class ExampleInstrumentedTest {
 
         //click on valid button to add the new meeting to the list
         onView(withId(R.id.btn_valid)).perform(click());
+        try {
+            Thread.sleep(1050);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
-
 
 
     private static Matcher<View> childAtPosition(

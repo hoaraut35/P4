@@ -6,7 +6,7 @@
     <item
         android:id="@+id/menu_date"
         android:orderInCategory="1"
-        android:title="Filter par date"
+        android:title="Filtrer par date"
         app:showAsAction="never" />
 
     <item

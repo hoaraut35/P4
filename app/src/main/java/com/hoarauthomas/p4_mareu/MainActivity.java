@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
                     month = mDatePicker.getDatePicker().getMonth();
                     dayOfMonth = mDatePicker.getDatePicker().getDayOfMonth();
 
-                    Calendar mycalendar = Calendar.getInstance();
+                    Calendar mycalendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     mycalendar.set(year,month,dayOfMonth);
                     String dateStr = sdf.format(mycalendar.getTime());
