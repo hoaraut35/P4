@@ -41,6 +41,7 @@ import static android.service.autofill.Validators.not;
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -59,6 +60,7 @@ import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.isEmptyOrNullString;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
 
@@ -104,7 +106,9 @@ public class ExampleInstrumentedTest {
 
         int total_of_meeting = myApiServiceForTest.getMeetings().size();
 
-        //click on the fab button to open the activity for add a new meeting
+        addNewMeetingFortTest(null);
+
+        /* //click on the fab button to open the activity for add a new meeting
         onView(withId(R.id.add_fab_btn)).perform(click());
 
         //fill in the text fields
@@ -122,8 +126,15 @@ public class ExampleInstrumentedTest {
         //click on valid button to add the new meeting to the list
         onView(withId(R.id.btn_valid)).perform(click());
 
+         */
+
         //check if the recyclerview is incremented by one
         onView(ViewMatchers.withId(R.id.recyclerview)).check(withItemCount(total_of_meeting + 1));
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -132,30 +143,69 @@ public class ExampleInstrumentedTest {
     public void removeMeeting_shouldRemoveItem() {
 
         //add two meetings before delete
-        addNewMeetingFortTest();
-        addNewMeetingFortTest();
+        addNewMeetingFortTest(null);
 
         //get the total of meeting
         int total_of_meeting = mActivity.myRecyclerView.getAdapter().getItemCount();
         //delete a meeting
         onView(ViewMatchers.withId(R.id.recyclerview)).perform(RecyclerViewActions.actionOnItemAtPosition(0, new DeleteItemAction()));
 
+
         //check if the recyclerview is incremented by one
         onView(ViewMatchers.withId(R.id.recyclerview)).check(withItemCount(total_of_meeting - 1));
+
+        try {
+            Thread.sleep(2050);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 
     //TODO: filter meetings by room
-
+    @Test
     public void filterMeetingByRoom_shoulbBeFilterByRoom() {
-        //add meetings for filter by room
-        // addNewMeetingFortTest();
-        // addNewMeetingFortTest();
-        // addNewMeetingFortTest();
-        // addNewMeetingFortTest();
-        // addNewMeetingFortTest();
-        // addNewMeetingFortTest();
 
+        addNewMeetingFortTest("");
+        addNewMeetingFortTest("");
+        addNewMeetingFortTest("");
+        addNewMeetingFortTest("Mario");
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        onView(allOf(withClassName(is("androidx.appcompat.widget.AppCompatImageView")), withContentDescription("Search"),
+                childAtPosition(
+                        allOf(withClassName(is("android.widget.LinearLayout")),
+                                childAtPosition(
+                                        withId(R.id.action_search),
+                                        0)),
+                        1),
+                isDisplayed())).perform(click());
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        onView(allOf(withClassName(is("android.widget.SearchView$SearchAutoComplete")),
+                        childAtPosition(
+                                allOf(withClassName(is("android.widget.LinearLayout")),
+                                        childAtPosition(
+                                                withClassName(is("android.widget.LinearLayout")),
+                                                1)),
+                                0),
+                        isDisplayed())).perform(replaceText("Mario"), closeSoftKeyboard());
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -164,8 +214,7 @@ public class ExampleInstrumentedTest {
     public void filterMeetingByDate_shouldBeFilterByDate() {
 
         //add a newmeeting to test filter by date
-        addNewMeetingFortTest();//bug is this line is present
-
+        addNewMeetingFortTest(null);//bug is this line is present
 
 
         onView(allOf(withContentDescription("More options"),
@@ -184,7 +233,7 @@ public class ExampleInstrumentedTest {
             e.printStackTrace();
         }
 
-        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2021, 11,26));
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2021, 11, 26));
 
         try {
             Thread.sleep(2050);
@@ -205,7 +254,7 @@ public class ExampleInstrumentedTest {
 
 
     //TODO: this tool add a new meeting
-    public void addNewMeetingFortTest() {
+    public void addNewMeetingFortTest(String room) {
 
         List<String> mySubjects = Arrays.asList("Réunion A", "Réunion B", "Réunion C", "Réunion D");
         List<String> myRooms = Arrays.asList("Luigi", "Peach", "Toad", "Yoshi", "Boser", "Wario");
@@ -217,9 +266,40 @@ public class ExampleInstrumentedTest {
 
         //fill in the text fields
         onView(withId(R.id.subject_text)).perform(replaceText(mySubjects.get(rand.nextInt(mySubjects.size()))));
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         onView(withId(R.id.tiet_start_date)).perform(replaceText("2021/03/01"));
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         onView(withId(R.id.tiet_start_time)).perform(replaceText("11H11"));
-        onView(withId(R.id.list_location)).perform(replaceText(myRooms.get(rand.nextInt(myRooms.size()))));
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if (room.length() == 0 )
+        {
+            onView(withId(R.id.list_location)).perform(replaceText(myRooms.get(rand.nextInt(myRooms.size()))));
+        }
+        else
+        {
+            onView(withId(R.id.list_location)).perform(replaceText(room.toString()));
+        }
+
+
+
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         //click on the list of participants
         onView(withId(R.id.list_participants)).perform(click());
@@ -231,7 +311,7 @@ public class ExampleInstrumentedTest {
         onView(withId(R.id.btn_valid)).perform(click());
 
         try {
-            Thread.sleep(4050);
+            Thread.sleep(250);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
