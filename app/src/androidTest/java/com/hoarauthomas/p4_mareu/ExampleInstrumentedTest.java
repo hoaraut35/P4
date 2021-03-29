@@ -90,7 +90,7 @@ public class ExampleInstrumentedTest {
     }
 
     //TODO: We ensure that our recycler is displaying at least on tiem
-  //  @Test
+    @Test
     public void myMeetingList_shouldBeEmpty() {
 
         //First time we check if the list is empty
@@ -99,7 +99,7 @@ public class ExampleInstrumentedTest {
 
 
     //TODO: this test check if we can add a new meeting
-    //@Test
+    @Test
     public void addNewMeeting_shouldAddMeeting() {
 
         int total_of_meeting = myApiServiceForTest.getMeetings().size();
@@ -128,7 +128,7 @@ public class ExampleInstrumentedTest {
     }
 
     //TODO:this test check if we can remove a meetinf from recycerview
-  //  @Test
+    @Test
     public void removeMeeting_shouldRemoveItem() {
 
         //add two meetings before delete
@@ -192,15 +192,14 @@ public class ExampleInstrumentedTest {
             e.printStackTrace();
         }
 
-        onView(withText("OK")).perform(click());//TODO: voir bug settime ou gettime
-        /*, childAtPosition(allOf(withClassName(is("android.widget.LinearLayout")),
-                childAtPosition(
-                        withClassName(is("android.widget.LinearLayout")),
-                        3)),
-                3),
-                isDisplayed())).perform(click());//bug if addNewMeetingFortTest() is present in first line
+        onView(withText("OK")).perform(click());//TODO: voir bug settime ou gettime dans la fonction datepicker mainactivity
 
-         */
+        try {
+            Thread.sleep(1050);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
@@ -230,8 +229,9 @@ public class ExampleInstrumentedTest {
 
         //click on valid button to add the new meeting to the list
         onView(withId(R.id.btn_valid)).perform(click());
+
         try {
-            Thread.sleep(1050);
+            Thread.sleep(4050);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

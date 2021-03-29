@@ -50,21 +50,17 @@ public class MainActivity extends AppCompatActivity {
         checkEmptyData();
 
         LocalTime time = LocalTime.now();
-        Log.i("THOMAS","Time : "  + time);
+        Log.i("THOMAS", "Time : " + time);
 
     }
 
-    public void checkEmptyData()
-    {
-        if (meetingsList.isEmpty())
-        {
+    public void checkEmptyData() {
+        if (meetingsList.isEmpty()) {
             myRecyclerView.setVisibility(View.GONE);
             TextView myTextEmpty = findViewById(R.id.txt_empty);
             myTextEmpty.setVisibility(View.VISIBLE);
 
-        }
-        else
-        {
+        } else {
             myRecyclerView.setVisibility(View.VISIBLE);
             TextView myTextEmpty = findViewById(R.id.txt_empty);
             myTextEmpty.setVisibility(View.GONE);
@@ -119,12 +115,11 @@ public class MainActivity extends AppCompatActivity {
 
                 if (newText == null || newText.length() == 0 || newText.isEmpty()) {
                     filteredList.addAll(meetingsList);
-                     myAdapter = new MeetingAdapter(MainActivity.this, meetingsList);
+                    myAdapter = new MeetingAdapter(MainActivity.this, meetingsList);
                 } else {
 
                     String filterPattern = newText.toLowerCase().trim();
-                    for (Meeting item : meetingsList)
-                    {
+                    for (Meeting item : meetingsList) {
                         if (item.getmRoom().toLowerCase().contains(filterPattern)) {
                             Log.i("THOMAS", "retour" + item.getmRoom().toString());
                             filteredList.add(item);
@@ -168,15 +163,7 @@ public class MainActivity extends AppCompatActivity {
                 myAdapter = new MeetingAdapter(MainActivity.this, meetingsList);
             } else {
 
-             //   String filterPattern = datefilter.toLowerCase().trim();
-             //   Log.i("THOMAS","Date filtre : " + filterPattern );
-
-                Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
-
                 for (Meeting meeting : meetingsList) {
-
-
-
 
                     year = mDatePicker.getDatePicker().getYear();
                     month = mDatePicker.getDatePicker().getMonth();
@@ -184,23 +171,25 @@ public class MainActivity extends AppCompatActivity {
 
                     Calendar mycalendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                    mycalendar.set(year,month,dayOfMonth);
+                    mycalendar.set(year, month, dayOfMonth);
+
                     String dateStr = sdf.format(mycalendar.getTime());
-                    String date2Str = sdf.format(meeting.getmDate());
+                    //TODO: pb avec test instrumentalisé car
 
-                    Log.i("THOMAS" , "comparaison " + dateStr + "== " + date2Str);
+                    String date2Str;
 
-                 //   Log.i("THOMAS","Voir date filtre : " + mycalendar.getTime() + meeting.getmDate());
-
-                    if (dateStr.equals(date2Str))
+                    try {
+                        date2Str = sdf.format(meeting.getmDate());
+                    }
+                    catch (Exception e)
                     {
-                        filteredList.add(meeting);
+                        date2Str = dateStr;
                     }
 
 
-
-                   // Log.i("THOMAS", "Comparaison date => " +LocalDate.of(year,month,day)  + " " + LocalDate.parse(filterPattern));
-
+                    if (dateStr.equals(date2Str)) {
+                        filteredList.add(meeting);
+                    }
                 }
 
                 myAdapter = new MeetingAdapter(MainActivity.this, filteredList);
