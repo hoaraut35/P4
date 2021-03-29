@@ -83,14 +83,10 @@ public class ExampleInstrumentedTest {
     @Before
     public void setup() {
         mActivity = meetingActivityRule.getActivity();
-        //myApiServiceForTest.addMeeting(new Meeting("Sujet A","Toad", new Date(), "10H00","test@gmail.Com"));
-
-        //myApiServiceForTest.addMeeting(new Meeting("Sujet A","Toad", new Date(), "10H00","test@gmail.Com"));
-
         assertThat(mActivity, notNullValue());
     }
 
-    //TODO: We ensure that our recycler is displaying at least on tiem
+    //TODO: check if the recyclerview is empty
     @Test
     public void myMeetingList_shouldBeEmpty() {
 
@@ -103,37 +99,16 @@ public class ExampleInstrumentedTest {
     @Test
     public void add_Meeting_shouldAddMeeting() {
 
+        //get the size of meeting to compare ...
         int total_of_meeting = myApiServiceForTest.getMeetings().size();
 
+        //add a new meeting
         addNewMeetingFortTest("");
-
-        /* //click on the fab button to open the activity for add a new meeting
-        onView(withId(R.id.add_fab_btn)).perform(click());
-
-        //fill in the text fields
-        onView(withId(R.id.subject_text)).perform(replaceText("Réunion TEST"));
-        onView(withId(R.id.tiet_start_date)).perform(replaceText("2021/03/01"));
-        onView(withId(R.id.tiet_start_time)).perform(replaceText("11H11"));
-        onView(withId(R.id.list_location)).perform(replaceText("Luigi"));
-
-        //click on the list of participants
-        onView(withId(R.id.list_participants)).perform(click());
-
-        //click on the fist element in the list of participants
-        onView(withText("user1@gmail.com")).inRoot(isPlatformPopup()).perform(click());
-
-        //click on valid button to add the new meeting to the list
-        onView(withId(R.id.btn_valid)).perform(click());
-
-         */
 
         //check if the recyclerview is incremented by one
         onView(ViewMatchers.withId(R.id.recyclerview)).check(withItemCount(total_of_meeting + 1));
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+        myPause();
 
     }
 
@@ -141,40 +116,29 @@ public class ExampleInstrumentedTest {
     @Test
     public void remove_Meeting_shouldRemove() {
 
-        //add two meetings before delete
+        //add one meetings to delete
         addNewMeetingFortTest("");
-
         //get the total of meeting
         int total_of_meeting = mActivity.myRecyclerView.getAdapter().getItemCount();
         //delete a meeting
         onView(ViewMatchers.withId(R.id.recyclerview)).perform(RecyclerViewActions.actionOnItemAtPosition(0, new DeleteItemAction()));
-
-
         //check if the recyclerview is incremented by one
         onView(ViewMatchers.withId(R.id.recyclerview)).check(withItemCount(total_of_meeting - 1));
-
-        try {
-            Thread.sleep(2050);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
+        //add a pause for visual
+        myPause();
     }
 
     //TODO: filter meetings by room
     @Test
     public void filterMeetingByRoom_shoulbBeFilterByRoom() {
 
-        addNewMeetingFortTest("");
-        addNewMeetingFortTest("");
+        //add some meeting for test with a forced room to Mario to check
         addNewMeetingFortTest("");
         addNewMeetingFortTest("Mario");
-
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        addNewMeetingFortTest("");
+        addNewMeetingFortTest("Mario");
+        //for visual
+        myPause();
 
         onView(allOf(withClassName(is("androidx.appcompat.widget.AppCompatImageView")), withContentDescription("Search"),
                 childAtPosition(
@@ -185,12 +149,9 @@ public class ExampleInstrumentedTest {
                         1),
                 isDisplayed())).perform(click());
 
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        myPause();
 
+        //replace the text with Mario to filter this room
         onView(allOf(withClassName(is("android.widget.SearchView$SearchAutoComplete")),
                         childAtPosition(
                                 allOf(withClassName(is("android.widget.LinearLayout")),
@@ -199,13 +160,10 @@ public class ExampleInstrumentedTest {
                                                 1)),
                                 0),
                         isDisplayed())).perform(replaceText("Mario"), closeSoftKeyboard());
+        //for visual
+        myPause();
 
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
+        //for disable the filter
         ViewInteraction appCompatImageView2 = onView(
                 allOf(withClassName(is("androidx.appcompat.widget.AppCompatImageView")), withContentDescription("Clear query"),
                         childAtPosition(
@@ -216,12 +174,8 @@ public class ExampleInstrumentedTest {
                                 1),
                         isDisplayed()));
         appCompatImageView2.perform(click());
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        //for visual
+        myPause();
 
     }
 
@@ -243,27 +197,15 @@ public class ExampleInstrumentedTest {
 
 
         onView(allOf(withId(R.id.title), withText("Filtrer par date"), isDisplayed())).perform(click());
-        try {
-            Thread.sleep(2050);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        myPause();
 
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2021, 11, 26));
 
-        try {
-            Thread.sleep(2050);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        myPause();
 
         onView(withText("OK")).perform(click());//TODO: voir bug settime ou gettime dans la fonction datepicker mainactivity
 
-        try {
-            Thread.sleep(1050);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        myPause();
 
 
     }
@@ -282,24 +224,13 @@ public class ExampleInstrumentedTest {
 
         //fill in the text fields
         onView(withId(R.id.subject_text)).perform(replaceText(mySubjects.get(rand.nextInt(mySubjects.size()))));
-        try {
-            Thread.sleep(350);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        onView(withId(R.id.tiet_start_date)).perform(replaceText("2021/03/01"));
-        try {
-            Thread.sleep(350);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        onView(withId(R.id.tiet_start_time)).perform(replaceText("11H11"));
-        try {
-            Thread.sleep(350);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
+        myPause();
+        onView(withId(R.id.tiet_start_date)).perform(replaceText("2021/03/01"));
+        myPause();
+        onView(withId(R.id.tiet_start_time)).perform(replaceText("11H11"));
+
+        myPause();
         if (room.length() == 0 )
         {
             onView(withId(R.id.list_location)).perform(replaceText(myRooms.get(rand.nextInt(myRooms.size()))));
@@ -309,39 +240,31 @@ public class ExampleInstrumentedTest {
             onView(withId(R.id.list_location)).perform(replaceText(room.toString()));
         }
 
-        try {
-            Thread.sleep(350);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
+        myPause();
         //click on the list of participants
         onView(withId(R.id.list_participants)).perform(click());
 
-        try {
-            Thread.sleep(350);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        myPause();
 
         //click on the fist element in the list of participants
         onView(withText("user1@gmail.com")).inRoot(isPlatformPopup()).perform(click());
 
+        myPause();
+
+        //click on valid button to add the new meeting to the list
+        onView(withId(R.id.btn_valid)).perform(click());
+
+        myPause();
+
+    }
+
+    public void myPause()
+    {
         try {
             Thread.sleep(350);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        //click on valid button to add the new meeting to the list
-        onView(withId(R.id.btn_valid)).perform(click());
-
-        try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
     }
 
 
