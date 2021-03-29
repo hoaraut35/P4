@@ -4,9 +4,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.espresso.DataInteraction;
 import androidx.test.espresso.Root;
 import androidx.test.espresso.ViewInteraction;
+import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
@@ -14,6 +16,7 @@ import androidx.test.rule.ActivityTestRule;
 import com.hoarauthomas.p4_mareu.api.MeetingApiService;
 import com.hoarauthomas.p4_mareu.di.DI;
 import com.hoarauthomas.p4_mareu.model.Meeting;
+import com.hoarauthomas.p4_mareu.utils.DeleteItemAction;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -91,7 +94,7 @@ public class ExampleInstrumentedTest {
     @Test
     public void addNewMeeting_shouldAddMeeting() {
 
-        int total_of_participants = myApiServiceForTest.getMeetings().size();
+        int total_of_meeting = myApiServiceForTest.getMeetings().size();
 
         //click on the fab button to open the activity for add a new meeting
         onView(withId(R.id.add_fab_btn)).perform(click());
@@ -112,7 +115,7 @@ public class ExampleInstrumentedTest {
         onView(withId(R.id.btn_valid)).perform(click());
 
        //check if the recyclerview is incremented by one
-       onView(ViewMatchers.withId(R.id.recyclerview)).check(withItemCount(total_of_participants+1));
+       onView(ViewMatchers.withId(R.id.recyclerview)).check(withItemCount(total_of_meeting + 1));
 
     }
 
@@ -122,16 +125,23 @@ public class ExampleInstrumentedTest {
 
         //add a new meeting before delete
         addNewMeetingFortTest();
+        addNewMeetingFortTest();
+        addNewMeetingFortTest();
+        addNewMeetingFortTest();
+        addNewMeetingFortTest();
+        addNewMeetingFortTest();
+        addNewMeetingFortTest();
+        addNewMeetingFortTest();
+        addNewMeetingFortTest();
 
+
+        //get the total of meeting
+        int total_of_meeting = mActivity.myRecyclerView.getAdapter().getItemCount();
         //delete a meeting
+        onView(ViewMatchers.withId(R.id.recyclerview)).perform(RecyclerViewActions.actionOnItemAtPosition(0, new DeleteItemAction()));
 
-        ViewInteraction appCompatImageView = onView(
-                allOf(withId(R.id.view_delete_meeting),
-                        childAtPosition(childAtPosition(withId(R.id.recyclerview),0), 5), isDisplayed()));
-        appCompatImageView.perform(click());
-
-
-
+        //check if the recyclerview is incremented by one
+        onView(ViewMatchers.withId(R.id.recyclerview)).check(withItemCount(total_of_meeting-1));
 
     }
 
