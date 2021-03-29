@@ -87,6 +87,8 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
                 holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.Bero));
                 break;
 
+                default:
+                    holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.black));
 
         }
 
