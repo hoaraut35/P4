@@ -75,7 +75,6 @@ public class ExampleInstrumentedTest {
     private MainActivity mActivity;
     private int ITEM_COUBNT = 3;
     private MeetingApiService myApiServiceForTest = DI.getMeetingApiService();
-    private List<Meeting> myMeetingList = new ArrayList<>();
 
 
     @Rule
@@ -85,7 +84,7 @@ public class ExampleInstrumentedTest {
     public void setup() {
         mActivity = meetingActivityRule.getActivity();
         //myApiServiceForTest.addMeeting(new Meeting("Sujet A","Toad", new Date(), "10H00","test@gmail.Com"));
-        myMeetingList = myApiServiceForTest.getMeetings();
+
         //myApiServiceForTest.addMeeting(new Meeting("Sujet A","Toad", new Date(), "10H00","test@gmail.Com"));
 
         assertThat(mActivity, notNullValue());
@@ -102,11 +101,11 @@ public class ExampleInstrumentedTest {
 
     //TODO: this test check if we can add a new meeting
     @Test
-    public void addNewMeeting_shouldAddMeeting() {
+    public void add_Meeting_shouldAddMeeting() {
 
         int total_of_meeting = myApiServiceForTest.getMeetings().size();
 
-        addNewMeetingFortTest(null);
+        addNewMeetingFortTest("");
 
         /* //click on the fab button to open the activity for add a new meeting
         onView(withId(R.id.add_fab_btn)).perform(click());
@@ -140,10 +139,10 @@ public class ExampleInstrumentedTest {
 
     //TODO:this test check if we can remove a meetinf from recycerview
     @Test
-    public void removeMeeting_shouldRemoveItem() {
+    public void remove_Meeting_shouldRemove() {
 
         //add two meetings before delete
-        addNewMeetingFortTest(null);
+        addNewMeetingFortTest("");
 
         //get the total of meeting
         int total_of_meeting = mActivity.myRecyclerView.getAdapter().getItemCount();
@@ -207,6 +206,23 @@ public class ExampleInstrumentedTest {
             e.printStackTrace();
         }
 
+        ViewInteraction appCompatImageView2 = onView(
+                allOf(withClassName(is("androidx.appcompat.widget.AppCompatImageView")), withContentDescription("Clear query"),
+                        childAtPosition(
+                                allOf(withClassName(is("android.widget.LinearLayout")),
+                                        childAtPosition(
+                                                withClassName(is("android.widget.LinearLayout")),
+                                                1)),
+                                1),
+                        isDisplayed()));
+        appCompatImageView2.perform(click());
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 
     //TODO: filter meetings by date
@@ -214,7 +230,7 @@ public class ExampleInstrumentedTest {
     public void filterMeetingByDate_shouldBeFilterByDate() {
 
         //add a newmeeting to test filter by date
-        addNewMeetingFortTest(null);//bug is this line is present
+        addNewMeetingFortTest("");//bug is this line is present
 
 
         onView(allOf(withContentDescription("More options"),
@@ -267,19 +283,19 @@ public class ExampleInstrumentedTest {
         //fill in the text fields
         onView(withId(R.id.subject_text)).perform(replaceText(mySubjects.get(rand.nextInt(mySubjects.size()))));
         try {
-            Thread.sleep(250);
+            Thread.sleep(350);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         onView(withId(R.id.tiet_start_date)).perform(replaceText("2021/03/01"));
         try {
-            Thread.sleep(250);
+            Thread.sleep(350);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         onView(withId(R.id.tiet_start_time)).perform(replaceText("11H11"));
         try {
-            Thread.sleep(250);
+            Thread.sleep(350);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -293,10 +309,8 @@ public class ExampleInstrumentedTest {
             onView(withId(R.id.list_location)).perform(replaceText(room.toString()));
         }
 
-
-
         try {
-            Thread.sleep(250);
+            Thread.sleep(350);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -304,8 +318,20 @@ public class ExampleInstrumentedTest {
         //click on the list of participants
         onView(withId(R.id.list_participants)).perform(click());
 
+        try {
+            Thread.sleep(350);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         //click on the fist element in the list of participants
         onView(withText("user1@gmail.com")).inRoot(isPlatformPopup()).perform(click());
+
+        try {
+            Thread.sleep(350);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         //click on valid button to add the new meeting to the list
         onView(withId(R.id.btn_valid)).perform(click());

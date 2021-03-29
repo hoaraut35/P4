@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private MeetingAdapter myAdapter;
     public FloatingActionButton myFab;
     private String datefilter;
-    private List<Meeting> meetingsList = new ArrayList<>();
+    public List<Meeting> meetingsList = new ArrayList<>();
     private List<Meeting> spareMeetingList = new ArrayList<>();
     DatePickerDialog mDatePicker;
 
