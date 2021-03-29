@@ -125,8 +125,8 @@ public class MainActivity extends AppCompatActivity {
                     String filterPattern = newText.toLowerCase().trim();
                     for (Meeting item : meetingsList)
                     {
-                        if (item.getmPosition().toLowerCase().contains(filterPattern)) {
-                            Log.i("THOMAS", "retour" + item.getmPosition().toString());
+                        if (item.getmRoom().toLowerCase().contains(filterPattern)) {
+                            Log.i("THOMAS", "retour" + item.getmRoom().toString());
                             filteredList.add(item);
                         }
                     }

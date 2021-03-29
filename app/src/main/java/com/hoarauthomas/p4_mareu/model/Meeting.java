@@ -7,15 +7,15 @@ import java.util.Date;
 
 public class Meeting implements Parcelable {
     private String mSubject;
-    private String mPosition;
+    private String mRoom;
     private Date mDate;
     private String mStartTime;
     private String mEndTime;
     private String mParticipants;
 
-    public Meeting(String mSubject, String mPosition, Date mDate, String mStartTime, String mParticipants) {
+    public Meeting(String mSubject, String mRoom, Date mDate, String mStartTime, String mParticipants) {
         this.mSubject = mSubject;
-        this.mPosition = mPosition;
+        this.mRoom = mRoom;
         this.mDate = mDate;
         this.mStartTime = mStartTime;
 
@@ -30,12 +30,12 @@ public class Meeting implements Parcelable {
         this.mSubject = mSubject;
     }
 
-    public String getmPosition() {
-        return mPosition;
+    public String getmRoom() {
+        return mRoom;
     }
 
-    public void setmPosition(String mPosition) {
-        this.mPosition = mPosition;
+    public void setmRoom(String mRoom) {
+        this.mRoom = mRoom;
     }
 
     public String getmStartTime() {
@@ -79,7 +79,7 @@ public class Meeting implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.mSubject);
-        dest.writeString(this.mPosition);
+        dest.writeString(this.mRoom);
         dest.writeLong(this.mDate != null ? this.mDate.getTime() : -1);
         dest.writeString(this.mStartTime);
         dest.writeString(this.mEndTime);
@@ -88,7 +88,7 @@ public class Meeting implements Parcelable {
 
     public void readFromParcel(Parcel source) {
         this.mSubject = source.readString();
-        this.mPosition = source.readString();
+        this.mRoom = source.readString();
         long tmpMDate = source.readLong();
         this.mDate = tmpMDate == -1 ? null : new Date(tmpMDate);
         this.mStartTime = source.readString();
@@ -98,7 +98,7 @@ public class Meeting implements Parcelable {
 
     protected Meeting(Parcel in) {
         this.mSubject = in.readString();
-        this.mPosition = in.readString();
+        this.mRoom = in.readString();
         long tmpMDate = in.readLong();
         this.mDate = tmpMDate == -1 ? null : new Date(tmpMDate);
         this.mStartTime = in.readString();

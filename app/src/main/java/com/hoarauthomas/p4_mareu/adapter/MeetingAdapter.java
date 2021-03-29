@@ -1,8 +1,6 @@
 package com.hoarauthomas.p4_mareu.adapter;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hoarauthomas.p4_mareu.R;
 import com.hoarauthomas.p4_mareu.model.Meeting;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordViewHolder> {
@@ -41,8 +38,59 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
 
         Meeting mCurrent = mListMeeting.get(position);
 
+    /*      <color name="Mario">#F05545</color>
+    <color name="Luigi">#BC477B</color>
+    <color name="Peach">#7c43BD</color>
+    <color name="Toad">#428e92</color>
+    <color name="Yoshi">#4c8c4a</color>
+    <color name="Bowser">#FFb04c</color>
+    <color name="Wario">#ff833a</color>
+    <color name="Waluigi">#c3fdff</color>
+    <color name="Bidosaure">#4f5b62</color>
+    <color name="Bero">#4f8f4f</color>
 
-        //TODO:switch
+     */
+        switch (mCurrent.getmRoom())
+        {
+            case "Luigi":
+                holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.Luigi));
+                break;
+
+            case "Peach":
+                holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.Peach));
+                break;
+
+            case "Toad":
+                holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.Toad));
+                break;
+
+            case "Yoshi":
+                holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.Yoshi));
+                break;
+
+            case "Bowser":
+                holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.Bowser));
+                break;
+
+            case "Wario":
+                holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.Wario));
+                break;
+
+            case "Waluigi":
+                holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.Waluigi));
+                break;
+            case "Bidosaure":
+                holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.Bidosaure));
+                break;
+
+            case "Bero":
+                holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.Bero));
+                break;
+
+
+        }
+
+       /* //TODO:switch
         try {
             Field field = R.color.class.getDeclaredField(mCurrent.getmPosition());
             field.setAccessible(true);
@@ -52,9 +100,11 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
             throw new Resources.NotFoundException(e.getMessage());
         }
 
+        */
+
         holder.mNameView.setText(mCurrent.getmSubject() + " - ");
         holder.mStartTime.setText(mCurrent.getmStartTime() + " - ");
-        holder.mPlace.setText(mCurrent.getmPosition());
+        holder.mPlace.setText(mCurrent.getmRoom());
         holder.mParticipants.setText(mCurrent.getmParticipants());
         holder.mDeleteImage.setOnClickListener(v -> {
             mListMeeting.remove(position);

@@ -16,6 +16,7 @@ import androidx.test.rule.ActivityTestRule;
 import com.hoarauthomas.p4_mareu.api.MeetingApiService;
 import com.hoarauthomas.p4_mareu.di.DI;
 import com.hoarauthomas.p4_mareu.model.Meeting;
+import com.hoarauthomas.p4_mareu.model.MeetingRoom;
 import com.hoarauthomas.p4_mareu.utils.DeleteItemAction;
 
 import org.hamcrest.Description;
@@ -27,8 +28,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import static android.service.autofill.Validators.not;
 import static androidx.test.espresso.Espresso.onData;
@@ -131,8 +134,8 @@ public class ExampleInstrumentedTest {
         addNewMeetingFortTest();
         addNewMeetingFortTest();
         addNewMeetingFortTest();
-        addNewMeetingFortTest();
-        addNewMeetingFortTest();
+     //   addNewMeetingFortTest();
+       // addNewMeetingFortTest();
 
 
         //get the total of meeting
@@ -151,14 +154,19 @@ public class ExampleInstrumentedTest {
     //TODO: this tool add a new meeting
     public void addNewMeetingFortTest() {
 
+        List<String> mySubjects = Arrays.asList("Réunion A", "Réunion B", "Réunion C", "Réunion D");
+        List<String> myRooms = Arrays.asList("Luigi", "Peach", "Toad", "Yoshi","Boser","Wario");
+
         //click on the fab button to open the activity for add a new meeting
         onView(withId(R.id.add_fab_btn)).perform(click());
 
+        Random rand = new Random();
+
         //fill in the text fields
-        onView(withId(R.id.subject_text)).perform(replaceText("Réunion TEST"));
+        onView(withId(R.id.subject_text)).perform(replaceText(mySubjects.get(rand.nextInt(mySubjects.size()))));
         onView(withId(R.id.tiet_start_date)).perform(replaceText("2021/03/01"));
         onView(withId(R.id.tiet_start_time)).perform(replaceText("11H11"));
-        onView(withId(R.id.list_location)).perform(replaceText("Luigi"));
+        onView(withId(R.id.list_location)).perform(replaceText(myRooms.get(rand.nextInt(myRooms.size()))));
 
         //click on the list of participants
         onView(withId(R.id.list_participants)).perform(click());
