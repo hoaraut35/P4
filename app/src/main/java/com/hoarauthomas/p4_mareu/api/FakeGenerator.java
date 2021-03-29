@@ -47,9 +47,6 @@ public class FakeGenerator {
             new Meeting("Réunion A","Toad",new Date(),"10H00","test@gmail.Com"),
             new Meeting("Réunion B","Mario",new Date(),"11H00","test1@gmail.Com"),
             new Meeting("Réunion C","Luigi",new Date(),"12H00","test2@gmail.Com")
-
-
-
     );
 
     static List<Meeting> generateMeetings() {

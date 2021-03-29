@@ -21,42 +21,51 @@ import static org.junit.Assert.assertTrue;
  */
 public class ExampleUnitTest
 {
-
     private MeetingApiService service;
-    private int nbToDel;
 
     @Before
     public void setup()
     {
         service = DI.getMeetingApiService();
+        service.getMeetings().clear();
         service.getMeetings().addAll(FakeGenerator.FakeMeeting);
     }
 
-
-    //check if the service retrieves the list of meetings
+    //TODO : Test 1 : get full list of meetings added by API
     @Test
     public void getMeetingWithSuccess()
     {
+        //We get the full list of API list
         List<Meeting> meetingActual = service.getMeetings();
+        //We get the full list of FakeMeeting to compare ...
         List<Meeting> expectedMeeting = FakeGenerator.FakeMeeting;
+        //We compare the two lists
         assertEquals(expectedMeeting.size(),meetingActual.size());
     }
 
+    //TODO : Test2 : delete a meeting in the list
     @Test
     public void deleteMeetingWithSuccess()
     {
+        //We get the first element of meeting list
         Meeting myMeeting = service.getMeetings().get(0);
+        //We delete this
         service.deleteMeeting(myMeeting);
-        //we check if the list don't contain myMeeting
+        //we check if the list still contains the element
         assertFalse(service.getMeetings().contains(myMeeting));
     }
 
+    //TODO: Test 3 : add a new meeting in the list
     @Test
     public void addMeetingWithSuccess()
     {
+        //We get the size of actual list
         int compteur = service.getMeetings().size();
+        //We copy the first element in the list
         Meeting myMeetingToAdd = service.getMeetings().get(0);
+        //We add this copy to the list
         service.addMeeting(myMeetingToAdd);
+        //We check if the new size of original list is incremented by one
         assertEquals(compteur +1 , service.getMeetings().size());
     }
 

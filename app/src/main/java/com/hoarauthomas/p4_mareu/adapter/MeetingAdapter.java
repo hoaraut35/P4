@@ -41,6 +41,8 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
 
         Meeting mCurrent = mListMeeting.get(position);
 
+
+        //TODO:switch
         try {
             Field field = R.color.class.getDeclaredField(mCurrent.getmPosition());
             field.setAccessible(true);

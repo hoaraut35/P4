@@ -27,11 +27,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
-
-import static java.util.function.Predicate.isEqual;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -83,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setupFabOpenAddActivity() {
-        myFab = findViewById(R.id.floatingbtn2);
+        myFab = findViewById(R.id.add_fab_btn);
         myFab.setOnClickListener(v -> {
             Intent OpenAddMeetingActivity = new Intent(getApplicationContext(), AddMeetingActivity.class);
             startActivityForResult(OpenAddMeetingActivity, 1);
