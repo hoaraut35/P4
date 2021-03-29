@@ -41,6 +41,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static com.hoarauthomas.p4_mareu.utils.RecyclerViewItemCountAssertion.withItemCount;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.instanceOf;
@@ -84,133 +85,79 @@ public class ExampleInstrumentedTest {
     }
 
 
+
+
+    //TODO: this test check if we can add a new meeting
     @Test
-    public void addNewMEetingTes()
-    {
+    public void addNewMeeting_shouldAddMeeting() {
+
+        int total_of_participants = myApiServiceForTest.getMeetings().size();
+
+        //click on the fab button to open the activity for add a new meeting
         onView(withId(R.id.add_fab_btn)).perform(click());
 
-        onView(withId(R.id.view_participants)).perform(click());
-     //  onView(withId(R.id.list_participants)).perform(scrollTo(),click());
-
-
-    }
-
-    @Test
-    public void addNewMeeting() {
-
-        //We click on fab for add a new meeting
-        ViewInteraction floatingActionButton = onView(
-                allOf(withId(R.id.add_fab_btn),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                2),
-                        isDisplayed()));
-        floatingActionButton.perform(click());
-
-        //We fill in the text fields
+        //fill in the text fields
         onView(withId(R.id.subject_text)).perform(replaceText("Réunion TEST"));
         onView(withId(R.id.tiet_start_date)).perform(replaceText("2021/03/01"));
         onView(withId(R.id.tiet_start_time)).perform(replaceText("11H11"));
         onView(withId(R.id.list_location)).perform(replaceText("Luigi"));
 
-
-        ViewInteraction materialAutoCompleteTextView = onView(
-                allOf(withId(R.id.list_participants), childAtPosition(childAtPosition(withId(R.id.view_participants),0),0), isDisplayed()));
-
-
+        //click on the list of participants
         onView(withId(R.id.list_participants)).perform(click());
 
-        //onView(withId(R.id.list_participants)).inRoot();
+        //click on the fist element in the list of participants
+        onView(withText("user1@gmail.com")).inRoot(isPlatformPopup()).perform(click());
 
-        onView(withText("user1@gmail.com"))
-                .inRoot(isPlatformPopup())
-                .perform(click());
+       //click on valid button to add the new meeting to the list
+        onView(withId(R.id.btn_valid)).perform(click());
+
+       //check if the recyclerview is incremented by one
+       onView(ViewMatchers.withId(R.id.recyclerview)).check(withItemCount(total_of_participants+1));
+
+    }
+
+    //TODO:this test check if we can remove a meetinf from recycerview
+    @Test
+    public void removeMeeting_shouldRemoveItem() {
+
+        //add a new meeting before delete
+        addNewMeetingFortTest();
+
+        //delete a meeting
+
+        ViewInteraction appCompatImageView = onView(
+                allOf(withId(R.id.view_delete_meeting),
+                        childAtPosition(childAtPosition(withId(R.id.recyclerview),0), 5), isDisplayed()));
+        appCompatImageView.perform(click());
+
 
 
 
     }
 
 
-    //This test check if
-    //   @Test
-  /*  public void myMeetingList_deleteAction_shouldRemoveItem() {
-        if (myApiServiceForTest.getMeetings().size() == 0) {
-            //We click on fab for add a new meeting
-            onView(withId(R.id.floatingbtn2)).perform(click());
-
-            //We fill in the text fields
-            onView(withId(R.id.subject_text)).perform(replaceText("Réunion TEST"));
-            onView(withId(R.id.tiet_start_date)).perform(replaceText("2021/03/01"));
-            onView(withId(R.id.tiet_start_time)).perform(replaceText("11H11"));
-            onView(withId(R.id.list_location)).perform(replaceText("Luigi"));
 
 
-            ViewInteraction materialAutoCompleteTextView2 = onView(
-                    allOf(withId(R.id.list_participants),
-                            childAtPosition(
-                                    childAtPosition(
-                                            withId(R.id.view_participants),
-                                            0),
-                                    0),
-                            isDisplayed()));
-            materialAutoCompleteTextView2.perform(click());
+    //TODO: this tool add a new meeting
+    public void addNewMeetingFortTest() {
 
-          //  DataInteraction materialTextView2 = onData(anything())
-          //          .inAdapterView(withClassName(is("android.widget.ListPopupWindow$DropDownListView")))
-          //          .atPosition(0);
-          //  materialTextView2.perform(click());
-
-
-
-        //    ViewInteraction materialButton3 = onView( allOf(withId(R.id.btn_valid), withText("Valider"),   childAtPosition(childAtPosition( withId(android.R.id.content),0),7), isDisplayed()));
-        //    materialButton3.perform(click());
-
-
-
-          //  ViewInteraction appCompatImageView = onView(allOf(withId(R.id.view_delete_meeting), childAtPosition(childAtPosition(withId(R.id.recyclerview),0),5),isDisplayed()));
-          //  appCompatImageView.perform(click());
-
-        } else {
-            ViewInteraction appCompatImageView = onView(
-                    allOf(withId(R.id.view_delete_meeting),
-                            childAtPosition(
-                                    childAtPosition(
-                                            withId(R.id.recyclerview),
-                                            0),
-                                    0),
-                            isDisplayed()));
-            appCompatImageView.perform(click());
-
-        }
-      //  onView(withId(R.id.recyclerview)).check(withItemCount(3));
-        // When perform a click on a delete icon
-      //  onView(withId(R.id.recyclerview)).perform(RecyclerViewActions.actionOnItemAtPosition(0, new DeleteItemAction()));
-        // Then : the number of element is 3-1
-      //  onView(withId(R.id.recyclerview)).check(withItemCount(2));
-    }
-
-
-   */
-
-    //TODO: voir le nombre d'élément avant l'ajout pour tester
-    //Check if we can add a meeting to the list
-    //  @Test
-    public void myMeetingList_addMeetingAction_shouldAddItem() {
-
-        //We click on fab for add a new meeting
+        //click on the fab button to open the activity for add a new meeting
         onView(withId(R.id.add_fab_btn)).perform(click());
 
-        //We fill in the text fields
+        //fill in the text fields
         onView(withId(R.id.subject_text)).perform(replaceText("Réunion TEST"));
         onView(withId(R.id.tiet_start_date)).perform(replaceText("2021/03/01"));
         onView(withId(R.id.tiet_start_time)).perform(replaceText("11H11"));
         onView(withId(R.id.list_location)).perform(replaceText("Luigi"));
-        onView(withId(R.id.list_participants)).perform(replaceText("test@gmail.Com"));
-        //  onView(withId(R.id.list_participants)).perform(click());
-        // onView(allOf(withId(R.id.list_participants), childAtPosition(childAtPosition(withId(R.id.view_participants), 0), 0), isDisplayed()));
-        // onView(withId(R.id.list_participants)).perform(click());
+
+        //click on the list of participants
+        onView(withId(R.id.list_participants)).perform(click());
+
+        //click on the fist element in the list of participants
+        onView(withText("user1@gmail.com")).inRoot(isPlatformPopup()).perform(click());
+
+        //click on valid button to add the new meeting to the list
+        onView(withId(R.id.btn_valid)).perform(click());
 
     }
 
