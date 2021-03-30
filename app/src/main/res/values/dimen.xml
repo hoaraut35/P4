@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-    <resources>
-        <!-- TextViews -->
-        <dimen name="size_text_title">12sp</dimen>
-        <dimen name="size_text_description">10sp</dimen>
+<resources>
+    <!-- TextViews -->
+    <dimen name="size_text_title">12sp</dimen>
+    <dimen name="size_text_description">10sp</dimen>
 
-        <!-- Images -->
-        <dimen name="size_image_height">30dip</dimen>
-        <dimen name="size_image_width">30dip</dimen>
+    <!-- Images -->
+    <dimen name="size_image_height">30dip</dimen>
+    <dimen name="size_image_width">30dip</dimen>
 
     <dimen name="size_text_item_meeting_layout">16sp</dimen>
-    </resources>
+</resources>
 
