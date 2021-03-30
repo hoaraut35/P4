@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -116,6 +117,9 @@ public class MainActivity extends AppCompatActivity {
                 if (newText == null || newText.length() == 0 || newText.isEmpty()) {
                     filteredList.addAll(meetingsList);
                     myAdapter = new MeetingAdapter(MainActivity.this, meetingsList);
+
+                    Toast toast = Toast.makeText(MainActivity.this,"Filtre désactivé",Toast.LENGTH_SHORT);
+                    toast.show();
                 } else {
 
                     String filterPattern = newText.toLowerCase().trim();
@@ -160,6 +164,8 @@ public class MainActivity extends AppCompatActivity {
 
             if (datefilter == null || datefilter.length() == 0) {
                 myAdapter = new MeetingAdapter(MainActivity.this, meetingsList);
+
+
             } else {
 
                 for (Meeting meeting : meetingsList) {
@@ -201,6 +207,8 @@ public class MainActivity extends AppCompatActivity {
         mDatePicker.setButton(DialogInterface.BUTTON_NEGATIVE, "Annuler", (dialog, which) -> {
             myAdapter = new MeetingAdapter(MainActivity.this, meetingsList);
             myRecyclerView.setAdapter(myAdapter);
+            Toast toast = Toast.makeText(this,"Filtre désactivé",Toast.LENGTH_SHORT);
+            toast.show();
         });
         mDatePicker.show();
     }

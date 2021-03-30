@@ -87,7 +87,7 @@ public class ExampleInstrumentedTest {
     }
 
     //TODO: check if the recyclerview is empty
-    //@Test
+    @Test
     public void myMeetingList_shouldBeEmpty() {
 
         //First time we check if the list is empty
@@ -96,14 +96,14 @@ public class ExampleInstrumentedTest {
 
 
     //TODO: this test check if we can add a new meeting
-  //@Test
+    @Test
     public void add_Meeting_shouldAddMeeting() {
 
         //get the size of meeting to compare ...
         int total_of_meeting = myApiServiceForTest.getMeetings().size();
 
         //add a new meeting
-        addNewMeetingFortTest("","");
+        addNewMeetingFortTest("addmeetingTest", "","");
 
         //check if the recyclerview is incremented by one
         onView(ViewMatchers.withId(R.id.recyclerview)).check(withItemCount(total_of_meeting + 1));
@@ -113,30 +113,43 @@ public class ExampleInstrumentedTest {
     }
 
     //TODO:this test check if we can remove a meetinf from recycerview
-    //@Test
+    @Test
     public void remove_Meeting_shouldRemove() {
 
+        myPause();
+        myPause();
+
         //add one meetings to delete
-        addNewMeetingFortTest("","");
+        addNewMeetingFortTest("removeMeeting", "","");
+
+        myPause();
+        myPause();
+
         //get the total of meeting
         int total_of_meeting = mActivity.myRecyclerView.getAdapter().getItemCount();
         //delete a meeting
         onView(ViewMatchers.withId(R.id.recyclerview)).perform(RecyclerViewActions.actionOnItemAtPosition(0, new DeleteItemAction()));
+
+        myPause();
+        myPause();
+
         //check if the recyclerview is incremented by one
         onView(ViewMatchers.withId(R.id.recyclerview)).check(withItemCount(total_of_meeting - 1));
         //add a pause for visual
         myPause();
+        myPause();
+
     }
 
     //TODO: filter meetings by room
-    //@Test
+    @Test
     public void filterMeetingByRoom_shoulbBeFilterByRoom() {
 
         //add some meeting for test with a forced room to Mario to check
-        addNewMeetingFortTest("","2021-03-01");
-        addNewMeetingFortTest("Mario","2021-03-02");
-        addNewMeetingFortTest("","2021-03-03");
-        addNewMeetingFortTest("Mario","");
+        addNewMeetingFortTest("randomRoom1","", "2021-03-01");
+        addNewMeetingFortTest("fixedRoom","Mario", "2021-03-02");
+        addNewMeetingFortTest("randomRoom2","", "2021-03-03");
+        addNewMeetingFortTest("fixedRoom","Mario", "");
         //for visual
         myPause();
 
@@ -153,15 +166,17 @@ public class ExampleInstrumentedTest {
 
         //replace the text with Mario to filter this room
         onView(allOf(withClassName(is("android.widget.SearchView$SearchAutoComplete")),
-                        childAtPosition(
-                                allOf(withClassName(is("android.widget.LinearLayout")),
-                                        childAtPosition(
-                                                withClassName(is("android.widget.LinearLayout")),
-                                                1)),
-                                0),
-                        isDisplayed())).perform(replaceText("Mario"), closeSoftKeyboard());
+                childAtPosition(
+                        allOf(withClassName(is("android.widget.LinearLayout")),
+                                childAtPosition(
+                                        withClassName(is("android.widget.LinearLayout")),
+                                        1)),
+                        0),
+                isDisplayed())).perform(replaceText("Mario"), closeSoftKeyboard());
         //for visual
         myPause();
+        myPause();
+
 
         //for disable the filter
         ViewInteraction appCompatImageView2 = onView(
@@ -174,8 +189,12 @@ public class ExampleInstrumentedTest {
                                 1),
                         isDisplayed()));
         appCompatImageView2.perform(click());
+
         //for visual
         myPause();
+        myPause();
+        myPause();
+
 
     }
 
@@ -184,9 +203,9 @@ public class ExampleInstrumentedTest {
     public void filterMeetingByDate_shouldBeFilterByDate() {
 
         //add new meetings to the list
-        addNewMeetingFortTest("","2021-11-01");//bug is this line is present
-        addNewMeetingFortTest("Luigi","2021-11-02");//bug is this line is present
-        addNewMeetingFortTest("Toad","2021-11-03");//bug is this line is present
+        addNewMeetingFortTest("2021_11_01","", "2021-11-01");
+        addNewMeetingFortTest("2021_11_02","Luigi", "2021-11-02");
+        addNewMeetingFortTest("2021_11_03","Toad", "2021-11-03");
 
         myPause();
 
@@ -234,13 +253,18 @@ public class ExampleInstrumentedTest {
 
         onView(withText("ANNULER")).perform(click());//TODO: voir bug settime ou gettime dans la fonction datepicker mainactivity
 
+        myPause();
+        myPause();
+        myPause();
+        myPause();
+
 
 
     }
 
 
     //TODO: this tool add a new meeting
-    public void addNewMeetingFortTest(String room, String date) {
+    public void addNewMeetingFortTest(String subject, String room, String date) {
 
         List<String> mySubjects = Arrays.asList("Réunion A", "Réunion B", "Réunion C", "Réunion D");
         List<String> myRooms = Arrays.asList("Luigi", "Peach", "Toad", "Yoshi", "Boser", "Wario");
@@ -251,16 +275,20 @@ public class ExampleInstrumentedTest {
         Random rand = new Random();
 
         //fill in the text fields
-        onView(withId(R.id.subject_text)).perform(replaceText(mySubjects.get(rand.nextInt(mySubjects.size()))));
+        if (subject.length() ==0)
+        {
+            onView(withId(R.id.subject_text)).perform(replaceText(mySubjects.get(rand.nextInt(mySubjects.size()))));
+        }else
+        {
+            onView(withId(R.id.subject_text)).perform(replaceText(subject));
+        }
+
 
         myPause();
 
-        if (date.length() == 0)
-        {
+        if (date.length() == 0) {
             onView(withId(R.id.tiet_start_date)).perform(replaceText("2021-11-26"));
-        }
-        else
-        {
+        } else {
             onView(withId(R.id.tiet_start_date)).perform(replaceText(date));
         }
 
@@ -269,12 +297,9 @@ public class ExampleInstrumentedTest {
         onView(withId(R.id.tiet_start_time)).perform(replaceText("11H11"));
 
         myPause();
-        if (room.length() == 0 )
-        {
+        if (room.length() == 0) {
             onView(withId(R.id.list_location)).perform(replaceText(myRooms.get(rand.nextInt(myRooms.size()))));
-        }
-        else
-        {
+        } else {
             onView(withId(R.id.list_location)).perform(replaceText(room.toString()));
         }
 
@@ -296,8 +321,7 @@ public class ExampleInstrumentedTest {
 
     }
 
-    public void myPause()
-    {
+    public void myPause() {
         try {
             Thread.sleep(350);
         } catch (InterruptedException e) {

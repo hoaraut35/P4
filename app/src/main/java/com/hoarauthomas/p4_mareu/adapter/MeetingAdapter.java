@@ -1,11 +1,13 @@
 package com.hoarauthomas.p4_mareu.adapter;
 
+import android.app.Application;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -111,6 +113,10 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
         holder.mDeleteImage.setOnClickListener(v -> {
             mListMeeting.remove(position);
             notifyDataSetChanged();
+
+
+            Toast toast = Toast.makeText(holder.mDeleteImage.getContext(),"Réunion supprimée",Toast.LENGTH_SHORT);
+            toast.show();
 
         });
     }
