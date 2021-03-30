@@ -40,7 +40,6 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
         return new WordViewHolder(mItemView, this);
     }
 
-    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull MeetingAdapter.WordViewHolder holder, int position) {
 
@@ -50,45 +49,35 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
             case "Luigi":
                 holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.Luigi));
                 break;
-
             case "Peach":
                 holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.mAvatar.getContext(), R.color.Peach));
                 break;
-
             case "Toad":
                 holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.Toad));
                 break;
-
             case "Yoshi":
                 holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.Yoshi));
                 break;
-
             case "Bowser":
                 holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.Bowser));
                 break;
-
             case "Wario":
                 holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.Wario));
                 break;
-
             case "Waluigi":
                 holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.Waluigi));
                 break;
             case "Bidosaure":
                 holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.Bidosaure));
                 break;
-
             case "Bero":
                 holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.Bero));
                 break;
-
             case "Mario":
                 holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.Mario));
                 break;
-
             default:
                 holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.black));
-
         }
 
         holder.mNameView.setText(mCurrent.getmSubject() + " - ");
@@ -98,17 +87,9 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
         holder.mDeleteImage.setOnClickListener(v -> {
             mListMeeting.remove(position);
             notifyDataSetChanged();
-
-
             Toast toast = Toast.makeText(holder.mDeleteImage.getContext(), "Réunion supprimée", Toast.LENGTH_SHORT);
             toast.show();
-
         });
-    }
-
-    public static void setDrawableColor(Context context, Drawable drawable, int color) {
-        Drawable drawableWrap = DrawableCompat.wrap(drawable).mutate();
-        DrawableCompat.setTint(drawableWrap, ContextCompat.getColor(context, color));
     }
 
     @Override

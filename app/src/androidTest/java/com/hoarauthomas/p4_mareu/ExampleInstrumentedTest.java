@@ -73,9 +73,7 @@ import static org.junit.Assert.assertThat;
 public class ExampleInstrumentedTest {
 
     private MainActivity mActivity;
-    private int ITEM_COUBNT = 3;
-    private MeetingApiService myApiServiceForTest = DI.getMeetingApiService();
-
+    private final MeetingApiService myApiServiceForTest = DI.getMeetingApiService();
 
     @Rule
     public ActivityTestRule<MainActivity> meetingActivityRule = new ActivityTestRule(MainActivity.class);
@@ -90,32 +88,28 @@ public class ExampleInstrumentedTest {
     @Test
     public void myMeetingList_shouldBeEmpty() {
 
-        //First time we check if the list is empty
+        //check if the list is empty
         onView(ViewMatchers.withId(R.id.recyclerview)).check(matches(hasMinimumChildCount(0)));
     }
 
-
-    //TODO: this test check if we can add a new meeting
+    //TODO: check if we can add a new meeting
     @Test
     public void add_Meeting_shouldAddMeeting() {
 
-        //get the size of meeting to compare ...
+        //retrieve the size of the list before adding a meeting
         int total_of_meeting = myApiServiceForTest.getMeetings().size();
-
-        //add a new meeting
-
-        int nb_meeting = 20;
-        for (int i=0 ; i<nb_meeting; i++)
+        //adding meeting(s)
+        int nb_meetingToAdd = 3;
+        for (int i = 1 ; i <= nb_meetingToAdd ; i++)
         {
-            addNewMeetingFortTest("addmeetingTest" + i, "","");
+            addNewMeetingFortTest("add_meeting_" + i + " to " + nb_meetingToAdd, "","");
         }
-
-
-        //check if the recyclerview is incremented by one
-        onView(ViewMatchers.withId(R.id.recyclerview)).check(withItemCount(total_of_meeting + nb_meeting));
-
+        //check if the recyclerview is incremented by nb_meetingToAdd
+        onView(ViewMatchers.withId(R.id.recyclerview)).check(withItemCount(total_of_meeting + nb_meetingToAdd));
+        //add a pause for visual
         myPause();
-
+        myPause();
+        myPause();
     }
 
     //TODO:this test check if we can remove a meetinf from recycerview
@@ -329,7 +323,7 @@ public class ExampleInstrumentedTest {
 
     public void myPause() {
         try {
-            Thread.sleep(350);
+            Thread.sleep(250);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
