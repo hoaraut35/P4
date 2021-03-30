@@ -87,7 +87,7 @@ public class ExampleInstrumentedTest {
     }
 
     //TODO: check if the recyclerview is empty
-    @Test
+    //@Test
     public void myMeetingList_shouldBeEmpty() {
 
         //First time we check if the list is empty
@@ -96,14 +96,14 @@ public class ExampleInstrumentedTest {
 
 
     //TODO: this test check if we can add a new meeting
-    @Test
+  //@Test
     public void add_Meeting_shouldAddMeeting() {
 
         //get the size of meeting to compare ...
         int total_of_meeting = myApiServiceForTest.getMeetings().size();
 
         //add a new meeting
-        addNewMeetingFortTest("");
+        addNewMeetingFortTest("","");
 
         //check if the recyclerview is incremented by one
         onView(ViewMatchers.withId(R.id.recyclerview)).check(withItemCount(total_of_meeting + 1));
@@ -113,11 +113,11 @@ public class ExampleInstrumentedTest {
     }
 
     //TODO:this test check if we can remove a meetinf from recycerview
-    @Test
+    //@Test
     public void remove_Meeting_shouldRemove() {
 
         //add one meetings to delete
-        addNewMeetingFortTest("");
+        addNewMeetingFortTest("","");
         //get the total of meeting
         int total_of_meeting = mActivity.myRecyclerView.getAdapter().getItemCount();
         //delete a meeting
@@ -129,14 +129,14 @@ public class ExampleInstrumentedTest {
     }
 
     //TODO: filter meetings by room
-    @Test
+    //@Test
     public void filterMeetingByRoom_shoulbBeFilterByRoom() {
 
         //add some meeting for test with a forced room to Mario to check
-        addNewMeetingFortTest("");
-        addNewMeetingFortTest("Mario");
-        addNewMeetingFortTest("");
-        addNewMeetingFortTest("Mario");
+        addNewMeetingFortTest("","2021-03-01");
+        addNewMeetingFortTest("Mario","2021-03-02");
+        addNewMeetingFortTest("","2021-03-03");
+        addNewMeetingFortTest("Mario","");
         //for visual
         myPause();
 
@@ -179,13 +179,44 @@ public class ExampleInstrumentedTest {
 
     }
 
-    //TODO: filter meetings by date
+    //TODO: first filter meetings by date 2021-11-02 and return the full list after show
     @Test
     public void filterMeetingByDate_shouldBeFilterByDate() {
 
-        //add a newmeeting to test filter by date
-        addNewMeetingFortTest("");//bug is this line is present
+        //add new meetings to the list
+        addNewMeetingFortTest("","2021-11-01");//bug is this line is present
+        addNewMeetingFortTest("Luigi","2021-11-02");//bug is this line is present
+        addNewMeetingFortTest("Toad","2021-11-03");//bug is this line is present
 
+        myPause();
+
+        //process to choice a date
+        onView(allOf(withContentDescription("More options"),
+                childAtPosition(
+                        childAtPosition(
+                                withId(R.id.action_bar),
+                                1),
+                        1),
+                isDisplayed())).perform(click());
+
+        myPause();
+
+        onView(allOf(withId(R.id.title), withText("Filtrer par date"), isDisplayed())).perform(click());
+
+        myPause();
+
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2021, 11, 2));
+
+        myPause();
+
+        onView(withText("OK")).perform(click());//TODO: voir bug settime ou gettime dans la fonction datepicker mainactivity
+
+        myPause();
+        myPause();
+        myPause();
+        myPause();
+        myPause();
+        myPause();
 
         onView(allOf(withContentDescription("More options"),
                 childAtPosition(
@@ -195,24 +226,21 @@ public class ExampleInstrumentedTest {
                         1),
                 isDisplayed())).perform(click());
 
+        myPause();
 
         onView(allOf(withId(R.id.title), withText("Filtrer par date"), isDisplayed())).perform(click());
-        myPause();
-
-        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2021, 11, 26));
 
         myPause();
 
-        onView(withText("OK")).perform(click());//TODO: voir bug settime ou gettime dans la fonction datepicker mainactivity
+        onView(withText("ANNULER")).perform(click());//TODO: voir bug settime ou gettime dans la fonction datepicker mainactivity
 
-        myPause();
 
 
     }
 
 
     //TODO: this tool add a new meeting
-    public void addNewMeetingFortTest(String room) {
+    public void addNewMeetingFortTest(String room, String date) {
 
         List<String> mySubjects = Arrays.asList("Réunion A", "Réunion B", "Réunion C", "Réunion D");
         List<String> myRooms = Arrays.asList("Luigi", "Peach", "Toad", "Yoshi", "Boser", "Wario");
@@ -226,7 +254,17 @@ public class ExampleInstrumentedTest {
         onView(withId(R.id.subject_text)).perform(replaceText(mySubjects.get(rand.nextInt(mySubjects.size()))));
 
         myPause();
-        onView(withId(R.id.tiet_start_date)).perform(replaceText("2021/03/01"));
+
+        if (date.length() == 0)
+        {
+            onView(withId(R.id.tiet_start_date)).perform(replaceText("2021-11-26"));
+        }
+        else
+        {
+            onView(withId(R.id.tiet_start_date)).perform(replaceText(date));
+        }
+
+
         myPause();
         onView(withId(R.id.tiet_start_time)).perform(replaceText("11H11"));
 

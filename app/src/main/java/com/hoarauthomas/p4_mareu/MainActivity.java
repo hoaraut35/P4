@@ -156,17 +156,16 @@ public class MainActivity extends AppCompatActivity {
 
             datefilter = LocalDate.of(year, (month + 1), dayOfMonth).toString();
 
-
             List<Meeting> filteredList = new ArrayList<Meeting>();
 
-            if (datefilter == null || datefilter.length() == 0 || datefilter.isEmpty()) {
+            if (datefilter == null || datefilter.length() == 0) {
                 myAdapter = new MeetingAdapter(MainActivity.this, meetingsList);
             } else {
 
                 for (Meeting meeting : meetingsList) {
 
                     year = mDatePicker.getDatePicker().getYear();
-                    month = mDatePicker.getDatePicker().getMonth();
+                    month = (mDatePicker.getDatePicker().getMonth());
                     dayOfMonth = mDatePicker.getDatePicker().getDayOfMonth();
 
                     Calendar mycalendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
@@ -176,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
                     String dateStr = sdf.format(mycalendar.getTime());
                     //TODO: pb avec test instrumentalisé car
 
-                    String date2Str;
+                    String date2Str = mycalendar.getTime().toString();
 
                     try {
                         date2Str = sdf.format(meeting.getmDate());
