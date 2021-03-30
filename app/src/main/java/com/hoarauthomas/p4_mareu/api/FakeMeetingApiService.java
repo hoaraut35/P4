@@ -16,16 +16,19 @@ public class FakeMeetingApiService implements MeetingApiService {
     public List<Meeting> meetingsList = new ArrayList<>();
     private final List<MeetingRoom> meetingRoomsList = generateMeetingRooms();
 
+    //return the collaborators list
     @Override
     public List<Collaborator> getCollaborators() {
         return collaboratorsList;
     }
 
+    //return the meetinglist
     @Override
     public List<Meeting> getMeetings() {
         return meetingsList;
     }
 
+    //return the rooms list
     @Override
     public List<MeetingRoom> getMeetingsRooms() {
         return meetingRoomsList;

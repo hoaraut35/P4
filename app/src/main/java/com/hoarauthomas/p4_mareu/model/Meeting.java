@@ -13,12 +13,12 @@ public class Meeting implements Parcelable {
     private String mEndTime;
     private String mParticipants;
 
+    //constructor
     public Meeting(String mSubject, String mRoom, Date mDate, String mStartTime, String mParticipants) {
         this.mSubject = mSubject;
         this.mRoom = mRoom;
         this.mDate = mDate;
         this.mStartTime = mStartTime;
-
         this.mParticipants = mParticipants;
     }
 

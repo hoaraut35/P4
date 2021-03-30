@@ -28,11 +28,14 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
     private List<Meeting> mListMeeting;
     private final LayoutInflater mInflater;
 
+    //constructor
     public MeetingAdapter(Context context, List<Meeting> mListMeeting2) {
         mInflater = LayoutInflater.from(context);
         this.mListMeeting = mListMeeting2;
     }
 
+
+    //override onCreateViewsHolder to create a holder
     @NonNull
     @Override
     public MeetingAdapter.WordViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -40,11 +43,13 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
         return new WordViewHolder(mItemView, this);
     }
 
+    //override onBindViewHolder to bind data to the holder
     @Override
     public void onBindViewHolder(@NonNull MeetingAdapter.WordViewHolder holder, int position) {
 
         Meeting mCurrent = mListMeeting.get(position);
 
+        //get the color from mCurrent meeting object
         switch (mCurrent.getmRoom()) {
             case "Luigi":
                 holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.Luigi));
@@ -80,10 +85,12 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
                 holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.black));
         }
 
+        //get others data from mCurrent meeting object ...
         holder.mNameView.setText(mCurrent.getmSubject() + " - ");
         holder.mStartTime.setText(mCurrent.getmStartTime() + " - ");
         holder.mPlace.setText(mCurrent.getmRoom());
         holder.mParticipants.setText(mCurrent.getmParticipants());
+        //add a listener for delete a meeting if the user click a trash
         holder.mDeleteImage.setOnClickListener(v -> {
             mListMeeting.remove(position);
             notifyDataSetChanged();
@@ -99,6 +106,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
 
     class WordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        //binding
         final MeetingAdapter mAdapter;
         public ImageView mAvatar;
         public TextView mNameView;

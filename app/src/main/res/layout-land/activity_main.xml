@@ -14,7 +14,7 @@
         app:layout_constraintBottom_toTopOf="@+id/xml2"
         android:visibility="visible"
         android:gravity="center"
-        android:text="NO DATA TO SHOW"
+        android:text="NO MEETING DATA TO SHOW, CLICK ON THE FAB BUTTON TO ADD"
         />
 
     <androidx.recyclerview.widget.RecyclerView

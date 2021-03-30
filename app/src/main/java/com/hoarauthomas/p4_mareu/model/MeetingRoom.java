@@ -6,7 +6,7 @@ public class MeetingRoom {
     private String mRoomPosition;
     private int mMaxCollaborator;
 
-
+    //constructor
     public MeetingRoom(int mId, String mRoomName, String mRoomPosition, int mMaxCollaborator) {
         this.mId = mId;
         this.mRoomName = mRoomName;

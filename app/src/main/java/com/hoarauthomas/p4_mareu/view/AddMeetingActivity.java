@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -69,10 +70,11 @@ public class AddMeetingActivity extends AppCompatActivity {
 
         service = DI.getMeetingApiService();
 
-        Toolbar toolbar =findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setOnClickListener(v -> finish());
 
+        //setup ...
         setupDatePicker();
         setupTimePicker();
         setupClickDate();
@@ -81,6 +83,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         setupDataParticipants();
         setupClickValidate();
 
+        //close activity if button ANNULER is clicked
         mBtnCancel.setOnClickListener(v -> finish());
     }
 
@@ -93,6 +96,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     private void setupBtnValidate() {
         String participant = "";
 
+        //this routine add a ; between meeting object
         for (int i = 0; i < mChipGroup.getChildCount(); i++) {
             Chip chip = (Chip) mChipGroup.getChildAt(i);
 
@@ -102,78 +106,57 @@ public class AddMeetingActivity extends AppCompatActivity {
                 participant += chip.getText();
             }
         }
-
-        if (mEditSubject.getEditableText().toString().isEmpty())
-        {
+        //alert message for empty fileds ...
+        if (mEditSubject.getEditableText().toString().isEmpty()) {
             mEditSubject.setError("Sujet requis");
-        }else
-        {
+        } else {
             mEditSubject.setError(null);
         }
 
-        if (mEditDate.getText().toString().isEmpty())
-        {
+        if (mEditDate.getText().toString().isEmpty()) {
             mEditDate.setError("Date requise");
-        }else
-        {
+        } else {
             mEditDate.setError(null);
         }
 
-        if (mRooms.getText().toString().isEmpty())
-        {
+        if (mRooms.getText().toString().isEmpty()) {
             mRooms.setError("Choisir une salle");
-        }else
-        {
+        } else {
             mRooms.setError(null);
         }
 
-        if (mChipGroup.getChildCount() ==0)
-        {
+        if (mChipGroup.getChildCount() == 0) {
             mEmails.setError("Choisir les participants");
-        }else
-        {
+        } else {
             mEmails.setError(null);
         }
 
-        if (mEditTime.getEditableText().toString().isEmpty())
-        {
+        if (mEditTime.getEditableText().toString().isEmpty()) {
             mEditTime.setError("choisir l'heure de début");
-        }else
-        {
+        } else {
             mEditTime.setError(null);
         }
-
-        if(mEditSubject.getEditableText().toString().isEmpty() || mRooms.getText().toString().isEmpty() || mEditDate.getText().toString().isEmpty() || mEditTime.getEditableText().toString().isEmpty() || mChipGroup.getChildCount() <= 0) {
-            //Nothing
-        }
-        else
-        {
+        //check fields ...
+        if (mEditSubject.getEditableText().toString().isEmpty() || mRooms.getText().toString().isEmpty() || mEditDate.getText().toString().isEmpty() || mEditTime.getEditableText().toString().isEmpty() || mChipGroup.getChildCount() <= 0) {
+            //Nothing to do
+        } else {
             try {
                 datePickerToDate = new SimpleDateFormat("yyyy-MM-dd").parse(mEditDate.getText().toString());
-                Log.i("THOMAS","Date : " + datePickerToDate.toString());
-            }catch (Exception e)
-            {
-                Log.i("THOMAS","erreur : " );
+                Log.i("THOMAS", "Date : " + datePickerToDate.toString());
+            } catch (Exception e) {
+                Log.i("THOMAS", "erreur : ");
             }
 
-            //Meeting meeting = new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(), convertToDateViaInstant(LocalDate.parse(mEditDate.getText().toString())), mEditTime.getText().toString(), participant);
             Meeting meeting = new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(), datePickerToDate, mEditTime.getText().toString(), participant);
             Intent intent = new Intent();
             intent.putExtra(MEETING_KEY, meeting);
             setResult(1, intent);
+            //close activity
             finish();
         }
     }
 
-   /* @RequiresApi(api = Build.VERSION_CODES.O)
-    public Date convertToDateViaInstant(LocalDate dateToConvert) {
-        return java.util.Date.from(dateToConvert.atStartOfDay()
-                .atZone(ZoneId.systemDefault())
-                .toInstant());
-    }
-
-    */
-
+    //add a chip to the mChipGroup
     private void addNewChipParticipant(String name) {
         LayoutInflater inflater = LayoutInflater.from(this);
         Chip newChip = (Chip) inflater.inflate(R.layout.chip_participant, this.mChipGroup, false);
@@ -201,31 +184,19 @@ public class AddMeetingActivity extends AppCompatActivity {
         int mMonth = calendar.get(Calendar.MONTH);
         int mDay = calendar.get(Calendar.DAY_OF_MONTH);
 
-
-        mDatePicker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
-                mEditDate.setText(LocalDate.of(year, (month + 1), dayOfMonth).toString());
-            }
-
-        }, mYear, mMonth, mDay);
+        mDatePicker = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> mEditDate.setText(LocalDate.of(year, (month + 1), dayOfMonth).toString()), mYear, mMonth, mDay);
     }
 
     private void setupTimePicker() {
         int mHour = java.time.LocalTime.now().getHour();
         int mMinutes = java.time.LocalTime.now().getMinute();
 
-        mTimePicker = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                mEditTime.setText(hourOfDay + ":" + minute);
-
-            }
-        }, mHour, mMinutes, false);
+        mTimePicker = new TimePickerDialog(this, (view, hourOfDay, minute) -> mEditTime.setText(hourOfDay + ":" + minute), mHour, mMinutes, false);
     }
 
     private void setupDataRooms() {
+
+        //get the rooms list from API
         List<String> rooms = new ArrayList<>();
 
         for (MeetingRoom item : service.getMeetingsRooms()) {
@@ -238,6 +209,8 @@ public class AddMeetingActivity extends AppCompatActivity {
     }
 
     private void setupDataParticipants() {
+
+        //get the emails list from API
         List<String> emails = new ArrayList<>();
 
         for (Collaborator item : service.getCollaborators()) {
@@ -245,20 +218,15 @@ public class AddMeetingActivity extends AppCompatActivity {
         }
 
         Collections.sort(emails);
-
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, emails);
         mEmails.setAdapter(adapter);
-
-
         mEmails.setOnItemClickListener((parent, view, position, id) -> {
-
-            //TODO: check if already exist in the list
-
-            if (mChipGroup.getChildCount() < 10)
-            {
+            if (mChipGroup.getChildCount() < 10) {
                 addNewChipParticipant(mEmails.getText().toString());
+            } else {
+                Toast toast = Toast.makeText(this, "Salle complète !", Toast.LENGTH_SHORT);
+                toast.show();
             }
         });
     }
-
 }

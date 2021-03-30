@@ -38,47 +38,52 @@ public class MainActivity extends AppCompatActivity {
     public FloatingActionButton myFab;
     private String datefilter;
     public List<Meeting> meetingsList = new ArrayList<>();
-    private List<Meeting> spareMeetingList = new ArrayList<>();
-    DatePickerDialog mDatePicker;
+    public DatePickerDialog mDatePicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+        //setup adapter, layoutManager, RecyclerView
         setupRecyclerView();
+        //setup fab for new meeting activity with intent
         setupFabOpenAddActivity();
+        //setup background screen if data is empty
         checkEmptyData();
-
-        LocalTime time = LocalTime.now();
-        Log.i("THOMAS", "Time : " + time);
-
     }
 
     public void checkEmptyData() {
         if (meetingsList.isEmpty()) {
+            //hide the RecyclerView
             myRecyclerView.setVisibility(View.GONE);
             TextView myTextEmpty = findViewById(R.id.txt_empty);
+            //show NO MEETING DATA TO SHOW
             myTextEmpty.setVisibility(View.VISIBLE);
-
         } else {
+            //show the RecyclerView
             myRecyclerView.setVisibility(View.VISIBLE);
             TextView myTextEmpty = findViewById(R.id.txt_empty);
+            //hide the message
             myTextEmpty.setVisibility(View.GONE);
-
         }
     }
 
     public void setupRecyclerView() {
+        //pass the list to the adapter
         myAdapter = new MeetingAdapter(this, meetingsList);
         myRecyclerView = findViewById(R.id.recyclerview);
+        //set the adapter to RecyclerView
         myRecyclerView.setAdapter(myAdapter);
+        //set the LayoutManager for the RecyclerView
         myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     public void setupFabOpenAddActivity() {
         myFab = findViewById(R.id.add_fab_btn);
         myFab.setOnClickListener(v -> {
+            //create a new intent to pen the add meeting activity
             Intent OpenAddMeetingActivity = new Intent(getApplicationContext(), AddMeetingActivity.class);
             startActivityForResult(OpenAddMeetingActivity, 1);
         });
@@ -88,9 +93,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        //when the add meeting activity is closed then we can get the data passed by intent
         if (requestCode == 1 && data != null) {
             Meeting meeting = data.getParcelableExtra(AddMeetingActivity.MEETING_KEY);
             meetingsList.add(meeting);
+            //inform the adapter to update ui
             myAdapter.notifyDataSetChanged();
             checkEmptyData();
         }
@@ -100,10 +107,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
+        //here we create a menu for date filter and room filter
         getMenuInflater().inflate(R.menu.menumain, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -112,31 +121,30 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+
+                //this is the filter for room
                 List<Meeting> filteredList = new ArrayList<>();
 
-                if (newText == null || newText.length() == 0 || newText.isEmpty()) {
+                if (newText == null || newText.length() == 0) {
                     filteredList.addAll(meetingsList);
                     myAdapter = new MeetingAdapter(MainActivity.this, meetingsList);
 
-                    Toast toast = Toast.makeText(MainActivity.this,"Filtre désactivé",Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(MainActivity.this, "Filtre désactivé", Toast.LENGTH_SHORT);
                     toast.show();
                 } else {
 
                     String filterPattern = newText.toLowerCase().trim();
                     for (Meeting item : meetingsList) {
                         if (item.getmRoom().toLowerCase().contains(filterPattern)) {
-                            Log.i("THOMAS", "retour" + item.getmRoom().toString());
                             filteredList.add(item);
                         }
                     }
                     myAdapter = new MeetingAdapter(MainActivity.this, filteredList);
                 }
-
                 myRecyclerView.setAdapter(myAdapter);
                 myRecyclerView.getAdapter().notifyDataSetChanged();
                 return false;
             }
-
         });
 
         MenuItem menuDate = menu.findItem(R.id.menu_date);
@@ -151,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupDatePicker() {
 
+        //for initialise calendar
         final Calendar c = Calendar.getInstance();
         int mYear = c.get(Calendar.YEAR);
         int mMonth = c.get(Calendar.MONTH);
@@ -162,12 +171,13 @@ public class MainActivity extends AppCompatActivity {
 
             List<Meeting> filteredList = new ArrayList<Meeting>();
 
+            //if the date filter is null then we load the full list of meeting
             if (datefilter == null || datefilter.length() == 0) {
                 myAdapter = new MeetingAdapter(MainActivity.this, meetingsList);
 
 
             } else {
-
+            //if the date of current meeting is the same as filter then we add to the list ...
                 for (Meeting meeting : meetingsList) {
 
                     year = mDatePicker.getDatePicker().getYear();
@@ -178,25 +188,22 @@ public class MainActivity extends AppCompatActivity {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     mycalendar.set(year, month, dayOfMonth);
 
+                    //date pickerdialog
                     String dateStr = sdf.format(mycalendar.getTime());
-                    //TODO: pb avec test instrumentalisé car
-
+                    //date from meeting list of to compare ...
                     String date2Str = mycalendar.getTime().toString();
 
                     try {
                         date2Str = sdf.format(meeting.getmDate());
-                    }
-                    catch (Exception e)
-                    {
+                    } catch (Exception e) {
                         date2Str = dateStr;
                     }
-
-
+                    //we compare the two dates ...
                     if (dateStr.equals(date2Str)) {
                         filteredList.add(meeting);
                     }
                 }
-
+                //load adapter with list filtered
                 myAdapter = new MeetingAdapter(MainActivity.this, filteredList);
             }
 
@@ -204,10 +211,11 @@ public class MainActivity extends AppCompatActivity {
 
         }, mYear, mMonth, mDay);
 
+        //disable filter by date if we click on ANNULER button in DatePickerDialog
         mDatePicker.setButton(DialogInterface.BUTTON_NEGATIVE, "Annuler", (dialog, which) -> {
             myAdapter = new MeetingAdapter(MainActivity.this, meetingsList);
             myRecyclerView.setAdapter(myAdapter);
-            Toast toast = Toast.makeText(this,"Filtre désactivé",Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(this, "Filtre désactivé", Toast.LENGTH_SHORT);
             toast.show();
         });
         mDatePicker.show();

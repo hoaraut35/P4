@@ -12,6 +12,4 @@ public interface MeetingApiService {
     List<MeetingRoom> getMeetingsRooms();
     void addMeeting(Meeting meeting);
     void deleteMeeting(Meeting meeting);
-
-
 }

@@ -5,6 +5,7 @@ public class Collaborator {
     private String mName;
     private String mEmail;
 
+    //constructor
     public Collaborator(String mName, String mEmail) {
         this.mName = mName;
         this.mEmail = mEmail;

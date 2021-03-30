@@ -19,34 +19,31 @@ import static org.junit.Assert.assertTrue;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-public class ExampleUnitTest
-{
+public class ExampleUnitTest {
     private MeetingApiService service;
 
     @Before
-    public void setup()
-    {
+    public void setup() {
         service = DI.getMeetingApiService();
         service.getMeetings().clear();
+        //adding fake meeting to the service API
         service.getMeetings().addAll(FakeGenerator.FakeMeeting);
     }
 
     //TODO : Test 1 : get full list of meetings added by API
     @Test
-    public void getMeetingWithSuccess()
-    {
+    public void getMeetingWithSuccess() {
         //We get the full list of API list
         List<Meeting> meetingActual = service.getMeetings();
         //We get the full list of FakeMeeting to compare ...
         List<Meeting> expectedMeeting = FakeGenerator.FakeMeeting;
         //We compare the two lists
-        assertEquals(expectedMeeting.size(),meetingActual.size());
+        assertEquals(expectedMeeting.size(), meetingActual.size());
     }
 
     //TODO : Test2 : delete a meeting in the list
     @Test
-    public void deleteMeetingWithSuccess()
-    {
+    public void deleteMeetingWithSuccess() {
         //We get the first element of meeting list
         Meeting myMeeting = service.getMeetings().get(0);
         //We delete this
@@ -57,8 +54,7 @@ public class ExampleUnitTest
 
     //TODO: Test 3 : add a new meeting in the list
     @Test
-    public void addMeetingWithSuccess()
-    {
+    public void addMeetingWithSuccess() {
         //We get the size of actual list
         int compteur = service.getMeetings().size();
         //We copy the first element in the list
@@ -66,7 +62,7 @@ public class ExampleUnitTest
         //We add this copy to the list
         service.addMeeting(myMeetingToAdd);
         //We check if the new size of original list is incremented by one
-        assertEquals(compteur +1 , service.getMeetings().size());
+        assertEquals(compteur + 1, service.getMeetings().size());
     }
 
 }
