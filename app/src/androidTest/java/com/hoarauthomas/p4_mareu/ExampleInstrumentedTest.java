@@ -103,10 +103,16 @@ public class ExampleInstrumentedTest {
         int total_of_meeting = myApiServiceForTest.getMeetings().size();
 
         //add a new meeting
-        addNewMeetingFortTest("addmeetingTest", "","");
+
+        int nb_meeting = 20;
+        for (int i=0 ; i<nb_meeting; i++)
+        {
+            addNewMeetingFortTest("addmeetingTest" + i, "","");
+        }
+
 
         //check if the recyclerview is incremented by one
-        onView(ViewMatchers.withId(R.id.recyclerview)).check(withItemCount(total_of_meeting + 1));
+        onView(ViewMatchers.withId(R.id.recyclerview)).check(withItemCount(total_of_meeting + nb_meeting));
 
         myPause();
 

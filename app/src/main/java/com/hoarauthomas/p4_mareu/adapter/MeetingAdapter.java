@@ -1,7 +1,11 @@
 package com.hoarauthomas.p4_mareu.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hoarauthomas.p4_mareu.R;
@@ -35,31 +40,19 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
         return new WordViewHolder(mItemView, this);
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull MeetingAdapter.WordViewHolder holder, int position) {
 
         Meeting mCurrent = mListMeeting.get(position);
 
-    /*      <color name="Mario">#F05545</color>
-    <color name="Luigi">#BC477B</color>
-    <color name="Peach">#7c43BD</color>
-    <color name="Toad">#428e92</color>
-    <color name="Yoshi">#4c8c4a</color>
-    <color name="Bowser">#FFb04c</color>
-    <color name="Wario">#ff833a</color>
-    <color name="Waluigi">#c3fdff</color>
-    <color name="Bidosaure">#4f5b62</color>
-    <color name="Bero">#4f8f4f</color>
-
-     */
-        switch (mCurrent.getmRoom())
-        {
+        switch (mCurrent.getmRoom()) {
             case "Luigi":
                 holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.Luigi));
                 break;
 
             case "Peach":
-                holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.Peach));
+                holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.mAvatar.getContext(), R.color.Peach));
                 break;
 
             case "Toad":
@@ -89,22 +82,14 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
                 holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.Bero));
                 break;
 
-                default:
-                    holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.black));
+            case "Mario":
+                holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.Mario));
+                break;
+
+            default:
+                holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.black));
 
         }
-
-       /* //TODO:switch
-        try {
-            Field field = R.color.class.getDeclaredField(mCurrent.getmPosition());
-            field.setAccessible(true);
-            int idField = field.getInt(null);
-            holder.mAvatar.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), idField));
-        } catch (Exception e) {
-            throw new Resources.NotFoundException(e.getMessage());
-        }
-
-        */
 
         holder.mNameView.setText(mCurrent.getmSubject() + " - ");
         holder.mStartTime.setText(mCurrent.getmStartTime() + " - ");
@@ -115,10 +100,15 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
             notifyDataSetChanged();
 
 
-            Toast toast = Toast.makeText(holder.mDeleteImage.getContext(),"Réunion supprimée",Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(holder.mDeleteImage.getContext(), "Réunion supprimée", Toast.LENGTH_SHORT);
             toast.show();
 
         });
+    }
+
+    public static void setDrawableColor(Context context, Drawable drawable, int color) {
+        Drawable drawableWrap = DrawableCompat.wrap(drawable).mutate();
+        DrawableCompat.setTint(drawableWrap, ContextCompat.getColor(context, color));
     }
 
     @Override
