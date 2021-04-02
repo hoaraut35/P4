@@ -1,11 +1,6 @@
 package com.hoarauthomas.p4_mareu.adapter;
 
-import android.annotation.SuppressLint;
-import android.app.Application;
 import android.content.Context;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +10,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hoarauthomas.p4_mareu.R;
@@ -33,7 +27,6 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
         mInflater = LayoutInflater.from(context);
         this.mListMeeting = mListMeeting2;
     }
-
 
     //override onCreateViewsHolder to create a holder
     @NonNull
