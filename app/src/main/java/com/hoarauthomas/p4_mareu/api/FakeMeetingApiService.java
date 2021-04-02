@@ -14,6 +14,7 @@ public class FakeMeetingApiService implements MeetingApiService {
 
     private final List<Collaborator> collaboratorsList = generateCollaborators();
     public List<Meeting> meetingsList = new ArrayList<>();
+
     private final List<MeetingRoom> meetingRoomsList = generateMeetingRooms();
 
     //return the collaborators list

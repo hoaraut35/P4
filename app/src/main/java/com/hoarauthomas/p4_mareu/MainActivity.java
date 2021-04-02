@@ -20,6 +20,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.hoarauthomas.p4_mareu.adapter.MeetingAdapter;
+import com.hoarauthomas.p4_mareu.api.MeetingApiService;
+import com.hoarauthomas.p4_mareu.di.DI;
 import com.hoarauthomas.p4_mareu.model.Meeting;
 import com.hoarauthomas.p4_mareu.view.AddMeetingActivity;
 
@@ -37,14 +39,16 @@ public class MainActivity extends AppCompatActivity {
     private MeetingAdapter myAdapter;
     public FloatingActionButton myFab;
     private String datefilter;
-    public List<Meeting> meetingsList = new ArrayList<>();
     public DatePickerDialog mDatePicker;
+    private MeetingApiService mService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+        mService = new DI().getMeetingApiService();
 
         //setup adapter, layoutManager, RecyclerView
         setupRecyclerView();
@@ -55,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void checkEmptyData() {
-        if (meetingsList.isEmpty()) {
+        if (mService.getMeetings().isEmpty()) {
             //hide the RecyclerView
             myRecyclerView.setVisibility(View.GONE);
             TextView myTextEmpty = findViewById(R.id.txt_empty);
@@ -72,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void setupRecyclerView() {
         //pass the list to the adapter
-        myAdapter = new MeetingAdapter(this, meetingsList);
+        myAdapter = new MeetingAdapter(this, mService.getMeetings());
         myRecyclerView = findViewById(R.id.recyclerview);
         //set the adapter to RecyclerView
         myRecyclerView.setAdapter(myAdapter);
@@ -96,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         //when the add meeting activity is closed then we can get the data passed by intent
         if (requestCode == 1 && data != null) {
             Meeting meeting = data.getParcelableExtra(AddMeetingActivity.MEETING_KEY);
-            meetingsList.add(meeting);
+            mService.addMeeting(meeting);
             //inform the adapter to update ui
             myAdapter.notifyDataSetChanged();
             checkEmptyData();
@@ -126,15 +130,15 @@ public class MainActivity extends AppCompatActivity {
                 List<Meeting> filteredList = new ArrayList<>();
 
                 if (newText == null || newText.length() == 0) {
-                    filteredList.addAll(meetingsList);
-                    myAdapter = new MeetingAdapter(MainActivity.this, meetingsList);
+                    filteredList.addAll(mService.getMeetings());
+                    myAdapter = new MeetingAdapter(MainActivity.this, mService.getMeetings());
 
                     Toast toast = Toast.makeText(MainActivity.this, "Filtre désactivé", Toast.LENGTH_SHORT);
                     toast.show();
                 } else {
 
                     String filterPattern = newText.toLowerCase().trim();
-                    for (Meeting item : meetingsList) {
+                    for (Meeting item :   mService.getMeetings()) {
                         if (item.getmRoom().toLowerCase().contains(filterPattern)) {
                             filteredList.add(item);
                         }
@@ -173,12 +177,12 @@ public class MainActivity extends AppCompatActivity {
 
             //if the date filter is null then we load the full list of meeting
             if (datefilter == null || datefilter.length() == 0) {
-                myAdapter = new MeetingAdapter(MainActivity.this, meetingsList);
+                myAdapter = new MeetingAdapter(MainActivity.this, mService.getMeetings());
 
 
             } else {
             //if the date of current meeting is the same as filter then we add to the list ...
-                for (Meeting meeting : meetingsList) {
+                for (Meeting meeting : mService.getMeetings()) {
 
                     year = mDatePicker.getDatePicker().getYear();
                     month = (mDatePicker.getDatePicker().getMonth());
@@ -213,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
 
         //disable filter by date if we click on ANNULER button in DatePickerDialog
         mDatePicker.setButton(DialogInterface.BUTTON_NEGATIVE, "Annuler", (dialog, which) -> {
-            myAdapter = new MeetingAdapter(MainActivity.this, meetingsList);
+            myAdapter = new MeetingAdapter(MainActivity.this, mService.getMeetings());
             myRecyclerView.setAdapter(myAdapter);
             Toast toast = Toast.makeText(this, "Filtre désactivé", Toast.LENGTH_SHORT);
             toast.show();

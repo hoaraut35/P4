@@ -73,7 +73,7 @@ import static org.junit.Assert.assertThat;
 public class ExampleInstrumentedTest {
 
     private MainActivity mActivity;
-    private final MeetingApiService myApiServiceForTest = DI.getMeetingApiService();
+    private final MeetingApiService myApiServiceForTest = new DI().getMeetingApiService();
 
     @Rule
     public ActivityTestRule<MainActivity> meetingActivityRule = new ActivityTestRule(MainActivity.class);

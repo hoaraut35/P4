@@ -24,7 +24,7 @@ public class ExampleUnitTest {
 
     @Before
     public void setup() {
-        service = DI.getMeetingApiService();
+        service = new DI().getMeetingApiService();
         service.getMeetings().clear();
         //adding fake meeting to the service API
         service.getMeetings().addAll(FakeGenerator.FakeMeeting);

@@ -68,7 +68,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         mBtnCancel = findViewById(R.id.btn_cancel);
         mEditSubject = findViewById(R.id.subject_text);
 
-        service = DI.getMeetingApiService();
+        service = new DI().getMeetingApiService();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
