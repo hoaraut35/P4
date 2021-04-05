@@ -9,11 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
 
-        android:theme="@style/Theme.P04_withNotify" >
+        android:theme="@style/Theme.P04_withNotify">
 
         <activity
             android:name="com.hoarauthomas.p4_mareu.view.AddMeetingActivity"
-           android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
 
 
         </activity>

@@ -17,7 +17,8 @@ import com.hoarauthomas.p4_mareu.model.Meeting;
 
 import java.util.List;
 
-public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordViewHolder> {
+//
+public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingViewHolder> {
 
     private List<Meeting> mListMeeting;
     private final LayoutInflater mInflater;
@@ -31,14 +32,14 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
     //override onCreateViewsHolder to create a holder
     @NonNull
     @Override
-    public MeetingAdapter.WordViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MeetingAdapter.MeetingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View mItemView = mInflater.inflate(R.layout.custom_meeting_layout, parent, false);
-        return new WordViewHolder(mItemView, this);
+        return new MeetingViewHolder(mItemView, this);
     }
 
     //override onBindViewHolder to bind data to the holder
     @Override
-    public void onBindViewHolder(@NonNull MeetingAdapter.WordViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MeetingAdapter.MeetingViewHolder holder, int position) {
 
         Meeting mCurrent = mListMeeting.get(position);
 
@@ -97,7 +98,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
         return mListMeeting.size();
     }
 
-    class WordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class MeetingViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         //binding
         final MeetingAdapter mAdapter;
@@ -108,7 +109,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.WordView
         public TextView mParticipants;
         public ImageView mDeleteImage;
 
-        public WordViewHolder(@NonNull View itemView, MeetingAdapter adapter) {
+        public MeetingViewHolder(@NonNull View itemView, MeetingAdapter adapter) {
             super(itemView);
 
             mNameView = itemView.findViewById(R.id.view_name_meeting);
