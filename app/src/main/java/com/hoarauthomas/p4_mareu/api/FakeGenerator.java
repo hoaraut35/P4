@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 public class FakeGenerator {
+    //generate fake collaborators
     public static List<Collaborator> FakeCollaborators = Arrays.asList(
             new Collaborator("USER1", "user1@gmail.com"),
             new Collaborator("USER2", "user2@gmail.com"),
@@ -26,6 +27,7 @@ public class FakeGenerator {
         return new ArrayList<>(FakeCollaborators);
     }
 
+    //generate fake rooms
     public static List<MeetingRoom> FakeMeetingRooms = Arrays.asList(
             new MeetingRoom(1, "Mario", "Rennes", 10),
             new MeetingRoom(2, "Luigi", "Toulouse", 10),
@@ -43,6 +45,7 @@ public class FakeGenerator {
         return new ArrayList<>(FakeMeetingRooms);
     }
 
+    //generate fake meetings
     public static List<Meeting> FakeMeeting = Arrays.asList(
             new Meeting("Réunion A","Toad",new Date(),"10H00","test@gmail.Com"),
             new Meeting("Réunion B","Mario",new Date(),"11H00","test1@gmail.Com"),

@@ -17,31 +17,31 @@ import com.hoarauthomas.p4_mareu.model.Meeting;
 
 import java.util.List;
 
-//
 public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingViewHolder> {
 
-    private List<Meeting> mListMeeting;
+    private List<Meeting> myListMeeting;
     private final LayoutInflater mInflater;
 
     //constructor
-    public MeetingAdapter(Context context, List<Meeting> mListMeeting2) {
+    public MeetingAdapter(Context context, List<Meeting> listMeeting) {
         mInflater = LayoutInflater.from(context);
-        this.mListMeeting = mListMeeting2;
+        this.myListMeeting = listMeeting;
     }
 
-    //override onCreateViewsHolder to create a holder
+    //override onCreateViewHolder to create a view holder
     @NonNull
     @Override
     public MeetingAdapter.MeetingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View mItemView = mInflater.inflate(R.layout.custom_meeting_layout, parent, false);
-        return new MeetingViewHolder(mItemView, this);
+        //inflate a custom meeting view from XML
+        View myMeetingView = mInflater.inflate(R.layout.custom_meeting_layout, parent, false);
+        return new MeetingViewHolder(myMeetingView, this);
     }
 
-    //override onBindViewHolder to bind data to the holder
+    //override onBindViewHolder to update data to the view holder
     @Override
     public void onBindViewHolder(@NonNull MeetingAdapter.MeetingViewHolder holder, int position) {
 
-        Meeting mCurrent = mListMeeting.get(position);
+        Meeting mCurrent = myListMeeting.get(position);
 
         //get the color from mCurrent meeting object
         switch (mCurrent.getmRoom()) {
@@ -82,12 +82,13 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
         //get others data from mCurrent meeting object ...
         holder.mNameView.setText(mCurrent.getmSubject() + " - ");
         holder.mStartTime.setText(mCurrent.getmStartTime() + " - ");
-        holder.mPlace.setText(mCurrent.getmRoom());
+        holder.mRoom.setText(mCurrent.getmRoom());
         holder.mParticipants.setText(mCurrent.getmParticipants());
         //add a listener for delete a meeting if the user click a trash
         holder.mDeleteImage.setOnClickListener(v -> {
-            mListMeeting.remove(position);
+            myListMeeting.remove(position);
             notifyDataSetChanged();
+            //Toast message to inform user
             Toast toast = Toast.makeText(holder.mDeleteImage.getContext(), "Réunion supprimée", Toast.LENGTH_SHORT);
             toast.show();
         });
@@ -95,9 +96,10 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
 
     @Override
     public int getItemCount() {
-        return mListMeeting.size();
+        return myListMeeting.size();
     }
 
+    //class for create a java object from the custom XML meeting layout
     class MeetingViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         //binding
@@ -105,7 +107,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
         public ImageView mAvatar;
         public TextView mNameView;
         public TextView mStartTime;
-        public TextView mPlace;
+        public TextView mRoom;
         public TextView mParticipants;
         public ImageView mDeleteImage;
 
@@ -115,7 +117,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
             mNameView = itemView.findViewById(R.id.view_name_meeting);
             mStartTime = itemView.findViewById(R.id.view_start_time_meeting);
             mAvatar = itemView.findViewById(R.id.view_image_meeting);
-            mPlace = itemView.findViewById(R.id.view_position_meeting);
+            mRoom = itemView.findViewById(R.id.view_position_meeting);
             mParticipants = itemView.findViewById(R.id.view_email_meeting);
             mDeleteImage = itemView.findViewById(R.id.view_delete_meeting);
             this.mAdapter = adapter;
