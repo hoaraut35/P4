@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     public RecyclerView myRecyclerView;
     private MeetingAdapter myAdapter;
     public FloatingActionButton myFab;
-    private String datefilter;
+    private String dateFilter;
     public DatePickerDialog mDatePicker;
     private MeetingApiService mService;
 
@@ -171,12 +171,12 @@ public class MainActivity extends AppCompatActivity {
 
         mDatePicker = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
 
-            datefilter = LocalDate.of(year, (month + 1), dayOfMonth).toString();
+            dateFilter = LocalDate.of(year, (month + 1), dayOfMonth).toString();
 
             List<Meeting> filteredList = new ArrayList<Meeting>();
 
             //if the date filter is null then we load the full list of meeting
-            if (datefilter == null || datefilter.length() == 0) {
+            if (dateFilter == null || dateFilter.length() == 0) {
                 myAdapter = new MeetingAdapter(MainActivity.this, mService.getMeetings());
 
 

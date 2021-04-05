@@ -59,7 +59,10 @@ public class AddMeetingActivity extends AppCompatActivity {
         setupTimePicker();
         setupClickDate();
         setupClickTime();
+
+        //get data for rooms
         setupDataRooms();
+        //get data for collaborators, emails
         setupDataParticipants();
         setupClickValidate();
 
@@ -164,59 +167,47 @@ public class AddMeetingActivity extends AppCompatActivity {
         binding.tietStartTime.setOnClickListener(v -> mTimePicker.show());
     }
 
-    /*mEditDate = findViewById(R.id.tiet_start_date);
-      mEditTime = findViewById(R.id.tiet_start_time);
-      mRooms = findViewById(R.id.list_location);
-      mEmails = findViewById(R.id.list_participants);
-      mChipGroup = findViewById(R.id.group_participants);
-      mBtnValidate = findViewById(R.id.btn_valid);
-      mBtnCancel = findViewById(R.id.btn_cancel);
-      mEditSubject = findViewById(R.id.subject_text);
-
-       */
     private void setupDatePicker() {
-
         calendar = Calendar.getInstance();
         int mYear = calendar.get(Calendar.YEAR);
         int mMonth = calendar.get(Calendar.MONTH);
         int mDay = calendar.get(Calendar.DAY_OF_MONTH);
-
         mDatePicker = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> binding.tietStartDate.setText(LocalDate.of(year, (month + 1), dayOfMonth).toString()), mYear, mMonth, mDay);
     }
 
     private void setupTimePicker() {
         int mHour = java.time.LocalTime.now().getHour();
         int mMinutes = java.time.LocalTime.now().getMinute();
-
-        mTimePicker = new TimePickerDialog(this, (view, hourOfDay, minute) -> binding.tietStartTime.setText(hourOfDay + ":" + minute), mHour, mMinutes, false);
+        mTimePicker = new TimePickerDialog(this, (view, hourOfDay, minute) -> binding.tietStartTime.setText(hourOfDay + ":" + minute), mHour, mMinutes, true);
     }
 
     private void setupDataRooms() {
-
         //get the rooms list from API
         List<String> rooms = new ArrayList<>();
 
         for (MeetingRoom item : service.getMeetingsRooms()) {
             rooms.add(item.getmRoomName());
         }
-
+        //sort data in ascending order
         Collections.sort(rooms);
+        //push data to adapter
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, rooms);
         binding.listLocation.setAdapter(adapter);
     }
 
     private void setupDataParticipants() {
-
         //get the emails list from API
         List<String> emails = new ArrayList<>();
 
         for (Collaborator item : service.getCollaborators()) {
             emails.add(item.getmEmail());
         }
-
+        //sort data in aszcending order
         Collections.sort(emails);
+        //push data to the adapter
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, emails);
         binding.listParticipants.setAdapter(adapter);
+        //add a listener on items
         binding.listParticipants.setOnItemClickListener((parent, view, position, id) -> {
             if (binding.groupParticipants.getChildCount() < 10) {
                 addNewChipParticipant(binding.listParticipants.getText().toString());
