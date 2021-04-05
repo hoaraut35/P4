@@ -1,4 +1,4 @@
-# MaRéu 
+## Projet MaRéu 
 
 Ce dépôt contient une mini-application de gestion de réunion.
 
@@ -6,13 +6,12 @@ Une application qui permet aux collaborateurs de créer des réunions :
 * Lister les réunions,
 * Ajouter une réunion,
 * Supprimer une réunion,
-
-![start image](https://github.com/hoaraut35/p4_02/doc/screenshoot.PNG)
+* Trier par date,
+* Trier par lieu
 
 Pour commencer à travailler sur ce projet, suivez les étapes ci-dessous.
 
-
-
+![start image](https://github.com/hoaraut35/P4_02/blob/main/doc/screenshoot.PNG)
 
 ## Android studio : Télécharger puis ouvrir le projet
 

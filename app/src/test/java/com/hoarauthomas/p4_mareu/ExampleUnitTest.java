@@ -32,7 +32,7 @@ public class ExampleUnitTest {
 
     //TODO : Test 1 : get full list of meetings added by API
     @Test
-    public void getMeetingWithSuccess() {
+    public void getMeetingsWithSuccess() {
         //We get the full list of API list
         List<Meeting> meetingActual = service.getMeetings();
         //We get the full list of FakeMeeting to compare ...
