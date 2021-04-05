@@ -17,6 +17,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
 import com.hoarauthomas.p4_mareu.api.MeetingApiService;
+import com.hoarauthomas.p4_mareu.databinding.ActivityMainBinding;
 import com.hoarauthomas.p4_mareu.di.DI;
 import com.hoarauthomas.p4_mareu.model.Meeting;
 import com.hoarauthomas.p4_mareu.model.MeetingRoom;
@@ -58,6 +59,7 @@ import static com.hoarauthomas.p4_mareu.utils.RecyclerViewItemCountAssertion.wit
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.anything;
+import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isEmptyOrNullString;
@@ -72,6 +74,9 @@ import static org.junit.Assert.assertThat;
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
 
+    private RecyclerView getMyRecyclerView;
+
+    private RecyclerView myRecyclerView;
     private MainActivity mActivity;
     private final MeetingApiService myApiServiceForTest = new DI().getMeetingApiService();
 
@@ -122,15 +127,13 @@ public class ExampleInstrumentedTest {
         //for visual
         myPause();
         myPause();
-        //get the total of meeting
-        int total_of_meeting = mActivity.myRecyclerView.getAdapter().getItemCount();
-        //delete a meeting
+        //delete this meeting
         onView(ViewMatchers.withId(R.id.recyclerview)).perform(RecyclerViewActions.actionOnItemAtPosition(0, new DeleteItemAction()));
         //for visual
         myPause();
         myPause();
-        //check if the recyclerview is decremented by one
-        onView(ViewMatchers.withId(R.id.recyclerview)).check(withItemCount(total_of_meeting - 1));
+        //check if the recyclerview is equal to 0 after delete action
+        onView(ViewMatchers.withId(R.id.recyclerview)).check(withItemCount(0));
         //add a pause for visual
         myPause();
         myPause();
