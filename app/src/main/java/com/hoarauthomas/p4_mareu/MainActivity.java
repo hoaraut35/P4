@@ -21,6 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.hoarauthomas.p4_mareu.adapter.MeetingAdapter;
 import com.hoarauthomas.p4_mareu.api.MeetingApiService;
+import com.hoarauthomas.p4_mareu.databinding.ActivityAddMeetingBinding;
+import com.hoarauthomas.p4_mareu.databinding.ActivityMainBinding;
 import com.hoarauthomas.p4_mareu.di.DI;
 import com.hoarauthomas.p4_mareu.model.Meeting;
 import com.hoarauthomas.p4_mareu.view.AddMeetingActivity;
@@ -35,25 +37,31 @@ import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity {
 
-    public RecyclerView myRecyclerView;
     private MeetingAdapter myAdapter;
-    public FloatingActionButton myFab;
     private String dateFilter;
     public DatePickerDialog mDatePicker;
     private MeetingApiService mService;
+    //Added for use View Binding
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+        //enable view binding
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
 
+        //create a new instance of API Service
         mService = new DI().getMeetingApiService();
 
         //setup adapter, layoutManager, RecyclerView
         setupRecyclerView();
+
         //setup fab for new meeting activity with intent
         setupFabOpenAddActivity();
+
         //setup background screen if data is empty
         checkEmptyData();
     }
@@ -61,13 +69,13 @@ public class MainActivity extends AppCompatActivity {
     public void checkEmptyData() {
         if (mService.getMeetings().isEmpty()) {
             //hide the RecyclerView
-            myRecyclerView.setVisibility(View.GONE);
+            binding.recyclerview.setVisibility(View.GONE);
             TextView myTextEmpty = findViewById(R.id.txt_empty);
             //show NO MEETING DATA TO SHOW
             myTextEmpty.setVisibility(View.VISIBLE);
         } else {
             //show the RecyclerView
-            myRecyclerView.setVisibility(View.VISIBLE);
+            binding.recyclerview.setVisibility(View.VISIBLE);
             TextView myTextEmpty = findViewById(R.id.txt_empty);
             //hide the message
             myTextEmpty.setVisibility(View.GONE);
@@ -77,16 +85,14 @@ public class MainActivity extends AppCompatActivity {
     public void setupRecyclerView() {
         //pass the list to the adapter
         myAdapter = new MeetingAdapter(this, mService.getMeetings());
-        myRecyclerView = findViewById(R.id.recyclerview);
         //set the adapter to RecyclerView
-        myRecyclerView.setAdapter(myAdapter);
+        binding.recyclerview.setAdapter(myAdapter);
         //set the LayoutManager for the RecyclerView
-        myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        binding.recyclerview.setLayoutManager(new LinearLayoutManager(this));
     }
 
     public void setupFabOpenAddActivity() {
-        myFab = findViewById(R.id.add_fab_btn);
-        myFab.setOnClickListener(v -> {
+        binding.addFabBtn.setOnClickListener(v -> {
             //create a new intent to pen the add meeting activity
             Intent OpenAddMeetingActivity = new Intent(getApplicationContext(), AddMeetingActivity.class);
             startActivityForResult(OpenAddMeetingActivity, 1);
@@ -145,8 +151,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                     myAdapter = new MeetingAdapter(MainActivity.this, filteredList);
                 }
-                myRecyclerView.setAdapter(myAdapter);
-                myRecyclerView.getAdapter().notifyDataSetChanged();
+                binding.recyclerview.setAdapter(myAdapter);
+                binding.recyclerview.getAdapter().notifyDataSetChanged();
                 return false;
             }
         });
@@ -211,14 +217,14 @@ public class MainActivity extends AppCompatActivity {
                 myAdapter = new MeetingAdapter(MainActivity.this, filteredList);
             }
 
-            myRecyclerView.setAdapter(myAdapter);
+            binding.recyclerview.setAdapter(myAdapter);
 
         }, mYear, mMonth, mDay);
 
         //disable filter by date if we click on ANNULER button in DatePickerDialog
         mDatePicker.setButton(DialogInterface.BUTTON_NEGATIVE, "Annuler", (dialog, which) -> {
             myAdapter = new MeetingAdapter(MainActivity.this, mService.getMeetings());
-            myRecyclerView.setAdapter(myAdapter);
+            binding.recyclerview.setAdapter(myAdapter);
             Toast toast = Toast.makeText(this, "Filtre désactivé", Toast.LENGTH_SHORT);
             toast.show();
         });
