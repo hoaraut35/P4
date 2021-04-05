@@ -22,6 +22,7 @@ public class Meeting implements Parcelable {
         this.mParticipants = mParticipants;
     }
 
+    //getters and setters ...
     public String getmSubject() {
         return mSubject;
     }
@@ -70,7 +71,7 @@ public class Meeting implements Parcelable {
         this.mDate = mDate;
     }
 
-
+    //parecelable ...
     @Override
     public int describeContents() {
         return 0;

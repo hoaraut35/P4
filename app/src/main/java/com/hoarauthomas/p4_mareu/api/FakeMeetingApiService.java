@@ -14,7 +14,6 @@ public class FakeMeetingApiService implements MeetingApiService {
 
     private final List<Collaborator> collaboratorsList = generateCollaborators();
     public List<Meeting> meetingsList = new ArrayList<>();
-
     private final List<MeetingRoom> meetingRoomsList = generateMeetingRooms();
 
     //return the collaborators list
@@ -35,11 +34,13 @@ public class FakeMeetingApiService implements MeetingApiService {
         return meetingRoomsList;
     }
 
+    //to add a new meeting to the list
     @Override
     public void addMeeting(Meeting meeting) {
         meetingsList.add(meeting);
     }
 
+    //to remove a meetinf from the list
     @Override
     public void deleteMeeting(Meeting meeting) {
         meetingsList.remove(meeting);

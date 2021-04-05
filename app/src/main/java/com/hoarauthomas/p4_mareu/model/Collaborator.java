@@ -11,6 +11,7 @@ public class Collaborator {
         this.mEmail = mEmail;
     }
 
+    //getters and setters ...
     public String getmName() {
         return mName;
     }

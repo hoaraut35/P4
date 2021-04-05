@@ -28,6 +28,14 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
         coreLibraryDesugaringEnabled true
     }
+
+
+    //To enable View Binding from JetPAck
+    buildFeatures{
+        viewBinding true;
+    }
+
+
 }
 
 dependencies {

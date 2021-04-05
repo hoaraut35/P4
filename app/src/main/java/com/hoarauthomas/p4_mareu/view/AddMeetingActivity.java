@@ -6,24 +6,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.TimePicker;
 import android.widget.Toast;
-
-import androidx.appcompat.widget.Toolbar;
-
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.chip.Chip;
-import com.google.android.material.chip.ChipGroup;
-import com.google.android.material.textfield.TextInputEditText;
 import com.hoarauthomas.p4_mareu.R;
 import com.hoarauthomas.p4_mareu.api.MeetingApiService;
+import com.hoarauthomas.p4_mareu.databinding.ActivityAddMeetingBinding;
 import com.hoarauthomas.p4_mareu.di.DI;
 import com.hoarauthomas.p4_mareu.model.Collaborator;
 import com.hoarauthomas.p4_mareu.model.Meeting;
@@ -41,38 +33,26 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     public static final String MEETING_KEY = "MEETING_KEY";
 
-    private DatePickerDialog mDatePicker;
-    private TimePickerDialog mTimePicker;
-    private ChipGroup mChipGroup;
-    private Button mBtnValidate, mBtnCancel;
-    private EditText mEditDate;
-    private TextInputEditText mEditTime, mEditSubject;
-    private AutoCompleteTextView mRooms, mEmails;
-
     private Calendar calendar;
     public Date datePickerToDate;
+    private DatePickerDialog mDatePicker;
+    private TimePickerDialog mTimePicker;
 
     MeetingApiService service;
+
+    //Added for use View Binding
+    private ActivityAddMeetingBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_meeting);
 
-        mEditDate = findViewById(R.id.tiet_start_date);
-        mEditTime = findViewById(R.id.tiet_start_time);
-        mRooms = findViewById(R.id.list_location);
-        mEmails = findViewById(R.id.list_participants);
-        mChipGroup = findViewById(R.id.group_participants);
-        mBtnValidate = findViewById(R.id.btn_valid);
-        mBtnCancel = findViewById(R.id.btn_cancel);
-        mEditSubject = findViewById(R.id.subject_text);
+        //enable view binding
+        binding = ActivityAddMeetingBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
 
         service = new DI().getMeetingApiService();
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setOnClickListener(v -> finish());
 
         //setup ...
         setupDatePicker();
@@ -84,11 +64,11 @@ public class AddMeetingActivity extends AppCompatActivity {
         setupClickValidate();
 
         //close activity if button ANNULER is clicked
-        mBtnCancel.setOnClickListener(v -> finish());
+        binding.btnCancel.setOnClickListener(v -> finish());
     }
 
     private void setupClickValidate() {
-        mBtnValidate.setOnClickListener(v -> {
+        binding.btnValid.setOnClickListener(v -> {
             setupBtnValidate();
         });
     }
@@ -97,8 +77,8 @@ public class AddMeetingActivity extends AppCompatActivity {
         String participant = "";
 
         //this routine add a ; between meeting object
-        for (int i = 0; i < mChipGroup.getChildCount(); i++) {
-            Chip chip = (Chip) mChipGroup.getChildAt(i);
+        for (int i = 0; i < binding.groupParticipants.getChildCount(); i++) {
+            Chip chip = (Chip) binding.groupParticipants.getChildAt(i);
 
             if (participant.length() != 0) {
                 participant += ";" + chip.getText();
@@ -107,47 +87,54 @@ public class AddMeetingActivity extends AppCompatActivity {
             }
         }
         //alert message for empty fileds ...
-        if (mEditSubject.getEditableText().toString().isEmpty()) {
-            mEditSubject.setError("Sujet requis");
+        if (binding.subjectText.getEditableText().toString().isEmpty()) {
+            binding.subjectText.setError("Sujet requis");
         } else {
-            mEditSubject.setError(null);
+            binding.subjectText.setError(null);
         }
 
-        if (mEditDate.getText().toString().isEmpty()) {
-            mEditDate.setError("Date requise");
+        if (binding.tietStartDate.getText().toString().isEmpty()) {
+            binding.tietStartDate.setError("Date requise");
         } else {
-            mEditDate.setError(null);
+            binding.tietStartDate.setError(null);
         }
 
-        if (mRooms.getText().toString().isEmpty()) {
-            mRooms.setError("Choisir une salle");
+        if (binding.listLocation.getText().toString().isEmpty()) {
+            binding.listLocation.setError("Choisir une salle");
         } else {
-            mRooms.setError(null);
+            binding.listLocation.setError(null);
         }
 
-        if (mChipGroup.getChildCount() == 0) {
-            mEmails.setError("Choisir les participants");
+        if (binding.groupParticipants.getChildCount() == 0) {
+            binding.listParticipants.setError("Choisir les participants");
         } else {
-            mEmails.setError(null);
+            binding.listParticipants.setError(null);
         }
 
-        if (mEditTime.getEditableText().toString().isEmpty()) {
-            mEditTime.setError("choisir l'heure de début");
+        if (binding.tietStartTime.getEditableText().toString().isEmpty()) {
+            binding.tietStartTime.setError("choisir l'heure de début");
         } else {
-            mEditTime.setError(null);
+            binding.tietStartTime.setError(null);
         }
         //check fields ...
-        if (mEditSubject.getEditableText().toString().isEmpty() || mRooms.getText().toString().isEmpty() || mEditDate.getText().toString().isEmpty() || mEditTime.getEditableText().toString().isEmpty() || mChipGroup.getChildCount() <= 0) {
+        //if (mEditSubject.getEditableText().toString().isEmpty() || mRooms.getText().toString().isEmpty() || mEditDate.getText().toString().isEmpty() || mEditTime.getEditableText().toString().isEmpty() || mChipGroup.getChildCount() <= 0) {
+        if (binding.subjectText.getEditableText().toString().isEmpty()
+                || binding.listLocation.getText().toString().isEmpty()
+                || binding.tietStartDate.getText().toString().isEmpty()
+                || binding.tietStartTime.getEditableText().toString().isEmpty()
+                || binding.groupParticipants.getChildCount() <= 0) {
             //Nothing to do
+
+
         } else {
             try {
-                datePickerToDate = new SimpleDateFormat("yyyy-MM-dd").parse(mEditDate.getText().toString());
+                datePickerToDate = new SimpleDateFormat("yyyy-MM-dd").parse(binding.tietStartDate.getText().toString());
                 Log.i("THOMAS", "Date : " + datePickerToDate.toString());
             } catch (Exception e) {
                 Log.i("THOMAS", "erreur : ");
             }
 
-            Meeting meeting = new Meeting(mEditSubject.getEditableText().toString(), mRooms.getText().toString(), datePickerToDate, mEditTime.getText().toString(), participant);
+            Meeting meeting = new Meeting(binding.subjectText.getEditableText().toString(), binding.listLocation.getText().toString(), datePickerToDate, binding.tietStartTime.getText().toString(), participant);
             Intent intent = new Intent();
             intent.putExtra(MEETING_KEY, meeting);
             setResult(1, intent);
@@ -159,24 +146,34 @@ public class AddMeetingActivity extends AppCompatActivity {
     //add a chip to the mChipGroup
     private void addNewChipParticipant(String name) {
         LayoutInflater inflater = LayoutInflater.from(this);
-        Chip newChip = (Chip) inflater.inflate(R.layout.chip_participant, this.mChipGroup, false);
+        Chip newChip = (Chip) inflater.inflate(R.layout.chip_participant, this.binding.groupParticipants, false);
         newChip.setText(name);
-        this.mChipGroup.addView(newChip);
+        this.binding.groupParticipants.addView(newChip);
         newChip.setOnCloseIconClickListener(v -> handleChipCloseIconClicked((Chip) v));
     }
 
     private void handleChipCloseIconClicked(Chip chip) {
-        mChipGroup.removeView(chip);
+        binding.groupParticipants.removeView(chip);
     }
 
     private void setupClickDate() {
-        mEditDate.setOnClickListener(v -> mDatePicker.show());
+        binding.tietStartDate.setOnClickListener(v -> mDatePicker.show());
     }
 
     private void setupClickTime() {
-        mEditTime.setOnClickListener(v -> mTimePicker.show());
+        binding.tietStartTime.setOnClickListener(v -> mTimePicker.show());
     }
 
+    /*mEditDate = findViewById(R.id.tiet_start_date);
+      mEditTime = findViewById(R.id.tiet_start_time);
+      mRooms = findViewById(R.id.list_location);
+      mEmails = findViewById(R.id.list_participants);
+      mChipGroup = findViewById(R.id.group_participants);
+      mBtnValidate = findViewById(R.id.btn_valid);
+      mBtnCancel = findViewById(R.id.btn_cancel);
+      mEditSubject = findViewById(R.id.subject_text);
+
+       */
     private void setupDatePicker() {
 
         calendar = Calendar.getInstance();
@@ -184,14 +181,14 @@ public class AddMeetingActivity extends AppCompatActivity {
         int mMonth = calendar.get(Calendar.MONTH);
         int mDay = calendar.get(Calendar.DAY_OF_MONTH);
 
-        mDatePicker = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> mEditDate.setText(LocalDate.of(year, (month + 1), dayOfMonth).toString()), mYear, mMonth, mDay);
+        mDatePicker = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> binding.tietStartDate.setText(LocalDate.of(year, (month + 1), dayOfMonth).toString()), mYear, mMonth, mDay);
     }
 
     private void setupTimePicker() {
         int mHour = java.time.LocalTime.now().getHour();
         int mMinutes = java.time.LocalTime.now().getMinute();
 
-        mTimePicker = new TimePickerDialog(this, (view, hourOfDay, minute) -> mEditTime.setText(hourOfDay + ":" + minute), mHour, mMinutes, false);
+        mTimePicker = new TimePickerDialog(this, (view, hourOfDay, minute) -> binding.tietStartTime.setText(hourOfDay + ":" + minute), mHour, mMinutes, false);
     }
 
     private void setupDataRooms() {
@@ -205,7 +202,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
         Collections.sort(rooms);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, rooms);
-        mRooms.setAdapter(adapter);
+        binding.listLocation.setAdapter(adapter);
     }
 
     private void setupDataParticipants() {
@@ -219,10 +216,10 @@ public class AddMeetingActivity extends AppCompatActivity {
 
         Collections.sort(emails);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, emails);
-        mEmails.setAdapter(adapter);
-        mEmails.setOnItemClickListener((parent, view, position, id) -> {
-            if (mChipGroup.getChildCount() < 10) {
-                addNewChipParticipant(mEmails.getText().toString());
+        binding.listParticipants.setAdapter(adapter);
+        binding.listParticipants.setOnItemClickListener((parent, view, position, id) -> {
+            if (binding.groupParticipants.getChildCount() < 10) {
+                addNewChipParticipant(binding.listParticipants.getText().toString());
             } else {
                 Toast toast = Toast.makeText(this, "Salle complète !", Toast.LENGTH_SHORT);
                 toast.show();

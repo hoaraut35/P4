@@ -14,6 +14,7 @@ public class MeetingRoom {
         this.mMaxCollaborator = mMaxCollaborator;
     }
 
+    //getters and setters ...
     public String getmRoomName() {
         return mRoomName;
     }
