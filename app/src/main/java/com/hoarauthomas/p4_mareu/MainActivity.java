@@ -5,7 +5,6 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,12 +16,9 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.hoarauthomas.p4_mareu.adapter.MeetingAdapter;
 import com.hoarauthomas.p4_mareu.api.MeetingApiService;
-import com.hoarauthomas.p4_mareu.databinding.ActivityAddMeetingBinding;
 import com.hoarauthomas.p4_mareu.databinding.ActivityMainBinding;
 import com.hoarauthomas.p4_mareu.di.DI;
 import com.hoarauthomas.p4_mareu.model.Meeting;
@@ -30,7 +26,6 @@ import com.hoarauthomas.p4_mareu.view.AddMeetingActivity;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -67,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         checkEmptyData();
     }
 
+    //show a message if no data
     public void checkEmptyData() {
         if (mService.getMeetings().isEmpty()) {
             //hide the RecyclerView
@@ -110,6 +106,8 @@ public class MainActivity extends AppCompatActivity {
             mService.addMeeting(meeting);
             //inform the adapter to update ui
             myAdapter.notifyDataSetChanged();
+            Toast toast = Toast.makeText(MainActivity.this, "Réunion ajoutée", Toast.LENGTH_SHORT);
+            toast.show();
             checkEmptyData();
         }
     }
@@ -145,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
 
                     String filterPattern = newText.toLowerCase().trim();
-                    for (Meeting item :   mService.getMeetings()) {
+                    for (Meeting item : mService.getMeetings()) {
                         if (item.getmRoom().toLowerCase().contains(filterPattern)) {
                             filteredList.add(item);
                         }
@@ -188,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             } else {
-            //if the date of current meeting is the same as filter then we add to the list ...
+                //if the date of current meeting is the same as filter then we add to the list ...
                 for (Meeting meeting : mService.getMeetings()) {
 
                     year = mDatePicker.getDatePicker().getYear();

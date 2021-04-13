@@ -1,14 +1,11 @@
 package com.hoarauthomas.p4_mareu;
 
-import android.app.DatePickerDialog;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.DatePicker;
 
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.test.espresso.DataInteraction;
-import androidx.test.espresso.Root;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
@@ -17,10 +14,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
 import com.hoarauthomas.p4_mareu.api.MeetingApiService;
-import com.hoarauthomas.p4_mareu.databinding.ActivityMainBinding;
 import com.hoarauthomas.p4_mareu.di.DI;
-import com.hoarauthomas.p4_mareu.model.Meeting;
-import com.hoarauthomas.p4_mareu.model.MeetingRoom;
 import com.hoarauthomas.p4_mareu.utils.DeleteItemAction;
 
 import org.hamcrest.Description;
@@ -32,23 +26,16 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-import static android.service.autofill.Validators.not;
-import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.replaceText;
-import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.RootMatchers.isDialog;
 import static androidx.test.espresso.matcher.RootMatchers.isPlatformPopup;
-import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
@@ -57,12 +44,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static com.hoarauthomas.p4_mareu.utils.RecyclerViewItemCountAssertion.withItemCount;
 import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.anyOf;
-import static org.hamcrest.Matchers.anything;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.isEmptyOrNullString;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
 
@@ -74,9 +56,6 @@ import static org.junit.Assert.assertThat;
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
 
-    private RecyclerView getMyRecyclerView;
-
-    private RecyclerView myRecyclerView;
     private MainActivity mActivity;
     private final MeetingApiService myApiServiceForTest = new DI().getMeetingApiService();
 
