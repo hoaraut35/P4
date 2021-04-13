@@ -6,14 +6,14 @@
     <item
         android:id="@+id/menu_date"
         android:orderInCategory="1"
-        android:title="Filtrer par date"
+        android:title="@string/txt_filter_date"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_search"
 
         android:orderInCategory="2"
-        android:title="Filtre par lieu"
+        android:title="@string/txt_filter_room"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="ifRoom" />
 

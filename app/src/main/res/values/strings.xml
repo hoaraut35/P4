@@ -6,4 +6,10 @@
     <string name="add_location">Mario</string>
     <string name="btn_valid_text">Valider</string>
     <string name="btn_cancel_text">Annuler</string>
+
+    <!-- for menu -->
+    <string name="txt_filter_date">Filtrer par date</string>
+    <string name="txt_filter_room">Filtrer par salle</string>
+
+
 </resources>
