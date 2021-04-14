@@ -59,6 +59,7 @@ public class ExampleInstrumentedTest {
     private MainActivity mActivity;
     private final MeetingApiService myApiServiceForTest = new DI().getMeetingApiService();
 
+    //to work with an activity in this case MainActivity
     @Rule
     public ActivityTestRule<MainActivity> meetingActivityRule = new ActivityTestRule(MainActivity.class);
 
@@ -82,12 +83,13 @@ public class ExampleInstrumentedTest {
 
         //retrieve the size of the list before adding a meeting
         int total_of_meeting = myApiServiceForTest.getMeetings().size();
-        //adding meeting(s)
+        //adding 2 meeting(s) is this cae
         int nb_meetingToAdd = 2;
+        //for more detail see addNewMeetingForTest ...
         for (int i = 1; i <= nb_meetingToAdd; i++) {
             addNewMeetingFortTest("add_meeting_" + i + " to " + nb_meetingToAdd, "", "");
         }
-        //check if the recyclerview is incremented by nb_meetingToAdd
+        //check if the recyclerview is incremented by nb_meetingToAdd (in this case 2)
         onView(ViewMatchers.withId(R.id.recyclerview)).check(withItemCount(total_of_meeting + nb_meetingToAdd));
         //for visual
         myPause();
@@ -101,12 +103,12 @@ public class ExampleInstrumentedTest {
         //for visual
         myPause();
         myPause();
-        //add one meetings to delete
+        //add one meetings to delete, see addNewMeetingForTest for more details...
         addNewMeetingFortTest("removeMeeting", "", "");
         //for visual
         myPause();
         myPause();
-        //delete this meeting
+        //delete this meeting by click on trash
         onView(ViewMatchers.withId(R.id.recyclerview)).perform(RecyclerViewActions.actionOnItemAtPosition(0, new DeleteItemAction()));
         //for visual
         myPause();
@@ -154,6 +156,10 @@ public class ExampleInstrumentedTest {
         myPause();
         myPause();
         myPause();
+
+        //we check if we have two rooms (filter MArio)
+        onView(ViewMatchers.withId(R.id.recyclerview)).check(withItemCount(2));
+
 
         //for disable the filter after work
         ViewInteraction appCompatImageView2 = onView(

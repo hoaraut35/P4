@@ -20,13 +20,15 @@ import static org.junit.Assert.assertTrue;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ExampleUnitTest {
+
+
     private MeetingApiService service;
 
     @Before
     public void setup() {
         service = new DI().getMeetingApiService();
         service.getMeetings().clear();
-        //adding fake meeting to the service API
+        //adding fake meetings to the service API
         service.getMeetings().addAll(FakeGenerator.FakeMeeting);
     }
 

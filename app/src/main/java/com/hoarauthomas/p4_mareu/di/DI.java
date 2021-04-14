@@ -5,8 +5,6 @@ import com.hoarauthomas.p4_mareu.api.MeetingApiService;
 
 public class DI {
 
- //   private static DI instance;
-
     private MeetingApiService service = new FakeMeetingApiService();
 
     public MeetingApiService getMeetingApiService() {
