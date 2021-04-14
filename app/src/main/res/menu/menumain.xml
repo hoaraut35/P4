@@ -11,7 +11,6 @@
 
     <item
         android:id="@+id/action_search"
-
         android:orderInCategory="2"
         android:title="@string/txt_filter_room"
         app:actionViewClass="android.widget.SearchView"

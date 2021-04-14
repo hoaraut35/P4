@@ -7,8 +7,8 @@
     <dimen name="size_text_description">10sp</dimen>
 
     <!-- Images -->
-    <dimen name="size_image_height">30dip</dimen>
-    <dimen name="size_image_width">30dip</dimen>
+    <dimen name="size_image_height">35dip</dimen>
+    <dimen name="size_image_width">35dip</dimen>
 
-    <dimen name="size_text_item_meeting_layout">16sp</dimen>
+    <dimen name="size_text_item_meeting_layout">18sp</dimen>
 </resources>

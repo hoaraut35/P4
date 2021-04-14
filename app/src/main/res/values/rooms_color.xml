@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- for rooms color -->
     <color name="Mario">#F05545</color>
     <color name="Luigi">#BC477B</color>
     <color name="Peach">#7c43BD</color>

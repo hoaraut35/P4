@@ -83,7 +83,7 @@ public class ExampleInstrumentedTest {
         //retrieve the size of the list before adding a meeting
         int total_of_meeting = myApiServiceForTest.getMeetings().size();
         //adding meeting(s)
-        int nb_meetingToAdd = 3;
+        int nb_meetingToAdd = 2;
         for (int i = 1; i <= nb_meetingToAdd; i++) {
             addNewMeetingFortTest("add_meeting_" + i + " to " + nb_meetingToAdd, "", "");
         }
